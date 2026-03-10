@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Статьи</title>
+  </head>
+  <style>
+    :root {
+      --background-color--form: #d9d9d9;
+
+      --font-colorm--form: #000;
+    }
+
+    .create-article {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+    }
+
+    .create-article__form {
+      display: flex;
+      flex-direction: column;
+      row-gap: 14px;
+    }
+
+    .create-article__input-header,
+    .create-article__input-information {
+      background-color: var(--background-color--form);
+      border: none;
+    }
+
+    .create-article__input-header::placeholder,
+    .create-article__input-information::placeholder {
+      color: var(--font-colorm--form);
+      font-family: "Inter";
+      font-weight: 400;
+      line-height: 19px;
+    }
+
+    .create-article__submit-button {
+      font-family: "Inter";
+      font-weight: 400;
+      line-height: 19px;
+      background-color: var(--background-color--form);
+      color: var(--font-colorm--form);
+      width: 107px;
+      height: 31px;
+      border: none;
+    }
+
+    .create-article__submit-button:hover {
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <header class="header">
+      <nav class="navigation">
+        <ul class="navigation__list">
+          <li class="navigation__element">
+            <a href="index.html" class="navigation__link">Главная страница</a>
+          </li>
+          <li class="navigation__element>">
+            <a href="blog.html" class="navigation__link">Блог</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="articles">
+        <h2 class="articles__header">Статьи</h2>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Идеальная подача: как увеличить скорость мяча без травм
+          </h3>
+          <p class="article__date date">Опубликовано: 15 мая 2024</p>
+          <p class="article__information">
+            В статье разбирается биомеханика правильной подачи в большом
+            теннисе. Рассмотрим ошибки новичков, приводящие к травмам плеча.
+            Узнайте, как работать над хватом и позицией ног для мощности удара.
+            Советы тренеров помогут вывести игру на новый уровень через месяц.
+            Читайте гайд и улучшайте результаты прямо сейчас.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Специальная физподготовка: упражнения для теннисистов
+          </h3>
+          <p class="article__date date">Опубликовано: 22 мая 2024</p>
+          <p class="article__information">
+            Теннис требует взрывной силы. В материале собраны топ-10 упражнений
+            из кроссфита для игроков. Вы узнаете, как укрепить кор и ноги для
+            быстрого перемещения по корту. Программа на три тренировки в неделю
+            предотвратит усталость во время матчей. Поддерживайте форму и
+            выигрывайте турниры с нами.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Выбор ракетки: гид по параметрам для любителей и профи
+          </h3>
+          <p class="article__date date">Опубликовано: 5 июня 2024</p>
+          <p class="article__information">
+            От веса до баланса струн: как подобрать инвентарь под стиль?
+            Анализируем различия моделей для контроля и мощности. Статья поможет
+            избежать ошибок при покупке ракетки. Обсуждаем натяжку струн и
+            влияние грипсы на комфорт. Выбор сэкономит деньги и улучшит
+            результаты на корте. Читайте обзор перед покупкой.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Питание перед матчем: что есть теннисисту для энергии
+          </h3>
+          <p class="article__date date">Опубликовано: 18 июня 2024</p>
+          <p class="article__information">
+            Энергетические запасы критичны в партиях. Разбираем углеводную
+            загрузку и гидратацию. Узнайте, какие перекусы не вызовут тяжести,
+            но дадут силы. Исключаем вредные продукты и составляем меню за три
+            часа до корта. Советы нутрициологов помогут держать темп до
+            тай-брейка. Питание чемпиона в деталях.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Психология победы: как сохранять концентрацию в напряжении
+          </h3>
+          <p class="article__date date">Опубликовано: 1 июля 2024</p>
+          <p class="article__information">
+            Ментальная устойчивость решает исход матчей. Описаны техники дыхания
+            для снятия стресса на корте. Узнайте, как бороться с негативными
+            мыслями после ошибок и сохранять фокус. Интервью с психологом
+            раскроет секреты. Применяйте методы, чтобы выигрывать очки и
+            чувствовать себя увереннее в игре.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Что нового в React 19: обзор ключевых изменений и хуков
+          </h3>
+          <p class="article__date date">Опубликовано: 10 мая 2024</p>
+          <p class="article__information">
+            Фреймворк эволюционирует, предлагая возможности. Разбираем серверные
+            компоненты и формы. Узнайте, как оптимизировать рендеринг и
+            уменьшить бандл. Примеры кода помогут внедрить новинки в проекты.
+            Это must-read для инженера. Изучайте технологии и развивайте навыки
+            эффективно для работы.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            CSS Grid против Flexbox: когда и что лучше использовать в верстке
+          </h3>
+          <p class="article__date date">Опубликовано: 25 мая 2024</p>
+          <p class="article__information">
+            Спор верстальщиков получает ответ. Сравниваем производительность
+            модулей макета. Разбираем случаи сеток и адаптивности для устройств.
+            Научитесь комбинировать технологии для интерфейсов. Гайд включает
+            шпаргалку по свойствам. Она сэкономит время при написании стилей для
+            современных веб-проектов.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Оптимизация Core Web Vitals: ускорение загрузки сайта на React
+          </h3>
+          <p class="article__date date">Опубликовано: 16 июня 2024</p>
+          <p class="article__information">
+            Скорость влияет на SEO и конверсию. Даны инструкции по улучшению
+            метрик LCP и CLS. Обсуждаем загрузку изображений и минимизацию кода.
+            Кейсы показывают рост позиций в поиске. Используйте техники, чтобы
+            ресурс работал быстро на слабых устройствах. Оптимизация важна для
+            успеха вашего бизнеса.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Продвинутый TypeScript: дженерики и утилиты для типизации
+          </h3>
+          <p class="article__date date">Опубликовано: 30 июня 2024</p>
+          <p class="article__information">
+            Типизация спасает от ошибок в продакшене. Погружаемся в работу с
+            типами и выражениями. Узнайте, как писать код без потери
+            безопасности. Разбор паттернов поможет избежать проблем при
+            рефакторинге. Статья для разработчиков, желающих поднять уровень
+            владения инструментом значительно.
+          </p>
+        </div>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Доступность веб-интерфейсов: стандарты WCAG для
+            frontend-разработчиков
+          </h3>
+          <p class="article__date date">Опубликовано: 15 июля 2024</p>
+          <p class="article__information">
+            Инклюзивность становится стандартом. Рассматриваем навигацию с
+            клавиатуры и скринридеры. Научитесь создавать формы, удобные для
+            пользователей. Проверка контрастности и семантики описана просто.
+            Внедрение практик расширит аудиторию. Делайте веб лучше для человека
+            без исключений и ограничений.
+          </p>
+        </div>
+      </section>
+      <section class="create-article">
+        <h2 class="create-article__header">Создать статью</h2>
+        <form action="#" method="get" class="create-article__form">
+          <input
+            name="Header"
+            type="text"
+            class="create-article__input-header"
+            placeholder="Заголовок"
+          />
+          <textarea
+            rows="10"
+            name="text"
+            class="create-article__input-information"
+            placeholder="Текст статьи"
+          ></textarea>
+          <button class="create-article__submit-button">Добавить</button>
+        </form>
+      </section>
+      <footer class="footer">
+        <div class="contacts">
+          <h2 class="contacts__header">Контакты</h2>
+          <a class="contacts__email email" href="mailto:esspakov@mail.ru">
+            <p class="email__cont">esspakov@mail.ru</p>
+          </a>
+          <a href="tel:+79137104129" class="contacts__phone phone">
+            <p class="phone__cont">+79137104129</p>
+          </a>
+        </div>
+        <div class="social-media">
+          <h2 class="social-media__header">Социальный сети</h2>
+          <a
+            href="https://github.com/Kagava"
+            class="social-media__github github"
+          >
+            <p class="gh__cont">GitHub</p>
+          </a>
+          <a href="https://t.me/Kaga5a" class="social-media__tg tg">
+            <p class="tg__cont">Telegram</p>
+          </a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<!--6. 
+Дата публикации: 10.05.2024
+
+7. 
+Дата публикации: 25.05.2024
+
+8. 
+Дата публикации: 12.06.2024
+
+9. 
+Дата публикации: 30.06.2024
+
+10.
+Дата публикации: 15.07.2024
+
+
+ -->
