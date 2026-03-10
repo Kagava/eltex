@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Статьи</title>
+  </head>
+  <style>
+    :root {
+      --background-color--form: #d9d9d9;
+
+      --font-colorm--form: #000;
+    }
+
+    .create-article {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+    }
+
+    .create-article__form {
+      display: flex;
+      flex-direction: column;
+      row-gap: 14px;
+    }
+
+    .create-article__input-header,
+    .create-article__input-information {
+      background-color: var(--background-color--form);
+      border: none;
+    }
+
+    .create-article__input-header::placeholder,
+    .create-article__input-information::placeholder {
+      color: var(--font-colorm--form);
+      font-family: "Inter";
+      font-weight: 400;
+      line-height: 19px;
+    }
+
+    .create-article__submit-button {
+      font-family: "Inter";
+      font-weight: 400;
+      line-height: 19px;
+      color: var(--font-colorm--form);
+      width: 107px;
+      height: 31px;
+      border: none;
+    }
+
+    .create-article__submit-button:hover {
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <header class="header">
+      <nav class="navigation">
+        <ul class="navigation__list">
+          <li class="navigation__element">
+            <a href="index.html" class="navigation__link">Главная страница</a>
+          </li>
+          <li class="navigation__element>">
+            <a href="blog.html" class="navigation__link">Блог</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="articles">
+        <h2 class="articles__header">Статьи</h2>
+        <div class="articles__article article">
+          <h3 class="article__article-header">
+            Как создать адаптивный дизайн за 30 минут
+          </h3>
+          <p class="article__date date">Опубликовано: 15 декабря 2024</p>
+          <p class="article__information">
+            В этой статье я расскажу о ключевых принципах создания мобильных
+            интерфейсов, которые одинаково хорошо выглядят на всех устройствах.
+            Вы узнаете о медиа-запросах, гибких сетках и практических примерах
+            кода, которые можно использовать прямо сейчас.
+          </p>
+        </div>
+      </section>
+      <section class="create-article">
+        <h2 class="create-article__header">Создать статью</h2>
+        <form action="#" method="get" class="create-article__form">
+          <input
+            name="Header"
+            type="text"
+            class="create-article__input-header"
+            placeholder="Заголовок"
+          />
+          <textarea
+            rows="10"
+            name="text"
+            class="create-article__input-information"
+            placeholder="Текст статьи"
+          ></textarea>
+          <button class="create-article__submit-button">Добавить</button>
+        </form>
+      </section>
+      <footer class="footer">
+        <div class="contacts">
+          <h2 class="contacts__header">Контакты</h2>
+          <a class="contacts__email email" href="mailto:esspakov@mail.ru">
+            <p class="email__cont">esspakov@mail.ru</p>
+          </a>
+          <a href="tel:+79137104129" class="contacts__phone phone">
+            <p class="phone__cont">+79137104129</p>
+          </a>
+        </div>
+        <div class="social-media">
+          <h2 class="social-media__header">Социальный сети</h2>
+          <a
+            href="https://github.com/Kagava"
+            class="social-media__github github"
+          >
+            <p class="gh__cont">GitHub</p>
+          </a>
+          <a href="https://t.me/Kaga5a" class="social-media__tg tg">
+            <p class="tg__cont">Telegram</p>
+          </a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
