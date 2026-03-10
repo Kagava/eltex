@@ -4,67 +4,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Блог</title>
+    <link rel="stylesheet" href="./src/styles/blog.css" />
+    <style>
+      :root {
+        --background-color--form: #d9d9d9;
+
+        --font-colorm--form: #000;
+      }
+
+      .create-article {
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+      }
+
+      .create-article__form {
+        display: flex;
+        flex-direction: column;
+        row-gap: 14px;
+      }
+
+      .create-article__input-header,
+      .create-article__input-information {
+        background-color: var(--background-color--form);
+        border: none;
+      }
+
+      .create-article__input-header::placeholder,
+      .create-article__input-information::placeholder {
+        color: var(--font-colorm--form);
+        font-family: "Inter";
+        font-weight: 400;
+        line-height: 19px;
+      }
+
+      .create-article__submit-button {
+        font-family: "Inter";
+        font-weight: 400;
+        line-height: 19px;
+        background-color: var(--background-color--form);
+        color: var(--font-colorm--form);
+        width: 107px;
+        height: 31px;
+        border: none;
+      }
+
+      .create-article__submit-button:hover {
+        cursor: pointer;
+      }
+    </style>
   </head>
-  <style>
-    :root {
-      --background-color--form: #d9d9d9;
 
-      --font-colorm--form: #000;
-    }
-
-    .create-article {
-      display: flex;
-      flex-direction: column;
-      max-width: 500px;
-    }
-
-    .create-article__form {
-      display: flex;
-      flex-direction: column;
-      row-gap: 14px;
-    }
-
-    .create-article__input-header,
-    .create-article__input-information {
-      background-color: var(--background-color--form);
-      border: none;
-    }
-
-    .create-article__input-header::placeholder,
-    .create-article__input-information::placeholder {
-      color: var(--font-colorm--form);
-      font-family: "Inter";
-      font-weight: 400;
-      line-height: 19px;
-    }
-
-    .create-article__submit-button {
-      font-family: "Inter";
-      font-weight: 400;
-      line-height: 19px;
-      background-color: var(--background-color--form);
-      color: var(--font-colorm--form);
-      width: 107px;
-      height: 31px;
-      border: none;
-    }
-
-    .create-article__submit-button:hover {
-      cursor: pointer;
-    }
-  </style>
   <body>
     <header class="header">
-      <nav class="navigation">
-        <ul class="navigation__list">
-          <li class="navigation__element">
-            <a href="index.html" class="navigation__link">Главная страница</a>
-          </li>
-          <li class="navigation__element>">
-            <a href="blog.html" class="navigation__link">Блог</a>
-          </li>
-        </ul>
-      </nav>
+      <div class="wrapper header__content">
+        <div class="header__icon icon">
+          <span class="icon__name">Name-folio</span>
+        </div>
+        <nav class="navigation">
+          <ul class="navigation__list">
+            <li class="navigation__element">
+              <a href="index.html" class="navigation__link">Главная страница</a>
+            </li>
+            <li class="navigation__element">
+              <a href="blog.html" class="navigation__link current-link">Блог</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main class="main">
       <section class="articles">

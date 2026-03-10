@@ -4,19 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Главная</title>
+    <link rel="stylesheet" href="./src/styles/index.css" />
   </head>
   <body>
     <header class="header">
-      <nav class="navigation">
-        <ul class="navigation__list">
-          <li class="navigation__element">
-            <a href="index.html" class="navigation__link">Главная страница</a>
-          </li>
-          <li class="navigation__element>">
-            <a href="blog.html" class="navigation__link">Блог</a>
-          </li>
-        </ul>
-      </nav>
+      <div class="wrapper header__content">
+        <div class="header__icon icon">
+          <span class="icon__name">Name-folio</span>
+        </div>
+        <nav class="navigation">
+          <ul class="navigation__list">
+            <li class="navigation__element">
+              <a href="index.html" class="navigation__link current-link"
+                >Главная страница</a
+              >
+            </li>
+            <li class="navigation__element">
+              <a href="blog.html" class="navigation__link">Блог</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main class="main">
       <section class="about">
