@@ -2,6 +2,10 @@ body {
   margin: 0;
 }
 
+p {
+  margin: 0;
+}
+
 a {
   text-decoration: none;
 }
@@ -19,4 +23,13 @@ li {
 .wrapper {
   max-width: 1440px;
   padding: 0 133px;
+}
+
+h2 {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 63px;
 }
