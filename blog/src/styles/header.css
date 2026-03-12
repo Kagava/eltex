@@ -6,7 +6,6 @@
 }
 
 .icon__name {
-  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
@@ -32,7 +31,6 @@
 }
 
 .navigation__link {
-  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
