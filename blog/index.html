@@ -31,7 +31,7 @@
         <div class="about__information">
           <h2 class="about__header">Hello World! Я Женя.</h2>
           <div class="about__description description">
-            <p class="description__information about__information">
+            <p class="description__information about__information information">
               Всех приветсвутвую в моем блоге! Тут вы может быть найдете для
               себя что-то интересное
             </p>
@@ -44,24 +44,24 @@
         </div>
         <div class="about__image"></div>
       </section>
-      <section class="my-career">
+      <section class="my-career wrapper">
         <article class="my-career__current-work current-work">
           <h3 class="current-work__header">Текущая должность</h3>
           <div class="current-work__description description">
-            <p class="description__information">-</p>
+            <p class="description__information information">-</p>
           </div>
         </article>
         <article class="my-career__work-expirience work-expirience">
           <h3 class="work-expirience__header">Опыт работы</h3>
           <div class="work-expirience__description description">
-            <p class="description__information">-</p>
+            <p class="description__information information">-</p>
           </div>
         </article>
         <article class="my-career__education education">
           <h3 class="education__header">Образование</h3>
           <div class="education__description description">
             <h4 class="description__header">СибГУТИ, 2021-н.в.</h4>
-            <p class="description__information">
+            <p class="description__information information">
               Бакалавриат по специальности "Информатика и вычислительная
               техника"<br />
               Выпускная работа: Разработка интернет-сайта "Магазин спортивного
@@ -72,7 +72,7 @@
         <article class="my-career__courses courses">
           <h4 class="courses__header">Курсы и сертификаты</h4>
           <div class="courses__description description">
-            <p class="description__information">
+            <p class="description__information information">
               RSSchool: Stage 0 - (2024)<br />
               RSSchool: Stage 1 - (2025-2026)
             </p>
@@ -81,7 +81,7 @@
         <article class="my-career__skills skills">
           <h4 class="skills__heaeder">Навыки</h4>
           <div class="skills__description description">
-            <p class="description__information">
+            <p class="description__information information">
               Программирование: HTML5 CSS3 JavaScript <br />
               Интструменты: Git WebPack VS Code Figma
             </p>
@@ -90,7 +90,7 @@
         <article class="my-career__achievements achievements">
           <h4 class="achivements__header">Достижения</h4>
           <div class="achivements__desctiption desctiption">
-            <p class="description__inforamtion">
+            <p class="description__information information">
               Не спился<br />
               Не скурился<br />
               Не сторчался<br />
@@ -99,7 +99,7 @@
           </div>
         </article>
       </section>
-      <seciont class="last-articles">
+      <seciont class="last-articles wrapper">
         <h2 class="last_articles__header">Последний статьи</h2>
         <div class="last-articles__article">
           <h4 class="last-articles__article-header">
@@ -107,7 +107,7 @@
             frontend-разработчиков
           </h4>
           <p class="last-articles__date date">Опубликовано: 15 июля 2024</p>
-          <p class="last-articles__information">
+          <p class="last-articles__information information">
             Инклюзивность становится стандартом. Рассматриваем навигацию с
             клавиатуры и скринридеры. Научитесь создавать формы, удобные для
             пользователей. Проверка контрастности и семантики описана просто.
@@ -120,7 +120,7 @@
             Психология победы: как сохранять концентрацию в напряжении
           </h4>
           <p class="last-articles__date date">Опубликовано: 1 июля 2024</p>
-          <p class="last-articles__information">
+          <p class="last-articles__information information">
             Ментальная устойчивость решает исход матчей. Описаны техники дыхания
             для снятия стресса на корте. Узнайте, как бороться с негативными
             мыслями после ошибок и сохранять фокус. Интервью с психологом
@@ -133,7 +133,7 @@
             Продвинутый TypeScript: дженерики и утилиты для типизации
           </h4>
           <p class="last-articles__date date">Опубликовано: 30 июня 2024</p>
-          <p class="last-articles__information">
+          <p class="last-articles__information information">
             Типизация спасает от ошибок в продакшене. Погружаемся в работу с
             типами и выражениями. Узнайте, как писать код без потери
             безопасности. Разбор паттернов поможет избежать проблем при
@@ -149,23 +149,28 @@
       </seciont>
     </main>
     <footer class="footer">
-      <div class="contacts">
-        <h2 class="contacts__header">Контакты</h2>
-        <a class="contacts__email email" href="mailto:esspakov@mail.ru">
-          <p class="email__cont">esspakov@mail.ru</p>
-        </a>
-        <a href="tel:+79137104129" class="contacts__phone phone">
-          <p class="phone__cont">+79137104129</p>
-        </a>
-      </div>
-      <div class="social-media">
-        <h2 class="social-media__header">Социальный сети</h2>
-        <a href="https://github.com/Kagava" class="social-media__github github">
-          <p class="gh__cont">GitHub</p>
-        </a>
-        <a href="https://t.me/Kaga5a" class="social-media__tg tg">
-          <p class="tg__cont">Telegram</p>
-        </a>
+      <div class="wrapper">
+        <div class="contacts">
+          <h2 class="contacts__header">Контакты</h2>
+          <a class="contacts__email email" href="mailto:esspakov@mail.ru">
+            <p class="email__cont">esspakov@mail.ru</p>
+          </a>
+          <a href="tel:+79137104129" class="contacts__phone phone">
+            <p class="phone__cont">+79137104129</p>
+          </a>
+        </div>
+        <div class="social-media">
+          <h2 class="social-media__header">Социальный сети</h2>
+          <a
+            href="https://github.com/Kagava"
+            class="social-media__github github"
+          >
+            <p class="gh__cont">GitHub</p>
+          </a>
+          <a href="https://t.me/Kaga5a" class="social-media__tg tg">
+            <p class="tg__cont">Telegram</p>
+          </a>
+        </div>
       </div>
     </footer>
   </body>

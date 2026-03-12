@@ -72,7 +72,7 @@
   transition: all 0.5s ease-in-out;
 }
 
-.description__information {
+.information {
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -94,4 +94,16 @@
   background-image: url(/blog/src/assets/about-foto.png);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.last-articles {
+  display: block;
+}
+
+.last-articles__date {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
 }
