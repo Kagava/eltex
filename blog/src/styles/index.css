@@ -1,3 +1,4 @@
+@import url(fonts.css);
 @import url(constants.css);
 @import url(default.css);
 @import url(header.css);
@@ -17,6 +18,7 @@
   display: flex;
   flex-direction: column;
   row-gap: 35px;
+  justify-content: center;
 }
 
 .about__description {
@@ -29,12 +31,12 @@
   display: inline-block;
 }
 
-.description__link-text {
+.description__link-text,
+.link-to-blog-page {
   display: flex;
   align-items: center;
   width: fit-content;
   color: var(--font-color--link);
-  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -64,13 +66,13 @@
   top: -50%;
 }
 
-.description__link-text:hover {
+.description__link-text:hover,
+.link-to-blog-page {
   background-color: var(--background-color--pale-first);
   transition: all 0.5s ease-in-out;
 }
 
 .description__information {
-  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
