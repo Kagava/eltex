@@ -25,11 +25,27 @@ li {
   padding: 0 133px;
 }
 
-h2 {
+h2,
+h3 {
   margin: 0;
-  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 700;
+}
+
+h2 {
   font-size: 52px;
   line-height: 63px;
+}
+
+h3 {
+  font-size: 32px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+h4 {
+  margin: 0;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 22px;
 }
