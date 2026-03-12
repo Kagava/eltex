@@ -107,3 +107,25 @@
   line-height: 26px;
   letter-spacing: -0.01em;
 }
+
+.my-career__current-work,
+.my-career__work-expirience,
+.my-career__education,
+.my-career__courses,
+.my-career__skills,
+.my-career__achievements {
+  position: relative;
+}
+
+.my-career__current-work::after,
+.my-career__work-expirience::after,
+.my-career__education::after,
+.my-career__courses::after,
+.my-career__skills::after,
+.my-career__achievements::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--underline-color);
+}
