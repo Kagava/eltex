@@ -228,6 +228,45 @@
   height: 100%;
 }
 
+.my-foto__signature {
+  box-sizing: border-box;
+  display: block;
+  background-color: transparent;
+  transition: all 0.5s ease-in-out;
+  padding: 16px 15px 0px;
+}
+
+.my-hobby-header {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: -0.02em;
+  color: transparent;
+  transition: all 0.5s ease-in-out;
+}
+
+.my-hobby__item {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.02em;
+  color: transparent;
+  transition: all 0.5s ease-in-out;
+}
+
+.hobby__my-foto:hover {
+  .my-foto__signature {
+    background-color: var(--background-color--hobby-signature);
+    opacity: 0.75;
+  }
+  .my-hobby__item,
+  .my-hobby-header {
+    color: var(--font-color--hobby-card-color);
+  }
+}
+
 .my-foto__foto {
   background-image: url(/blog/src/assets/hobby-foto.jpg);
 }
@@ -376,4 +415,13 @@
 .submit-button:hover {
   background-color: var(--background-color--submit-button--pale);
   color: var(--font-color--link);
+}
+
+@keyframes signature-aperence {
+  0% {
+    display: none;
+  }
+  100% {
+    display: block;
+  }
 }
