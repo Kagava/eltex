@@ -1,3 +1,9 @@
+.wrapper {
+  max-width: 1440px;
+  padding: 0 133px;
+  margin: auto;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -22,11 +28,6 @@ ol {
 
 li {
   list-style-type: none;
-}
-
-.wrapper {
-  max-width: 1440px;
-  padding: 0 133px;
 }
 
 h2,
