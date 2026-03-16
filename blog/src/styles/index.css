@@ -416,12 +416,3 @@
   background-color: var(--background-color--submit-button--pale);
   color: var(--font-color--link);
 }
-
-@keyframes signature-aperence {
-  0% {
-    display: none;
-  }
-  100% {
-    display: block;
-  }
-}
