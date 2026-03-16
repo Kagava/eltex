@@ -176,3 +176,22 @@
 .tennis-article {
   background-color: var(--background-color--tennis);
 }
+
+.my-career {
+  grid-area: aside;
+}
+
+.hobby {
+  grid-area: hobby;
+}
+
+.last-articles {
+  grid-area: articles;
+}
+
+.main__information {
+  display: grid;
+  grid-template-areas:
+    "aside hobby hobby hobby hobby"
+    "articles articles articles articles articles";
+}
