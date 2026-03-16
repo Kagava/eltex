@@ -2,6 +2,7 @@
 @import url(constants.css);
 @import url(default.css);
 @import url(header.css);
+@import url(footer.css);
 
 .about {
   display: flex;
@@ -186,12 +187,17 @@
   grid-area: articles;
 }
 
+.my-works {
+  grid-area: my-works;
+}
+
 .main__information {
   display: grid;
   grid-template-columns: 340px repeat(4, 1fr);
   grid-template-areas:
     "aside hobby hobby hobby hobby"
-    "articles articles articles articles articles";
+    "articles articles articles articles articles"
+    "my-works my-works my-works my-works my-works";
 }
 
 .hobby__my-foto {
@@ -293,126 +299,94 @@
   border-radius: 5px;
 }
 
-.footer {
-  margin-top: 30px;
-  background-color: var(--background-color--footer);
-  padding-top: 45px;
-}
-
-.contacts__content {
+.my-works__project {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
 }
 
-.contacts__header {
-  color: var(--font-color--main-footer);
-}
-
-.contacts__links {
-  margin-top: 16px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 28px;
-}
-
-.contacts__link {
-  color: var(--font-color--addtional-footer);
+.project__title > a {
+  color: var(--font-color--general);
   transition: all 0.5s ease-in-out;
 }
 
-.contacts__link:hover {
-  color: var(--font-color--link);
+.cozy-house:hover > a {
+  color: rgb(0, 255, 213);
 }
 
-.contacts__text {
-  text-decoration: underline;
+.christmas-shop:hover > a {
+  color: rgb(255, 80, 197);
 }
 
-.social-media {
+.pair-em-up:hover > a {
+  color: #bd5727;
+}
+
+.project__time {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.project__description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  color: var(--font-color--addtional);
+}
+
+.project__information {
+  width: clamp(300px, 30vw, 600px);
+  position: relative;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  max-width: 150px;
+  flex-direction: column;
+  row-gap: 5px;
+  padding-bottom: 5px;
 }
 
-.social-media__item {
-  display: block;
-  width: 25px;
-  height: 20px;
+.project__information::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--underline-color);
+  bottom: 0px;
+}
+
+.project__image {
+  width: 70px;
+  height: 70px;
   background-repeat: no-repeat;
-  background-size: contain;
   background-position: center;
-  transition: all 0.5s ease-in-out;
+  background-size: contain;
 }
 
-.social-media__vk {
-  background-image: url(/blog/src/assets/svgs/vk.svg);
+.cozy-house-image {
+  background-image: url(/blog/src/assets/Cozy-house.png);
 }
 
-.social-media__vk:hover {
-  background-image: url(/blog/src/assets/svgs/vk-hovered.svg);
+.chirstmas-shop-image {
+  background-image: url(/blog/src/assets/christmas-shop.png);
 }
 
-.social-media__tg {
-  background-image: url(/blog/src/assets/svgs/tg.svg);
+.pair-em-up-image {
+  background-image: url(/blog/src/assets/pair-em-up.png);
 }
 
-.social-media__tg:hover {
-  background-image: url(/blog/src/assets/svgs/tg-hovered.svg);
-}
-
-.social-media__gh {
-  background-image: url(/blog/src/assets/svgs/gh.svg);
-}
-
-.social-media__gh:hover {
-  background-image: url(/blog/src/assets/svgs/gh-hovered.svg);
-}
-
-.contacts__form {
+.my-works__content {
+  margin-top: 10px;
   display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: var(--font-color--addtional-footer);
+  flex-direction: row;
+  column-gap: 30px;
 }
 
-.form__item {
-  width: 85vh;
-  background-color: transparent;
-  border: 1px solid var(--border-color--form);
-  border-radius: 5px;
-  padding: 18px;
-}
-
-.form__item::placeholder {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: var(--font-color--placeholder-form);
-}
-
-.submit-button {
-  width: 175px;
-  height: 50px;
-  border-radius: 5px;
-  border-color: transparent;
-  background-color: var(--background-color--submit-button);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: var(--font-color--addtional-footer);
-  cursor: pointer;
-  transition: all 0.5s ease-in-out;
-}
-
-.submit-button:hover {
-  background-color: var(--background-color--submit-button--pale);
-  color: var(--font-color--link);
+.main__information,
+.last-articles,
+.my-works {
+  margin-top: 30px;
 }
