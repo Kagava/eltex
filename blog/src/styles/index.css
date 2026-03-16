@@ -97,7 +97,9 @@
 }
 
 .last-articles {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
 }
 
 .last-articles__date {
@@ -106,6 +108,12 @@
   font-size: 18px;
   line-height: 26px;
   letter-spacing: -0.01em;
+}
+
+.last-articles__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 60px;
 }
 
 .my-career__current-work,
@@ -132,4 +140,39 @@
 
 .footer {
   background-color: var(--background-color--footer);
+}
+
+.article {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  border-radius: 20px;
+}
+
+.article__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  row-gap: 16px;
+  padding: 40px 0px 0px 40px;
+}
+
+.article__image-container {
+  display: flex;
+  justify-content: center;
+  width: 155%;
+  padding-right: 5px;
+}
+
+.image-container__image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.frontend-article {
+  background-color: var(--background-color--frontend);
+}
+
+.tennis-article {
+  background-color: var(--background-color--tennis);
 }
