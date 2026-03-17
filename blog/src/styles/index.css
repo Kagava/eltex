@@ -223,7 +223,7 @@
   grid-template-areas:
     "my-foto main-hobby side-up side-up"
     "my-foto main-hobby side-down side-down";
-  gap: 25px;
+  gap: 1.3vw;
 }
 
 .hobby__foto {
@@ -389,4 +389,73 @@
 .last-articles,
 .my-works {
   margin-top: 30px;
+}
+
+@media (max-width: 1200px) {
+  .article__text {
+    padding: 30px 30px 10px 30px;
+  }
+  .main__information {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "aside"
+      "hobby"
+      "articles"
+      "my-works";
+  }
+  .hobby__foto {
+    background-position: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .wrapper {
+    padding: 0px 5px;
+  }
+  .article {
+    width: 90%;
+    margin: auto;
+    flex-direction: column-reverse;
+    row-gap: 20px;
+  }
+  .article__text {
+    padding: 10px;
+  }
+  .article__image-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .about__image {
+    display: none;
+  }
+  .my-works__content {
+    flex-direction: column;
+    row-gap: 30px;
+    padding: 0px 5px;
+  }
+  .project__information {
+    width: clamp(280px, 30vw, 600px);
+  }
+  p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 646px) {
+  h2 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 468px) {
+  .contacts__content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .contacts__form {
+    align-items: center;
+  }
 }

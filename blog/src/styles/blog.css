@@ -162,8 +162,7 @@
     justify-content: space-around;
   }
   .articles__header {
-    display: flex;
-    justify-content: center;
+    text-align: center;
   }
 }
 
