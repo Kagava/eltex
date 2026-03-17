@@ -5,56 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Блог</title>
     <link rel="stylesheet" href="./src/styles/blog.css" />
-    <style>
-      :root {
-        --background-color--form: #d9d9d9;
-
-        --font-colorm--form: #000;
-      }
-
-      .create-article {
-        display: flex;
-        flex-direction: column;
-        max-width: 500px;
-      }
-
-      .create-article__form {
-        display: flex;
-        flex-direction: column;
-        row-gap: 14px;
-      }
-
-      .create-article__input-header,
-      .create-article__input-information {
-        background-color: var(--background-color--form);
-        border: none;
-      }
-
-      .create-article__input-header::placeholder,
-      .create-article__input-information::placeholder {
-        color: var(--font-colorm--form);
-        font-family: "Inter";
-        font-weight: 400;
-        line-height: 19px;
-      }
-
-      .create-article__submit-button {
-        font-family: "Inter";
-        font-weight: 400;
-        line-height: 19px;
-        background-color: var(--background-color--form);
-        color: var(--font-colorm--form);
-        width: 107px;
-        height: 31px;
-        border: none;
-      }
-
-      .create-article__submit-button:hover {
-        cursor: pointer;
-      }
-    </style>
+    <link
+      type="Image/x-icon"
+      rel="shortcut icon"
+      href="/blog/src/assets/favicon.png"
+    />
+    <link type="Image/x-icon" href="/blog/src/assets/favicon.png" rel="icon" />
   </head>
-
   <body>
     <header class="header">
       <div class="wrapper header__content">
@@ -77,7 +34,7 @@
       </div>
     </header>
     <main class="main">
-      <section class="articles">
+      <section class="articles wrapper">
         <h2 class="articles__header">Статьи</h2>
         <div class="articles__article article">
           <h3 class="article__article-header">
@@ -211,47 +168,89 @@
           </p>
         </div>
       </section>
-      <section class="create-article">
+      <section class="create-article wrapper">
         <h2 class="create-article__header">Создать статью</h2>
         <form action="#" method="get" class="create-article__form">
           <input
             name="Header"
             type="text"
-            class="create-article__input-header"
+            class="create-article__input-header create-artilce__form-item"
             placeholder="Заголовок"
           />
           <textarea
             rows="10"
             name="text"
-            class="create-article__input-information"
+            class="create-article__input-information create-artilce__form-item"
             placeholder="Текст статьи"
           ></textarea>
           <button class="create-article__submit-button">Добавить</button>
         </form>
       </section>
-      <footer class="footer" id="footer">
-        <div class="contacts">
-          <h2 class="contacts__header">Контакты</h2>
-          <a class="contacts__email email" href="mailto:esspakov@mail.ru">
-            <p class="email__cont">esspakov@mail.ru</p>
-          </a>
-          <a href="tel:+79137104129" class="contacts__phone phone">
-            <p class="phone__cont">+79137104129</p>
-          </a>
-        </div>
-        <div class="social-media">
-          <h2 class="social-media__header">Социальный сети</h2>
-          <a
-            href="https://github.com/Kagava"
-            class="social-media__github github"
-          >
-            <p class="gh__cont">GitHub</p>
-          </a>
-          <a href="https://t.me/Kaga5a" class="social-media__tg tg">
-            <p class="tg__cont">Telegram</p>
-          </a>
-        </div>
-      </footer>
     </main>
+    <footer class="footer" id="footer">
+      <div class="wrapper contacts">
+        <h2 class="contacts__header">Say hello and let's work together !</h2>
+        <div class="contacts__content">
+          <div class="contacts__links">
+            <div class="contacts__social">
+              <a
+                class="contacts__email contacts__link email"
+                href="mailto:esspakov@mail.ru"
+              >
+                Email:
+                <span class="contacts__text">esspakov@mail.ru</span> </a
+              ><br />
+              <a
+                href="tel:+79137104129"
+                class="contacts__phone contacts__link phone"
+              >
+                Phone: <span class="contacts__text">+79137104129</span>
+              </a>
+            </div>
+            <div class="social-media">
+              <a
+                href="https://vk.com/kagavachka"
+                target="_blank"
+                class="vk__link"
+                ><span class="social-media__vk social-media__item"></span
+              ></a>
+              <a href="https://t.me/@Kaga5a" target="_blank" class="tg__link"
+                ><span class="social-media__tg social-media__item"></span
+              ></a>
+              <a
+                href="https://github.com/Kagava"
+                target="_blank"
+                class="gh__link"
+                ><span class="social-media__gh social-media__item"></span
+              ></a>
+            </div>
+          </div>
+          <div class="">
+            <form action="#" method="get" class="contacts__form form">
+              <label for="">
+                Email<br />
+                <input
+                  type="text"
+                  name="email"
+                  class="form__email form__item"
+                  placeholder="Your email address"
+                />
+              </label>
+              <label for="">
+                Input your message<br />
+                <textarea
+                  name="message"
+                  id=""
+                  class="form__message form__item"
+                  rows="6"
+                  placeholder="Write your message on the pavement"
+                ></textarea>
+              </label>
+              <button class="button-form submit-button">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

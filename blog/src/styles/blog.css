@@ -2,3 +2,57 @@
 @import url(constants.css);
 @import url(default.css);
 @import url(header.css);
+@import url(footer.css);
+
+.create-article__header {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 40px;
+}
+
+.create-article__form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--font-color--addtional-footer);
+}
+
+.create-artilce__form-item {
+  width: clamp(230px, 27vw, 520px);
+  background-color: transparent;
+  border: 1px solid var(--border-color--form);
+  border-radius: 5px;
+  padding: 18px;
+}
+
+.create-artilce__form-item::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--font-color--placeholder-form);
+}
+
+.create-article__submit-button {
+  width: 175px;
+  height: 50px;
+  border-radius: 5px;
+  border-color: transparent;
+  background-color: var(--background-color--subimt-button-aticle);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--background-color--subimt-button-aticle--pale);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.create-article__submit-button:hover {
+  background-color: var(--background-color--subimt-button-aticle--pale);
+  color: var(--background-color--subimt-button-aticle);
+}
