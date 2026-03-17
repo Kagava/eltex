@@ -4,10 +4,15 @@
 @import url(header.css);
 @import url(footer.css);
 
+.create-article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .create-article__header {
   display: flex;
   justify-content: flex-end;
-  padding-right: 40px;
 }
 
 .create-article__form {
@@ -55,4 +60,104 @@
 .create-article__submit-button:hover {
   background-color: var(--background-color--subimt-button-aticle--pale);
   color: var(--background-color--subimt-button-aticle);
+}
+
+.article__content {
+  border-radius: 5px;
+}
+
+.article_small {
+  width: 370px;
+}
+
+.article__date {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.article__information {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  color: var(--font-color--addtional);
+}
+
+.frontend-article {
+  background-color: var(--background-color--frontend);
+}
+
+.tennis-article {
+  background-color: var(--background-color--tennis);
+}
+
+.article__foto {
+  border-radius: 5px;
+  background-image: url(/blog/src/assets/article-foto.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 220px;
+}
+
+.article__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  row-gap: 20px;
+}
+
+.information_close {
+  display: none;
+}
+
+.article__article-header.article_closed {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  color: var(-font-color--general);
+}
+
+.article__date.date_closed {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(-font-color--general);
+}
+
+.articles__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 1010px) {
+  .article {
+    width: clamp(370px, 50vw, 560px);
+  }
+}
+
+@media (max-width: 636px) {
+  .wrapper {
+    padding: 0 5px;
+  }
+  .create-article {
+    align-items: center;
+  }
+}
+
+@media (max-width: 468px) {
+  .contacts__content {
+    flex-direction: column;
+    align-items: center;
+  }
 }
