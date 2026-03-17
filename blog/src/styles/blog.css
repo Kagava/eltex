@@ -104,6 +104,11 @@
   height: 220px;
 }
 
+.article__foto.foto-main {
+  padding: 5px;
+  height: 44vw;
+}
+
 .article__text {
   display: flex;
   flex-direction: column;
@@ -152,6 +157,13 @@
   }
   .create-article {
     align-items: center;
+  }
+  .header__content {
+    justify-content: space-around;
+  }
+  .articles__header {
+    display: flex;
+    justify-content: center;
   }
 }
 
