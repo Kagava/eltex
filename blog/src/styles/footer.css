@@ -1,7 +1,7 @@
 .footer {
   margin-top: 30px;
   background-color: var(--background-color--footer);
-  padding-top: 45px;
+  padding: 45px 0px;
 }
 
 .contacts__content {
@@ -92,6 +92,10 @@
   border: 1px solid var(--border-color--form);
   border-radius: 5px;
   padding: 18px;
+}
+
+.form__item:focus {
+  box-shadow: 5px 5px 10px rgba(255, 255, 255, 1);
 }
 
 .form__item::placeholder {
