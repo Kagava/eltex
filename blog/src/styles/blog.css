@@ -102,7 +102,7 @@
 
 .article__foto {
   border-radius: 5px;
-  background-image: url(/blog/src/assets/article-foto.png);
+  background-image: url(../assets/article-foto.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -203,7 +203,7 @@
   width: 216px;
   height: 213px;
   background-color: transparent;
-  background-image: url(/blog/src/assets/something.png);
+  background-image: url(../assets/something.png);
 }
 
 .midfull-thought {
