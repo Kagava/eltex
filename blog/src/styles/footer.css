@@ -1,0 +1,127 @@
+.footer {
+  margin-top: 30px;
+  background-color: var(--background-color--footer);
+  padding: 45px 0px;
+}
+
+.contacts__content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.contacts__header {
+  color: var(--font-color--main-footer);
+}
+
+.contacts__links {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 28px;
+}
+
+.contacts__link {
+  color: var(--font-color--addtional-footer);
+  transition: all 0.5s ease-in-out;
+}
+
+.contacts__link:hover {
+  color: var(--font-color--link);
+}
+
+.contacts__text {
+  text-decoration: underline;
+}
+
+.social-media {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 150px;
+}
+
+.social-media__item {
+  display: block;
+  width: 25px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.social-media__vk {
+  background-image: url(/blog/src/assets/svgs/vk.svg);
+}
+
+.social-media__vk:hover {
+  background-image: url(/blog/src/assets/svgs/vk-hovered.svg);
+}
+
+.social-media__tg {
+  background-image: url(/blog/src/assets/svgs/tg.svg);
+}
+
+.social-media__tg:hover {
+  background-image: url(/blog/src/assets/svgs/tg-hovered.svg);
+}
+
+.social-media__gh {
+  background-image: url(/blog/src/assets/svgs/gh.svg);
+}
+
+.social-media__gh:hover {
+  background-image: url(/blog/src/assets/svgs/gh-hovered.svg);
+}
+
+.contacts__form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--font-color--addtional-footer);
+}
+
+.form__item {
+  width: clamp(230px, 27vw, 520px);
+  background-color: transparent;
+  border: 1px solid var(--border-color--form);
+  border-radius: 5px;
+  padding: 18px;
+}
+
+.form__item:focus {
+  box-shadow: 5px 5px 10px rgba(255, 255, 255, 1);
+}
+
+.form__item::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--font-color--placeholder-form);
+}
+
+.submit-button {
+  width: 175px;
+  height: 50px;
+  border-radius: 5px;
+  border-color: transparent;
+  background-color: var(--background-color--submit-button);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--font-color--addtional-footer);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.submit-button:hover {
+  background-color: var(--background-color--submit-button--pale);
+  color: var(--font-color--link);
+}

@@ -4,262 +4,343 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Блог</title>
+    <link rel="stylesheet" href="./src/styles/blog.css" />
+    <link
+      type="Image/x-icon"
+      rel="shortcut icon"
+      href="/blog/src/assets/favicon.png"
+    />
+    <link type="Image/x-icon" href="/blog/src/assets/favicon.png" rel="icon" />
   </head>
-  <style>
-    :root {
-      --background-color--form: #d9d9d9;
-
-      --font-colorm--form: #000;
-    }
-
-    .create-article {
-      display: flex;
-      flex-direction: column;
-      max-width: 500px;
-    }
-
-    .create-article__form {
-      display: flex;
-      flex-direction: column;
-      row-gap: 14px;
-    }
-
-    .create-article__input-header,
-    .create-article__input-information {
-      background-color: var(--background-color--form);
-      border: none;
-    }
-
-    .create-article__input-header::placeholder,
-    .create-article__input-information::placeholder {
-      color: var(--font-colorm--form);
-      font-family: "Inter";
-      font-weight: 400;
-      line-height: 19px;
-    }
-
-    .create-article__submit-button {
-      font-family: "Inter";
-      font-weight: 400;
-      line-height: 19px;
-      background-color: var(--background-color--form);
-      color: var(--font-colorm--form);
-      width: 107px;
-      height: 31px;
-      border: none;
-    }
-
-    .create-article__submit-button:hover {
-      cursor: pointer;
-    }
-  </style>
   <body>
     <header class="header">
-      <nav class="navigation">
-        <ul class="navigation__list">
-          <li class="navigation__element">
-            <a href="index.html" class="navigation__link">Главная страница</a>
-          </li>
-          <li class="navigation__element>">
-            <a href="blog.html" class="navigation__link">Блог</a>
-          </li>
-        </ul>
-      </nav>
+      <div class="wrapper header__content">
+        <div class="header__icon icon">
+          <span class="icon__name">Name-folio</span>
+        </div>
+        <nav class="navigation">
+          <ul class="navigation__list">
+            <li class="navigation__element">
+              <a href="index.html" class="navigation__link">Главная страница</a>
+            </li>
+            <li class="navigation__element">
+              <a href="blog.html" class="navigation__link current-link">Блог</a>
+            </li>
+            <li class="navigation__element">
+              <a href="#footer" class="navigation__link">Контакт</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main class="main">
-      <section class="articles">
-        <h2 class="articles__header">Статьи</h2>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Идеальная подача: как увеличить скорость мяча без травм
-          </h3>
-          <p class="article__date date">Опубликовано: 15 мая 2024</p>
-          <p class="article__information">
-            В статье разбирается биомеханика правильной подачи в большом
-            теннисе. Рассмотрим ошибки новичков, приводящие к травмам плеча.
-            Узнайте, как работать над хватом и позицией ног для мощности удара.
-            Советы тренеров помогут вывести игру на новый уровень через месяц.
-            Читайте гайд и улучшайте результаты прямо сейчас.
-          </p>
+      <section class="articles wrapper">
+        <div class="articles__main">
+          <div class="artcles__header">
+            <h2 class="articles__title">Статьи</h2>
+            <span class="midfull-thought"
+              >Стратегия всегда подразумевает отсутствие тактики. Смотря под
+              углом угла, видишь: ничего не видно. Оптимизируем процессы ради
+              оптимизации, достигая пика бесполезности. Зачем искать смысл, если
+              можно имитировать поиск? Главное — серьезное лицо. В итоге же
+              приходим к тому, с чего начали, но с ощущением работы. Прекрасно,
+              ведь ничего не изменилось, зато время потрачено с эффективностью
+              пустоты.</span
+            >
+          </div>
+          <div class="articles__image"></div>
         </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Специальная физподготовка: упражнения для теннисистов
-          </h3>
-          <p class="article__date date">Опубликовано: 22 мая 2024</p>
-          <p class="article__information">
-            Теннис требует взрывной силы. В материале собраны топ-10 упражнений
-            из кроссфита для игроков. Вы узнаете, как укрепить кор и ноги для
-            быстрого перемещения по корту. Программа на три тренировки в неделю
-            предотвратит усталость во время матчей. Поддерживайте форму и
-            выигрывайте турниры с нами.
-          </p>
-        </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Выбор ракетки: гид по параметрам для любителей и профи
-          </h3>
-          <p class="article__date date">Опубликовано: 5 июня 2024</p>
-          <p class="article__information">
-            От веса до баланса струн: как подобрать инвентарь под стиль?
-            Анализируем различия моделей для контроля и мощности. Статья поможет
-            избежать ошибок при покупке ракетки. Обсуждаем натяжку струн и
-            влияние грипсы на комфорт. Выбор сэкономит деньги и улучшит
-            результаты на корте. Читайте обзор перед покупкой.
-          </p>
-        </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Питание перед матчем: что есть теннисисту для энергии
-          </h3>
-          <p class="article__date date">Опубликовано: 18 июня 2024</p>
-          <p class="article__information">
-            Энергетические запасы критичны в партиях. Разбираем углеводную
-            загрузку и гидратацию. Узнайте, какие перекусы не вызовут тяжести,
-            но дадут силы. Исключаем вредные продукты и составляем меню за три
-            часа до корта. Советы нутрициологов помогут держать темп до
-            тай-брейка. Питание чемпиона в деталях.
-          </p>
-        </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Психология победы: как сохранять концентрацию в напряжении
-          </h3>
-          <p class="article__date date">Опубликовано: 1 июля 2024</p>
-          <p class="article__information">
-            Ментальная устойчивость решает исход матчей. Описаны техники дыхания
-            для снятия стресса на корте. Узнайте, как бороться с негативными
-            мыслями после ошибок и сохранять фокус. Интервью с психологом
-            раскроет секреты. Применяйте методы, чтобы выигрывать очки и
-            чувствовать себя увереннее в игре.
-          </p>
-        </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Что нового в React 19: обзор ключевых изменений и хуков
-          </h3>
-          <p class="article__date date">Опубликовано: 10 мая 2024</p>
-          <p class="article__information">
-            Фреймворк эволюционирует, предлагая возможности. Разбираем серверные
-            компоненты и формы. Узнайте, как оптимизировать рендеринг и
-            уменьшить бандл. Примеры кода помогут внедрить новинки в проекты.
-            Это must-read для инженера. Изучайте технологии и развивайте навыки
-            эффективно для работы.
-          </p>
-        </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            CSS Grid против Flexbox: когда и что лучше использовать в верстке
-          </h3>
-          <p class="article__date date">Опубликовано: 25 мая 2024</p>
-          <p class="article__information">
-            Спор верстальщиков получает ответ. Сравниваем производительность
-            модулей макета. Разбираем случаи сеток и адаптивности для устройств.
-            Научитесь комбинировать технологии для интерфейсов. Гайд включает
-            шпаргалку по свойствам. Она сэкономит время при написании стилей для
-            современных веб-проектов.
-          </p>
-        </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Оптимизация Core Web Vitals: ускорение загрузки сайта на React
-          </h3>
-          <p class="article__date date">Опубликовано: 16 июня 2024</p>
-          <p class="article__information">
-            Скорость влияет на SEO и конверсию. Даны инструкции по улучшению
-            метрик LCP и CLS. Обсуждаем загрузку изображений и минимизацию кода.
-            Кейсы показывают рост позиций в поиске. Используйте техники, чтобы
-            ресурс работал быстро на слабых устройствах. Оптимизация важна для
-            успеха вашего бизнеса.
-          </p>
-        </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Продвинутый TypeScript: дженерики и утилиты для типизации
-          </h3>
-          <p class="article__date date">Опубликовано: 30 июня 2024</p>
-          <p class="article__information">
-            Типизация спасает от ошибок в продакшене. Погружаемся в работу с
-            типами и выражениями. Узнайте, как писать код без потери
-            безопасности. Разбор паттернов поможет избежать проблем при
-            рефакторинге. Статья для разработчиков, желающих поднять уровень
-            владения инструментом значительно.
-          </p>
-        </div>
-        <div class="articles__article article">
-          <h3 class="article__article-header">
-            Доступность веб-интерфейсов: стандарты WCAG для
-            frontend-разработчиков
-          </h3>
-          <p class="article__date date">Опубликовано: 15 июля 2024</p>
-          <p class="article__information">
-            Инклюзивность становится стандартом. Рассматриваем навигацию с
-            клавиатуры и скринридеры. Научитесь создавать формы, удобные для
-            пользователей. Проверка контрастности и семантики описана просто.
-            Внедрение практик расширит аудиторию. Делайте веб лучше для человека
-            без исключений и ограничений.
-          </p>
+        <div class="articles__container">
+          <div class="articles__article article-main article">
+            <div class="article__content tennis-article">
+              <div class="article__foto foto-main"></div>
+              <div class="article__text">
+                <h3 class="article__article-header">
+                  Идеальная подача: как увеличить скорость мяча без травм
+                </h3>
+                <p class="article__date date">
+                  <time datetime="2024-05-15">Опубликовано: 15 мая 2024</time>
+                </p>
+                <p class="article__information">
+                  В статье разбирается биомеханика правильной подачи в большом
+                  теннисе. Рассмотрим ошибки новичков, приводящие к травмам
+                  плеча. Узнайте, как работать над хватом и позицией ног для
+                  мощности удара. Советы тренеров помогут вывести игру на новый
+                  уровень через месяц. Читайте гайд и улучшайте результаты прямо
+                  сейчас.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content tennis-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  Специальная физподготовка: упражнения для теннисистов
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-05-22">Опубликовано: 22 мая 2024</time>
+                </p>
+                <p class="article__information information_close">
+                  Теннис требует взрывной силы. В материале собраны топ-10
+                  упражнений из кроссфита для игроков. Вы узнаете, как укрепить
+                  кор и ноги для быстрого перемещения по корту. Программа на три
+                  тренировки в неделю предотвратит усталость во время матчей.
+                  Поддерживайте форму и выигрывайте турниры с нами.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content tennis-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  Выбор ракетки: гид по параметрам для любителей и профи
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-06-05"></time>Опубликовано: 5 июня 2024
+                </p>
+                <p class="article__information information_close">
+                  От веса до баланса струн: как подобрать инвентарь под стиль?
+                  Анализируем различия моделей для контроля и мощности. Статья
+                  поможет избежать ошибок при покупке ракетки. Обсуждаем натяжку
+                  струн и влияние грипсы на комфорт. Выбор сэкономит деньги и
+                  улучшит результаты на корте. Читайте обзор перед покупкой.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content tennis-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  Питание перед матчем: что есть теннисисту для энергии
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-06-18"></time>Опубликовано: 18 июня 2024
+                </p>
+                <p class="article__information information_close">
+                  Энергетические запасы критичны в партиях. Разбираем углеводную
+                  загрузку и гидратацию. Узнайте, какие перекусы не вызовут
+                  тяжести, но дадут силы. Исключаем вредные продукты и
+                  составляем меню за три часа до корта. Советы нутрициологов
+                  помогут держать темп до тай-брейка. Питание чемпиона в
+                  деталях.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content tennis-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  Психология победы: как сохранять концентрацию в напряжении
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-07-01"></time>Опубликовано: 1 июля 2024
+                </p>
+                <p class="article__information information_close">
+                  Ментальная устойчивость решает исход матчей. Описаны техники
+                  дыхания для снятия стресса на корте. Узнайте, как бороться с
+                  негативными мыслями после ошибок и сохранять фокус. Интервью с
+                  психологом раскроет секреты. Применяйте методы, чтобы
+                  выигрывать очки и чувствовать себя увереннее в игре.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content frontend-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  Что нового в React 19: обзор ключевых изменений и хуков
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-05-10"></time>Опубликовано: 10 мая 2024
+                </p>
+                <p class="article__information information_close">
+                  Фреймворк эволюционирует, предлагая возможности. Разбираем
+                  серверные компоненты и формы. Узнайте, как оптимизировать
+                  рендеринг и уменьшить бандл. Примеры кода помогут внедрить
+                  новинки в проекты. Это must-read для инженера. Изучайте
+                  технологии и развивайте навыки эффективно для работы.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content frontend-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  CSS Grid против Flexbox: когда и что лучше использовать в
+                  верстке
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-05-24"></time>Опубликовано: 25 мая 2024
+                </p>
+                <p class="article__information information_close">
+                  Спор верстальщиков получает ответ. Сравниваем
+                  производительность модулей макета. Разбираем случаи сеток и
+                  адаптивности для устройств. Научитесь комбинировать технологии
+                  для интерфейсов. Гайд включает шпаргалку по свойствам. Она
+                  сэкономит время при написании стилей для современных
+                  веб-проектов.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content frontend-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  Оптимизация Core Web Vitals: ускорение загрузки сайта на React
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-06-16"></time>Опубликовано: 16 июня 2024
+                </p>
+                <p class="article__information information_close">
+                  Скорость влияет на SEO и конверсию. Даны инструкции по
+                  улучшению метрик LCP и CLS. Обсуждаем загрузку изображений и
+                  минимизацию кода. Кейсы показывают рост позиций в поиске.
+                  Используйте техники, чтобы ресурс работал быстро на слабых
+                  устройствах. Оптимизация важна для успеха вашего бизнеса.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content frontend-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  Продвинутый TypeScript: дженерики и утилиты для типизации
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-06-30"></time>Опубликовано: 30 июня 2024
+                </p>
+                <p class="article__information information_close">
+                  Типизация спасает от ошибок в продакшене. Погружаемся в работу
+                  с типами и выражениями. Узнайте, как писать код без потери
+                  безопасности. Разбор паттернов поможет избежать проблем при
+                  рефакторинге. Статья для разработчиков, желающих поднять
+                  уровень владения инструментом значительно.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="articles__article article_small article">
+            <div class="article__content frontend-article">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header article_closed">
+                  Доступность веб-интерфейсов: стандарты WCAG для
+                  frontend-разработчиков
+                </h3>
+                <p class="article__date date_closed date">
+                  <time datetime="2024-07-15"></time>Опубликовано: 15 июля 2024
+                </p>
+                <p class="article__information information_close">
+                  Инклюзивность становится стандартом. Рассматриваем навигацию с
+                  клавиатуры и скринридеры. Научитесь создавать формы, удобные
+                  для пользователей. Проверка контрастности и семантики описана
+                  просто. Внедрение практик расширит аудиторию. Делайте веб
+                  лучше для человека без исключений и ограничений.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-      <section class="create-article">
+      <section class="create-article wrapper">
         <h2 class="create-article__header">Создать статью</h2>
         <form action="#" method="get" class="create-article__form">
           <input
             name="Header"
             type="text"
-            class="create-article__input-header"
+            class="create-article__input-header create-artilce__form-item"
             placeholder="Заголовок"
           />
           <textarea
             rows="10"
             name="text"
-            class="create-article__input-information"
+            class="create-article__input-information create-artilce__form-item"
             placeholder="Текст статьи"
           ></textarea>
           <button class="create-article__submit-button">Добавить</button>
         </form>
       </section>
-      <footer class="footer">
-        <div class="contacts">
-          <h2 class="contacts__header">Контакты</h2>
-          <a class="contacts__email email" href="mailto:esspakov@mail.ru">
-            <p class="email__cont">esspakov@mail.ru</p>
-          </a>
-          <a href="tel:+79137104129" class="contacts__phone phone">
-            <p class="phone__cont">+79137104129</p>
-          </a>
-        </div>
-        <div class="social-media">
-          <h2 class="social-media__header">Социальный сети</h2>
-          <a
-            href="https://github.com/Kagava"
-            class="social-media__github github"
-          >
-            <p class="gh__cont">GitHub</p>
-          </a>
-          <a href="https://t.me/Kaga5a" class="social-media__tg tg">
-            <p class="tg__cont">Telegram</p>
-          </a>
-        </div>
-      </footer>
     </main>
+    <footer class="footer" id="footer">
+      <div class="wrapper contacts">
+        <h2 class="contacts__header">Say hello and let's work together !</h2>
+        <div class="contacts__content">
+          <div class="contacts__links">
+            <div class="contacts__social">
+              <a
+                class="contacts__email contacts__link email"
+                href="mailto:esspakov@mail.ru"
+              >
+                Email:
+                <span class="contacts__text">esspakov@mail.ru</span> </a
+              ><br />
+              <a
+                href="tel:+79137104129"
+                class="contacts__phone contacts__link phone"
+              >
+                Phone: <span class="contacts__text">+79137104129</span>
+              </a>
+            </div>
+            <div class="social-media">
+              <a
+                href="https://vk.com/kagavachka"
+                target="_blank"
+                class="vk__link"
+                ><span class="social-media__vk social-media__item"></span
+              ></a>
+              <a href="https://t.me/@Kaga5a" target="_blank" class="tg__link"
+                ><span class="social-media__tg social-media__item"></span
+              ></a>
+              <a
+                href="https://github.com/Kagava"
+                target="_blank"
+                class="gh__link"
+                ><span class="social-media__gh social-media__item"></span
+              ></a>
+            </div>
+          </div>
+          <div class="">
+            <form action="#" method="get" class="contacts__form form">
+              <label for="">
+                Email<br />
+                <input
+                  type="text"
+                  name="email"
+                  class="form__email form__item"
+                  placeholder="Your email address"
+                />
+              </label>
+              <label for="">
+                Input your message<br />
+                <textarea
+                  name="message"
+                  id=""
+                  class="form__message form__item"
+                  rows="6"
+                  placeholder="Write your message on the pavement"
+                ></textarea>
+              </label>
+              <button class="button-form submit-button">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
-
-<!--6. 
-Дата публикации: 10.05.2024
-
-7. 
-Дата публикации: 25.05.2024
-
-8. 
-Дата публикации: 12.06.2024
-
-9. 
-Дата публикации: 30.06.2024
-
-10.
-Дата публикации: 15.07.2024
-
-
- -->

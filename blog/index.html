@@ -4,153 +4,382 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Главная</title>
+    <link rel="stylesheet" href="./src/styles/index.css" />
+    <link
+      type="Image/x-icon"
+      rel="shortcut icon"
+      href="/blog/src/assets/favicon.png"
+    />
+    <link type="Image/x-icon" href="/blog/src/assets/favicon.png" rel="icon" />
   </head>
   <body>
     <header class="header">
-      <nav class="navigation">
-        <ul class="navigation__list">
-          <li class="navigation__element">
-            <a href="index.html" class="navigation__link">Главная страница</a>
-          </li>
-          <li class="navigation__element>">
-            <a href="blog.html" class="navigation__link">Блог</a>
-          </li>
-        </ul>
-      </nav>
+      <div class="wrapper header__content">
+        <div class="header__icon icon">
+          <span class="icon__name">Name-folio</span>
+        </div>
+        <nav class="navigation">
+          <ul class="navigation__list">
+            <li class="navigation__element">
+              <a href="index.html" class="navigation__link current-link"
+                >Главная страница</a
+              >
+            </li>
+            <li class="navigation__element">
+              <a href="blog.html" class="navigation__link">Блог</a>
+            </li>
+            <li class="navigation__element">
+              <a href="#footer" class="navigation__link">Контакт</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main class="main">
-      <section class="about">
-        <h2 class="about__header">Обо мне</h2>
-        <div class="about__description description">
-          <p class="description__information">
-            Всех приветсвутвую в моем блоге! Тут вы может быть найдете для себя
-            что-то интересное
-          </p>
+      <section class="about wrapper">
+        <div class="about__information">
+          <h2 class="about__header">Hello World! Я Женя.</h2>
+          <div class="about__description description">
+            <p class="description__information about__information information">
+              Всех приветсвутвую в моем блоге! Тут вы может быть найдете для
+              себя что-то интересное
+            </p>
+            <a href="blog.html" class="description__link"
+              ><p class="description__link-text">
+                Больше обо мне
+                <span class="description__arrow"></span></p
+            ></a>
+          </div>
         </div>
-        <div class="about__image"><img alt="my-foto" /></div>
+        <div class="about__image"></div>
       </section>
-      <section class="my-career">
-        <article class="my-career__current-work current-work">
-          <h3 class="current-work__header">Текущая должность</h3>
-          <div class="current-work__description description">
-            <p class="description__information">-</p>
+      <div class="main__information wrapper">
+        <aside class="my-career">
+          <article class="my-career__article current-work">
+            <h3 class="current-work__header">Текущая должность</h3>
+            <div class="current-work__description description">
+              <p class="description__information information">-</p>
+            </div>
+          </article>
+          <article class="my-career__article work-expirience">
+            <h3 class="work-expirience__header">Опыт работы</h3>
+            <div class="work-expirience__description description">
+              <p class="description__information information">-</p>
+            </div>
+          </article>
+          <article class="my-career__article education">
+            <h4 class="education__header">Образование: СибГУТИ, 2021-н.в.</h4>
+            <div class="education__description description">
+              <p class="description__information information">
+                Бакалавриат по специальности "Информатика и вычислительная
+                техника"<br />
+                Выпускная работа: Разработка интернет-сайта "Магазин спортивного
+                инвентаря"
+              </p>
+            </div>
+          </article>
+          <article class="my-career__article courses">
+            <h4 class="courses__header">Курсы и сертификаты</h4>
+            <div class="courses__description description">
+              <ul class="description__information information">
+                <li>RSSchool: Stage 0 - (2024)</li>
+                <li>RSSchool: Stage 1 - (2025-2026)</li>
+              </ul>
+            </div>
+          </article>
+          <article class="my-career__article skills">
+            <h4 class="skills__heaeder">Навыки</h4>
+            <div class="skills__description description">
+              <ul class="description__information information">
+                <li>Программирование: HTML5 CSS3 JavaScript</li>
+                <li>Интструменты: Git WebPack VS Code Figma</li>
+              </ul>
+            </div>
+          </article>
+          <article class="my-career__article achievements">
+            <h4 class="achivements__header">Достижения</h4>
+            <div class="achivements__desctiption desctiption">
+              <ul class="description__information information">
+                <li>Не спился</li>
+                <li>Не скурился</li>
+                <li>Не сторчался</li>
+                <li>Могу пожать сотку(скорее всего)</li>
+              </ul>
+            </div>
+          </article>
+        </aside>
+        <section class="hobby">
+          <div class="hobby__container">
+            <div class="hobby__header">
+              <h2 class="hobby__header-title">Мои хобби</h2>
+            </div>
+            <div class="hobby__content">
+              <div class="hobby__my-foto foto-container">
+                <span class="my-foto__foto hobby__foto" />
+                <div class="my-foto__signature hobby__foto">
+                  <h4 class="my-hobby-header">Мои хобби</h4>
+                  <ul class="my-hobby">
+                    <li class="my-hobby__item">Аниме</li>
+                    <li class="my-hobby__item">Спорт</li>
+                    <li class="my-hobby__item">Музыка</li>
+                    <li class="my-hobby__item">Языки</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="hobby__main-hobby foto-container">
+                <span
+                  src="../blog/src/assets/sport.png"
+                  alt="Моё главное хобби"
+                  class="main-hobby__foto hobby__foto"
+                />
+              </div>
+              <div class="hobby__side-up foto-container">
+                <span class="side-up__foto hobby__foto" />
+              </div>
+              <div class="hobby__side-down foto-container">
+                <span class="side-down__foto hobby__foto" />
+              </div>
+            </div>
           </div>
-        </article>
-        <article class="my-career__work-expirience work-expirience">
-          <h3 class="work-expirience__header">Опыт работы</h3>
-          <div class="work-expirience__description description">
-            <p class="description__information">-</p>
+        </section>
+        <section class="last-articles">
+          <h2 class="last_articles__header">Последний статьи</h2>
+          <div class="last-articles__content">
+            <div class="last-articles__article article frontend-article">
+              <div class="article__text">
+                <h4 class="last-articles__article-header">
+                  Доступность веб-интерфейсов: стандарты WCAG для
+                  frontend-разработчиков
+                </h4>
+                <p class="last-articles__date date">
+                  <time datetime="2024-07-15">Опубликовано: 15 июля 2024</time>
+                </p>
+                <p class="last-articles__information information">
+                  Инклюзивность становится стандартом. Рассматриваем навигацию с
+                  клавиатуры и скринридеры. Научитесь создавать формы, удобные
+                  для пользователей. Проверка контрастности и семантики описана
+                  просто. Внедрение практик расширит аудиторию. Делайте веб
+                  лучше для человека без исключений и ограничений.
+                </p>
+              </div>
+              <div class="article__image-container">
+                <img
+                  src="../blog/src/assets/article-foto.png"
+                  alt="Картиночка для статьи"
+                  class="image-container__image"
+                />
+              </div>
+            </div>
+            <div class="last-articles__article article tennis-article">
+              <div class="article__text">
+                <h4 class="last-articles__article-header">
+                  Психология победы: как сохранять концентрацию в напряжении
+                </h4>
+                <p class="last-articles__date date">
+                  <time datetime="2024-07-01"> Опубликовано: 1 июля 2024</time>
+                </p>
+                <p class="last-articles__information information">
+                  Ментальная устойчивость решает исход матчей. Описаны техники
+                  дыхания для снятия стресса на корте. Узнайте, как бороться с
+                  негативными мыслями после ошибок и сохранять фокус. Интервью с
+                  психологом раскроет секреты. Применяйте методы, чтобы
+                  выигрывать очки и чувствовать себя увереннее в игре.
+                </p>
+              </div>
+              <div class="article__image-container">
+                <img
+                  src="../blog/src/assets/article-foto.png"
+                  alt="Картиночка для статьи"
+                  class="image-container__image"
+                />
+              </div>
+            </div>
+            <div class="last-articles__article article frontend-article">
+              <div class="article__text">
+                <h4 class="last-articles__article-header">
+                  Продвинутый TypeScript: дженерики и утилиты для типизации
+                </h4>
+                <p class="last-articles__date date">
+                  <time datetime="2024-06-30">
+                    Опубликовано: 30 июня 2024
+                  </time>
+                </p>
+                <p class="last-articles__information information">
+                  Типизация спасает от ошибок в продакшене. Погружаемся в работу
+                  с типами и выражениями. Узнайте, как писать код без потери
+                  безопасности. Разбор паттернов поможет избежать проблем при
+                  рефакторинге. Статья для разработчиков, желающих поднять
+                  уровень владения инструментом значительно.
+                </p>
+              </div>
+              <div class="article__image-container">
+                <img
+                  src="../blog/src/assets/article-foto.png"
+                  alt="Картиночка для статьи"
+                  class="image-container__image"
+                />
+              </div>
+            </div>
           </div>
-        </article>
-        <article class="my-career__education education">
-          <h3 class="education__header">Образование</h3>
-          <div class="education__description description">
-            <h4 class="description__header">СибГУТИ, 2021-н.в.</h4>
-            <p class="description__information">
-              Бакалавриат по специальности "Информатика и вычислительная
-              техника"<br />
-              Выпускная работа: Разработка интернет-сайта "Магазин спортивного
-              инвентаря"
-            </p>
+          <a
+            href="blog.html"
+            class="last-articles__link-to-blog-page link-to-blog-page"
+            >Посмотреть все статьи</a
+          >
+        </section>
+        <section class="my-works">
+          <div class="my-works__container">
+            <h2 class="my-works__header">Мои работы</h2>
+            <div class="my-works__content">
+              <p class="my-works__description" title="Сгенерированно ИИ">
+                Все три проекта созданы на чистом стеке технологий без
+                фреймворков: HTML5, CSS3 и ванильный JavaScript. Базовая вёрстка
+                во всех случаях семантическая и адаптивная, с поддержкой
+                отображения на экранах от 320 до 1280+ пикселей. Проект Shelter
+                фокусируется на точной вёрстке по макету, методологии БЭМ и
+                доступности. Christmas Shop добавляет интерактивность на чистом
+                JS: динамическую генерацию контента, работу корзины и сохранение
+                данных в localStorage. Pair 'em Up — наиболее сложный проект с
+                полноценной игровой логикой, управлением состоянием, алгоритмами
+                проверки пар чисел, обработкой событий и аудиоэффектами. Во всех
+                работах применялись современные инструменты разработки (Vite,
+                ESLint, Prettier), деплой через GitHub Pages, оптимизация
+                изображений в WebP, а также требования к кроссбраузерности и
+                доступности. Проекты демонстрируют постепенное усложнение: от
+                статичной вёрстки до интерактивного приложения с игровой
+                механикой, сохраняя фокус на фундаментальных веб-стандартах.
+              </p>
+              <div class="my-works__expamles">
+                <div class="my-works__project project">
+                  <div class="project__image pair-em-up-image"></div>
+                  <div class="project__information">
+                    <p class="project__time">Winter 2026</p>
+                    <h4 class="project__title pair-em-up">
+                      <a
+                        href="https://rolling-scopes-school.github.io/kagava-JSFE2025Q3/pair-em-up/"
+                        >Pair'em Up</a
+                      >
+                    </h4>
+                    <p class="project__description">
+                      <a
+                        href="https://github.com/rolling-scopes-school/tasks/tree/master/stage1/tasks/pair-em-up"
+                        >Pair 'em Up</a
+                      >
+                      — это интерактивная браузерная игра-головоломка, где игрок
+                      должен находить и удалять пары чисел с игрового поля,
+                      набирая 100+ очков. Проект направлен на отработку навыков
+                      ванильного JavaScript, работы с DOM, управления состоянием
+                      и создания адаптивного интерфейса.
+                    </p>
+                  </div>
+                </div>
+                <div class="my-works__project project">
+                  <div class="project__image cozy-house-image"></div>
+                  <div class="project__information">
+                    <p class="project__time">Summer 2024</p>
+                    <h4 class="project__title cozy-house">
+                      <a
+                        href="https://rolling-scopes-school.github.io/kagava-JSFEPRESCHOOL2024Q2/shelter/"
+                        >Cozy House</a
+                      >
+                    </h4>
+                    <p class="project__description">
+                      Разработать адаптивный одностраничный сайт (лендинг) для
+                      приюта домашних животных «Cozy House». Проект направлен на
+                      отработку навыков вёрстки на HTML5 и CSS3, работы с
+                      макетом, создания анимаций и адаптивного дизайна.
+                    </p>
+                  </div>
+                </div>
+                <div class="my-works__project project">
+                  <div class="project__image chirstmas-shop-image"></div>
+                  <div class="project__information">
+                    <p class="project__time">Autumn-Winter 2024</p>
+                    <h4 class="project__title christmas-shop">
+                      <a
+                        href="https://rolling-scopes-school.github.io/kagava-JSFE2024Q4/christmas-shop/"
+                        >Chirstmas Shop</a
+                      >
+                    </h4>
+                    <p class="project__description">
+                      Christmas holidays are just around the corner! It's time
+                      to shop for gifts... but where? Christmas Shop is a
+                      project where you will need to create a website consisting
+                      of two pages, make it responsive, and add interactivity.
+                      It's time to create a cozy place for buying interesting
+                      gifts!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </article>
-        <article class="my-career__courses courses">
-          <h3 class="courses__header">Курсы и сертификаты</h3>
-          <div class="courses__description description">
-            <p class="description__information">
-              RSSchool: Stage 0 - (2024)<br />
-              RSSchool: Stage 1 - (2025-2026)
-            </p>
-          </div>
-        </article>
-        <article class="my-career__skills skills">
-          <h3 class="skills__heaeder">Навыки</h3>
-          <div class="skills__description description">
-            <p class="description__information">
-              Программирование: HTML5 CSS3 JavaScript <br />
-              Интструменты: Git WebPack VS Code Figma
-            </p>
-          </div>
-        </article>
-        <article class="my-career__achievements achievements">
-          <h3 class="achivements__header">Достижения</h3>
-          <div class="achivements__desctiption desctiption">
-            <p class="description__inforamtion">
-              Не спился<br />
-              Не скурился<br />
-              Не сторчался<br />
-              Могу пожать сотку(скорее всего)
-            </p>
-          </div>
-        </article>
-      </section>
-      <seciont class="last-articles">
-        <h2 class="last_articles__header">Последний статьи</h2>
-        <div class="last-articles__article">
-          <h3 class="last-articles__article-header">
-            Доступность веб-интерфейсов: стандарты WCAG для
-            frontend-разработчиков
-          </h3>
-          <p class="last-articles__date date">Опубликовано: 15 июля 2024</p>
-          <p class="last-articles__information">
-            Инклюзивность становится стандартом. Рассматриваем навигацию с
-            клавиатуры и скринридеры. Научитесь создавать формы, удобные для
-            пользователей. Проверка контрастности и семантики описана просто.
-            Внедрение практик расширит аудиторию. Делайте веб лучше для человека
-            без исключений и ограничений.
-          </p>
-        </div>
-        <div class="last-articles__article">
-          <h3 class="last-articles__article-header">
-            Психология победы: как сохранять концентрацию в напряжении
-          </h3>
-          <p class="last-articles__date date">Опубликовано: 1 июля 2024</p>
-          <p class="last-articles__information">
-            Ментальная устойчивость решает исход матчей. Описаны техники дыхания
-            для снятия стресса на корте. Узнайте, как бороться с негативными
-            мыслями после ошибок и сохранять фокус. Интервью с психологом
-            раскроет секреты. Применяйте методы, чтобы выигрывать очки и
-            чувствовать себя увереннее в игре.
-          </p>
-        </div>
-        <div class="last-articles__article">
-          <h3 class="last-articles__article-header">
-            Продвинутый TypeScript: дженерики и утилиты для типизации
-          </h3>
-          <p class="last-articles__date date">Опубликовано: 30 июня 2024</p>
-          <p class="last-articles__information">
-            Типизация спасает от ошибок в продакшене. Погружаемся в работу с
-            типами и выражениями. Узнайте, как писать код без потери
-            безопасности. Разбор паттернов поможет избежать проблем при
-            рефакторинге. Статья для разработчиков, желающих поднять уровень
-            владения инструментом значительно.
-          </p>
-        </div>
-        <a
-          href="blog.html"
-          class="last-articles__link-to-blog-page link-to-blog-page"
-          >Посмотреть все статьи</a
-        >
-      </seciont>
-    </main>
-    <footer class="footer">
-      <div class="contacts">
-        <h2 class="contacts__header">Контакты</h2>
-        <a class="contacts__email email" href="mailto:esspakov@mail.ru">
-          <p class="email__cont">esspakov@mail.ru</p>
-        </a>
-        <a href="tel:+79137104129" class="contacts__phone phone">
-          <p class="phone__cont">+79137104129</p>
-        </a>
+        </section>
       </div>
-      <div class="social-media">
-        <h2 class="social-media__header">Социальный сети</h2>
-        <a href="https://github.com/Kagava" class="social-media__github github">
-          <p class="gh__cont">GitHub</p>
-        </a>
-        <a href="https://t.me/Kaga5a" class="social-media__tg tg">
-          <p class="tg__cont">Telegram</p>
-        </a>
+    </main>
+    <footer class="footer" id="footer">
+      <div class="wrapper contacts">
+        <h2 class="contacts__header">Say hello and let's work together !</h2>
+        <div class="contacts__content">
+          <div class="contacts__links">
+            <div class="contacts__social">
+              <a
+                class="contacts__email contacts__link email"
+                href="mailto:esspakov@mail.ru"
+              >
+                Email:
+                <span class="contacts__text">esspakov@mail.ru</span> </a
+              ><br />
+              <a
+                href="tel:+79137104129"
+                class="contacts__phone contacts__link phone"
+              >
+                Phone: <span class="contacts__text">+79137104129</span>
+              </a>
+            </div>
+            <div class="social-media">
+              <a
+                href="https://vk.com/kagavachka"
+                target="_blank"
+                class="vk__link"
+                ><span class="social-media__vk social-media__item"></span
+              ></a>
+              <a href="https://t.me/@Kaga5a" target="_blank" class="tg__link"
+                ><span class="social-media__tg social-media__item"></span
+              ></a>
+              <a
+                href="https://github.com/Kagava"
+                target="_blank"
+                class="gh__link"
+                ><span class="social-media__gh social-media__item"></span
+              ></a>
+            </div>
+          </div>
+          <div class="">
+            <form action="#" method="get" class="contacts__form form">
+              <label for="">
+                Email<br />
+                <input
+                  type="text"
+                  name="email"
+                  class="form__email form__item"
+                  placeholder="Your email address"
+                />
+              </label>
+              <label for="">
+                Input your message<br />
+                <textarea
+                  name="message"
+                  id=""
+                  class="form__message form__item"
+                  rows="6"
+                  placeholder="Write your message on the pavement"
+                ></textarea>
+              </label>
+              <button class="button-form submit-button">Submit</button>
+            </form>
+          </div>
+        </div>
       </div>
     </footer>
   </body>
