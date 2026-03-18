@@ -52,27 +52,27 @@
 }
 
 .social-media__vk {
-  background-image: url(/blog/src/assets/svgs/vk.svg);
+  background-image: url(../assets/svgs/vk.svg);
 }
 
 .social-media__vk:hover {
-  background-image: url(/blog/src/assets/svgs/vk-hovered.svg);
+  background-image: url(../assets/svgs/vk-hovered.svg);
 }
 
 .social-media__tg {
-  background-image: url(/blog/src/assets/svgs/tg.svg);
+  background-image: url(../assets/svgs/tg.svg);
 }
 
 .social-media__tg:hover {
-  background-image: url(/blog/src/assets/svgs/tg-hovered.svg);
+  background-image: url(../assets/svgs/tg-hovered.svg);
 }
 
 .social-media__gh {
-  background-image: url(/blog/src/assets/svgs/gh.svg);
+  background-image: url(../assets/svgs/gh.svg);
 }
 
 .social-media__gh:hover {
-  background-image: url(/blog/src/assets/svgs/gh-hovered.svg);
+  background-image: url(../assets/svgs/gh-hovered.svg);
 }
 
 .contacts__form {
