@@ -62,7 +62,7 @@
   content: "";
   width: 200%;
   height: 200%;
-  background-image: url(/blog/src/assets/svgs/about-arrow.svg);
+  background-image: url(../assets/svgs/about-arrow.svg);
   background-repeat: no-repeat;
   background-position: center;
   top: -50%;
@@ -93,7 +93,7 @@
   min-width: 350px;
   border-radius: 0px 0px 42% 42%;
   display: inline-block;
-  background-image: url(/blog/src/assets/about-foto.png);
+  background-image: url(../assets/about-foto.png);
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
@@ -105,7 +105,7 @@
   width: 216px;
   height: 213px;
   background-color: transparent;
-  background-image: url(/blog/src/assets/something.png);
+  background-image: url(../assets/something.png);
   left: -86px;
   top: calc(50% - 107px);
 }
@@ -287,20 +287,20 @@
 }
 
 .my-foto__foto {
-  background-image: url(/blog/src/assets/hobby-foto.jpg);
+  background-image: url(../assets/hobby-foto.jpg);
 }
 
 .main-hobby__foto {
-  background-image: url(/blog/src/assets/sport.png);
+  background-image: url(../assets/sport.png);
 }
 
 .side-up__foto {
-  background-image: url(/blog/src/assets/rock.jpg);
+  background-image: url(../assets/rock.jpg);
   background-position: center;
 }
 
 .side-down__foto {
-  background-image: url(/blog/src/assets/language.png);
+  background-image: url(../assets/language.png);
   background-position: center;
 }
 
@@ -380,15 +380,15 @@
 }
 
 .cozy-house-image {
-  background-image: url(/blog/src/assets/Cozy-house.png);
+  background-image: url(../assets/Cozy-house.png);
 }
 
 .chirstmas-shop-image {
-  background-image: url(/blog/src/assets/christmas-shop.png);
+  background-image: url(../assets/christmas-shop.png);
 }
 
 .pair-em-up-image {
-  background-image: url(/blog/src/assets/pair-em-up.png);
+  background-image: url(../assets/pair-em-up.png);
 }
 
 .my-works__content {
