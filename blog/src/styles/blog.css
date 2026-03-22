@@ -58,11 +58,6 @@
   transition: all 0.5s ease-in-out;
 }
 
-.create-article__submit-button:hover {
-  background-color: var(--background-color--subimt-button-aticle--pale);
-  color: var(--background-color--subimt-button-aticle);
-}
-
 .article__content {
   border-radius: 5px;
 }
@@ -240,5 +235,19 @@
   }
   .midfull-thought {
     max-width: none;
+  }
+}
+
+@media (hover: hover) {
+  .create-article__submit-button:hover {
+    background-color: var(--background-color--subimt-button-aticle--pale);
+    color: var(--background-color--subimt-button-aticle);
+  }
+}
+
+@media (hover: none) {
+  .create-article__submit-button:active {
+    background-color: var(--background-color--subimt-button-aticle--pale);
+    color: var(--background-color--subimt-button-aticle);
   }
 }

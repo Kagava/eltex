@@ -25,11 +25,6 @@
   border-radius: 5px;
 }
 
-.navigation__element:hover {
-  background-color: var(--background-color--pale-first);
-  transition: all 0.5s ease-in-out;
-}
-
 .navigation__link {
   font-style: normal;
   font-weight: 400;
@@ -39,17 +34,38 @@
   color: var(--font-color--addtional);
 }
 
-.navigation__link:hover {
-  transition: all 0.5 ease-in-out;
-  color: var(--font-color--general);
-}
-
 .current-link {
   cursor: default;
   font-weight: 700;
   color: var(--font-color--link);
 }
 
-.current-link:hover {
-  color: var(--font-color--link);
+@media (hover: hover) {
+  .navigation__element:hover {
+    background-color: var(--background-color--pale-first);
+    transition: all 0.5s ease-in-out;
+  }
+
+  .navigation__link:hover {
+    transition: all 0.5 ease-in-out;
+    color: var(--font-color--general);
+  }
+  .current-link:hover {
+    color: var(--font-color--link);
+  }
+}
+
+@media (hover: none) {
+  .navigation__element:active {
+    background-color: var(--background-color--pale-first);
+    transition: all 0.5s ease-in-out;
+  }
+
+  .navigation__link:active {
+    transition: all 0.5 ease-in-out;
+    color: var(--font-color--general);
+  }
+  .current-link:active {
+    color: var(--font-color--link);
+  }
 }

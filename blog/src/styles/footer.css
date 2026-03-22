@@ -26,10 +26,6 @@
   transition: all 0.5s ease-in-out;
 }
 
-.contacts__link:hover {
-  color: var(--font-color--link);
-}
-
 .contacts__text {
   text-decoration: underline;
 }
@@ -55,24 +51,12 @@
   background-image: url(../assets/svgs/vk.svg);
 }
 
-.social-media__vk:hover {
-  background-image: url(../assets/svgs/vk-hovered.svg);
-}
-
 .social-media__tg {
   background-image: url(../assets/svgs/tg.svg);
 }
 
-.social-media__tg:hover {
-  background-image: url(../assets/svgs/tg-hovered.svg);
-}
-
 .social-media__gh {
   background-image: url(../assets/svgs/gh.svg);
-}
-
-.social-media__gh:hover {
-  background-image: url(../assets/svgs/gh-hovered.svg);
 }
 
 .contacts__form {
@@ -121,7 +105,40 @@
   transition: all 0.5s ease-in-out;
 }
 
-.submit-button:hover {
-  background-color: var(--background-color--submit-button--pale);
-  color: var(--font-color--link);
+@media (hover: hover) {
+  .submit-button:hover {
+    background-color: var(--background-color--submit-button--pale);
+    color: var(--font-color--link);
+  }
+  .social-media__vk:hover {
+    background-image: url(../assets/svgs/vk-hovered.svg);
+  }
+  .social-media__tg:hover {
+    background-image: url(../assets/svgs/tg-hovered.svg);
+  }
+  .social-media__gh:hover {
+    background-image: url(../assets/svgs/gh-hovered.svg);
+  }
+  .contacts__link:hover {
+    color: var(--font-color--link);
+  }
+}
+
+@media (hover: none) {
+  .submit-button:active {
+    background-color: var(--background-color--submit-button--pale);
+    color: var(--font-color--link);
+  }
+  .social-media__vk:active {
+    background-image: url(../assets/svgs/vk-hovered.svg);
+  }
+  .social-media__tg:active {
+    background-image: url(../assets/svgs/tg-hovered.svg);
+  }
+  .social-media__gh:active {
+    background-image: url(../assets/svgs/gh-hovered.svg);
+  }
+  .contacts__link:active {
+    color: var(--font-color--link);
+  }
 }
