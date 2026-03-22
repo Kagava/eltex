@@ -2,7 +2,7 @@
   overflow: hidden;
 }
 
-.dialog {
+.admin-panel {
   z-index: 2;
   position: fixed;
   width: 50px;
@@ -21,11 +21,11 @@
   align-items: center;
 }
 
-.dialog:hover {
+.admin-panel:hover {
   transform: translateX(0%);
 }
 
-.dialog__img {
+.admin-panel__img {
   width: 25px;
   height: 25px;
   background-position: center;
@@ -33,11 +33,11 @@
   transition: all 0.5s ease-in-out;
 }
 
-.dialog__open-form {
+.admin-panel__open-form {
   background-image: url(../assets/svgs/open-form.svg);
 }
 
-.dialog__stat {
+.admin-panel__stat {
   background-image: url(../assets/svgs/statistic.svg);
 }
 
@@ -53,7 +53,7 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-.info {
+.dialog {
   display: flex;
   flex-direction: column;
   column-gap: 16px;
@@ -82,7 +82,7 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-.info.is-hidden,
+.dialog.is-hidden,
 .black-back.is-hidden {
   opacity: 0;
   visibility: hidden;
@@ -90,7 +90,7 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-.info__part {
+.dialog__part {
   width: 230px;
   height: 110px;
   display: flex;
@@ -99,33 +99,33 @@
   align-items: center;
 }
 
-.info__title {
+.dialog__title {
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 29px;
 }
 
-.info__counter {
+.dialog__counter {
   font-style: normal;
   font-weight: 700;
   font-size: 40px;
   line-height: 48px;
 }
 
-.info__container {
+.dialog__container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
 @media (hover: hover) {
-  .dialog__open-form:hover {
+  .admin-panel__open-form:hover {
     background-image: url(../assets/svgs/open-form--hovered.svg);
     cursor: pointer;
   }
 
-  .dialog__stat:hover {
+  .admin-panel__stat:hover {
     background-image: url(../assets/svgs/statistic-hover--hovered.svg);
     cursor: pointer;
   }
