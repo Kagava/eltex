@@ -333,6 +333,12 @@
   border-radius: 5px;
 }
 
+.my-works__expamles {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
 .my-works__project {
   display: flex;
   flex-direction: row;
