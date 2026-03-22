@@ -1,0 +1,50 @@
+.dialog {
+  position: fixed;
+  width: 50px;
+  height: 100px;
+  background-color: red;
+  bottom: 30%;
+  right: 0px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: white;
+  box-shadow: -5px 5px 10px 2px rgba(34, 60, 80, 0.6);
+  transform: translateX(85%);
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.dialog:hover {
+  transform: translateX(0%);
+}
+
+.dialog__img {
+  width: 25px;
+  height: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 0.5s ease-in-out;
+}
+
+.dialog__open-form {
+  background-image: url(../assets/svgs/open-form.svg);
+}
+
+.dialog__stat {
+  background-image: url(../assets/svgs/statistic.svg);
+}
+
+@media (hover: hover) {
+  .dialog__open-form:hover {
+    background-image: url(../assets/svgs/open-form--hovered.svg);
+    cursor: pointer;
+  }
+
+  .dialog__stat:hover {
+    background-image: url(../assets/svgs/statistic-hover--hovered.svg);
+    cursor: pointer;
+  }
+}
