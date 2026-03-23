@@ -44,19 +44,27 @@
   color: var(--font-color--placeholder-form);
 }
 
-.create-article__submit-button {
+.create-article__button {
   width: 175px;
   height: 50px;
   border-radius: 5px;
   border-color: transparent;
-  background-color: var(--background-color--subimt-button-aticle);
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  color: var(--background-color--subimt-button-aticle--pale);
   cursor: pointer;
   transition: all 0.5s ease-in-out;
+}
+
+.create-article__submit-button {
+  color: var(--background-color--subimt-button-aticle--pale);
+  background-color: var(--background-color--subimt-button-aticle);
+}
+
+.create-article__refresh-button {
+  color: var(--background-color--subimt-button-aticle);
+  background-color: var(--background-color--subimt-button-aticle--pale);
 }
 
 .article__content {
@@ -154,6 +162,15 @@
   gap: 5px;
 }
 
+.create-article__buttons {
+  width: clamp(230px, 27vw, 520px);
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 15px;
+}
+
 @media (max-width: 1010px) {
   .article {
     width: 100%;
@@ -183,6 +200,9 @@
   }
   .create-article__form {
     align-items: center;
+  }
+  .create-article__buttons {
+    flex-direction: column;
   }
 }
 
@@ -244,11 +264,19 @@
     background-color: var(--background-color--subimt-button-aticle--pale);
     color: var(--background-color--subimt-button-aticle);
   }
+  .create-article__refresh-button:hover {
+    color: var(--background-color--subimt-button-aticle--pale);
+    background-color: var(--background-color--subimt-button-aticle);
+  }
 }
 
 @media (hover: none) {
   .create-article__submit-button:active {
     background-color: var(--background-color--subimt-button-aticle--pale);
     color: var(--background-color--subimt-button-aticle);
+  }
+  .create-article__refresh-button:active {
+    color: var(--background-color--subimt-button-aticle--pale);
+    background-color: var(--background-color--subimt-button-aticle);
   }
 }
