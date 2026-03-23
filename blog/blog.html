@@ -259,34 +259,37 @@
         </div>
       </section>
       <section class="create-article wrapper">
-        <h2 class="create-article__header">Создать статью</h2>
-        <form action="#" method="get" class="create-article__form">
-          <input
-            name="Header"
-            type="text"
-            class="create-article__input-header create-artilce__form-item"
-            placeholder="Заголовок"
-          />
-          <textarea
-            rows="10"
-            name="text"
-            class="create-article__input-information create-artilce__form-item"
-            placeholder="Текст статьи"
-          ></textarea>
-          <div class="create-article__buttons">
-            <button
-              class="create-article__button create-article__submit-button"
-            >
-              Добавить
-            </button>
-            <button
-              class="create-article__button create-article__refresh-button"
-              type="reset"
-            >
-              Отменить
-            </button>
-          </div>
-        </form>
+        <div class="create-article__content">
+          <h2 class="create-article__header">Создать статью</h2>
+          <form action="#" method="get" class="create-article__form">
+            <input
+              name="Header"
+              type="text"
+              class="create-article__input-header create-artilce__form-item"
+              placeholder="Заголовок"
+            />
+            <textarea
+              rows="10"
+              name="text"
+              class="create-article__input-information create-artilce__form-item"
+              placeholder="Текст статьи"
+            ></textarea>
+            <div class="create-article__buttons">
+              <button
+                class="create-article__button create-article__submit-button"
+              >
+                Добавить
+              </button>
+              <button
+                class="create-article__button create-article__refresh-button"
+                type="reset"
+              >
+                Отменить
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="create-article__curtain"></div>
       </section>
     </main>
     <footer class="footer" id="footer">
@@ -355,8 +358,14 @@
       </div>
     </footer>
     <div class="admin-panel">
-      <div class="admin-panel__open-form admin-panel__img"></div>
-      <div class="admin-panel__stat admin-panel__img"></div>
+      <div
+        class="admin-panel__open-form admin-panel__img"
+        title="Добавить статью"
+      ></div>
+      <div
+        class="admin-panel__stat admin-panel__img"
+        title="Посмотреть статистику"
+      ></div>
     </div>
     <dialog class="dialog is-hidden">
       <h3 class="dialog__header">Статистика страницы</h3>
@@ -374,5 +383,6 @@
     </dialog>
     <div class="black-back is-hidden"></div>
     <script src="src/scripts/blog.js" type="module"></script>
+    <script src="src/scripts/parts/open-form.js"></script>
   </body>
 </html>
