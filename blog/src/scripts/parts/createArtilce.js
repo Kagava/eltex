@@ -13,6 +13,9 @@ const monthArray = [
   "декабря",
 ];
 
+const frontClassName = "frontend-article";
+const tennisClassName = "tennis-article";
+
 const form = document.querySelector(".create-article__form");
 const articlesContainer = document.querySelector(".articles__container");
 const article = document.querySelector(
@@ -22,12 +25,14 @@ const article = document.querySelector(
 export function createArticle(target) {
   target.preventDefault();
   //Получить данные с формы
+  const articleType = chooseType();
   clearForm();
   const newArticle = article.cloneNode(true);
   addContent(newArticle);
   addDate(newArticle);
+  newArticle.querySelector(".article__content").classList =
+    `article__content ${articleType}`;
   articlesContainer.append(newArticle);
-  console.log(`${dateTimeElement}`);
 }
 
 function findMonth(monthNumber) {
@@ -65,4 +70,9 @@ function clearForm() {
   const text = form.querySelector(".create-article__input-information");
   header.value = "";
   text.value = "";
+}
+
+function chooseType() {
+  const inputType = form.querySelector(".create-article__input-type");
+  return inputType.value === "tennis" ? tennisClassName : frontClassName;
 }
