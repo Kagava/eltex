@@ -157,12 +157,16 @@
   transform: rotate(-45deg);
 }
 
+.admin-panel__img.disabled {
+  background-image: url(../assets/svgs/open-form--disable.svg) !important;
+  cursor: default !important;
+}
+
 @media (hover: hover) {
   .admin-panel__open-form:hover {
     background-image: url(../assets/svgs/open-form--hovered.svg);
     cursor: pointer;
   }
-
   .admin-panel__stat:hover {
     background-image: url(../assets/svgs/statistic-hover--hovered.svg);
     cursor: pointer;
