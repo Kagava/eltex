@@ -274,6 +274,31 @@
               class="create-article__input-information create-artilce__form-item"
               placeholder="Текст статьи"
             ></textarea>
+            <li class="custom-select">
+              <span class="custom-select__choice">Теннис</span>
+              <ul
+                class="custom-select__item custom-select__tennis"
+                data-choice="Теннис"
+              >
+                Теннис
+              </ul>
+              <ul
+                class="custom-select__item custom-select__frontend custom-select__item_last"
+                data-choice="Frontend"
+              >
+                Frontend
+              </ul>
+              <div class="custom-select__arrow"></div>
+            </li>
+
+            <select
+              name="type"
+              id=""
+              class="create-article__input-type create-artilce__form-item"
+            >
+              <option value="Теннис" default>Теннис</option>
+              <option value="Frontend">Frontend</option>
+            </select>
             <div class="create-article__buttons">
               <button
                 class="create-article__button create-article__submit-button"
@@ -384,5 +409,6 @@
     <div class="black-back is-hidden"></div>
     <script src="src/scripts/blog.js" type="module"></script>
     <script src="src/scripts/parts/open-form.js"></script>
+    <script src="src/scripts/parts/customSelect.js"></script>
   </body>
 </html>
