@@ -310,6 +310,13 @@
   padding: 18px;
   color: black;
   cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.custom-select:focus {
+  border-color: var(--background-color--subimt-button-aticle);
+  box-shadow: 0 0 5px rgb(219, 94, 49, 0.5);
+  outline: none;
 }
 
 .custom-select__arrow {

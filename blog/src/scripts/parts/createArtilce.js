@@ -26,9 +26,9 @@ export function createArticle(target) {
   target.preventDefault();
   //Получить данные с формы
   const articleType = chooseType();
-  clearForm();
+  const dataForm = getDataForm();
   const newArticle = article.cloneNode(true);
-  addContent(newArticle);
+  addContent(newArticle, dataForm);
   addDate(newArticle);
   newArticle.querySelector(".article__content").classList =
     `article__content ${articleType}`;
@@ -58,21 +58,28 @@ function addDate(article) {
   timeParagraph.replaceChildren(dateTimeElement);
 }
 
-function addContent(article) {
-  const header = article.querySelector(".article__article-header");
-  header.innerHTML = "MOCK-header";
-  const information = article.querySelector(".article__information");
-  information.innerHTML = "MOCK-information";
+function addContent(article, content) {
+  article.querySelector(".article__article-header").innerHTML = `${content[0]}`;
+  article.querySelector(".article__information").innerHTML = `${content[1]}`;
 }
 
-function clearForm() {
+function getDataForm() {
   const header = form.querySelector(".create-article__input-header");
   const text = form.querySelector(".create-article__input-information");
+  const headerValue = header.value;
   header.value = "";
+  const textValue = text.value;
   text.value = "";
+  return [headerValue, textValue];
 }
 
 function chooseType() {
   const inputType = form.querySelector(".create-article__input-type");
   return inputType.value === "tennis" ? tennisClassName : frontClassName;
 }
+
+// TODO:
+
+/*
+  Добавить валидацию формы
+*/
