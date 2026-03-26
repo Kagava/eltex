@@ -22,9 +22,11 @@ function closeArticle(event) {
   const target = event.target;
   const targetArticle = target.closest(".article");
   if (targetArticle.classList.contains("article-main")) {
-    console.log(targetArticle);
     targetArticle.remove();
     deleteMain();
+  }
+  else {
+    targetArticle.remove();
   }
 }
 
