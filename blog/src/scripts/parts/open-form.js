@@ -2,20 +2,20 @@ const openFormButton = document.querySelector(".admin-panel__open-form");
 const curtainForm = document.querySelector(".create-article__curtain");
 const headerForm = document.querySelector(".create-article__header");
 const formForm = document.querySelector(".create-article__form");
-const body = document.body;
+const rejectButton = document.querySelector(".create-article__refresh-button");
 
 openFormButton.addEventListener("click", () => {
   if (openFormButton._timeOut === true) return;
   makeButtonDisabled();
   const flagOpenForm = openFormButton.getAttribute("data-clicked");
   if (flagOpenForm) {
-    openForm();
-  } else {
     closeForm();
+  } else {
+    openForm();
   }
 });
 
-async function openForm() {
+async function closeForm() {
   openFormButton.removeAttribute("data-clicked");
   curtainForm.style.display = "block";
   await toggleCurtainOpacity(0);
@@ -25,7 +25,7 @@ async function openForm() {
   await closeCurtain();
 }
 
-async function closeForm() {
+async function openForm() {
   openFormButton.setAttribute("data-clicked", "true");
   await openCurtain();
   curtainForm.style.position = "absolute";
@@ -51,7 +51,7 @@ function openCurtain() {
     curtainForm.style.display = "block";
     let timerId = setTimeout(function tick() {
       height += 10;
-      if (height >= 420) {
+      if (height >= 475) {
         clearTimeout(timerId);
         resolve();
       } else {
@@ -103,3 +103,5 @@ function toggleCurtainOpacity(defOpacity) {
     }, tickMs);
   });
 }
+
+rejectButton.addEventListener("click", closeForm);
