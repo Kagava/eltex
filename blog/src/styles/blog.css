@@ -4,6 +4,11 @@
 @import url(header.css);
 @import url(footer.css);
 @import url(dialog.css);
+@import url(close-button.css);
+
+.article {
+  position: relative;
+}
 
 .create-article {
   display: flex;

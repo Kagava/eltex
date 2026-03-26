@@ -124,39 +124,6 @@
   flex-wrap: wrap;
 }
 
-.dialog__close {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: transparent;
-  top: 20px;
-  right: 20px;
-  transition:
-    box-shadow 0.3s ease-in-out,
-    transform 0.3s ease-in;
-}
-
-.dialog__close::after,
-.dialog__close::before {
-  display: inline-block;
-  content: "";
-  width: 20px;
-  height: 2px;
-  background-color: black;
-  position: absolute;
-  top: calc(50% - 1px);
-  left: calc(50% - 10px);
-}
-
-.dialog__close::after {
-  transform: rotate(45deg);
-}
-
-.dialog__close::before {
-  transform: rotate(-45deg);
-}
-
 .admin-panel__img.disabled {
   background-image: url(../assets/svgs/open-form--disable.svg) !important;
   cursor: default !important;
@@ -170,14 +137,6 @@
   .admin-panel__stat:hover {
     background-image: url(../assets/svgs/statistic-hover--hovered.svg);
     cursor: pointer;
-  }
-
-  .dialog__close:hover {
-    cursor: pointer;
-    box-shadow:
-      2px 2px 6px 4px rgba(0, 0, 0, 0.45),
-      -2px -2px 6px 4px rgba(0, 0, 0, 0.45);
-    transform: rotate(45deg);
   }
 }
 

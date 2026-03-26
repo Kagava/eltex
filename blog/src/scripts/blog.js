@@ -1,5 +1,6 @@
 import { articlesCount } from "./parts/statistic.js";
 import { createArticle } from "./parts/createArtilce.js";
+import { addCloseButtonToAllArticles } from "./parts/deleteArticle.js";
 
 const body = document.body;
 const stub = document.querySelector(".black-back");
@@ -30,3 +31,5 @@ function toggleHide() {
   stub.classList.toggle("is-hidden");
   modalStatistic.classList.toggle("is-hidden");
 }
+
+addCloseButtonToAllArticles();
