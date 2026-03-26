@@ -120,7 +120,8 @@
 
 .article__foto.foto-main {
   padding: 5px;
-  height: 44vw;
+  height: 35vw;
+  max-height: 600px;
 }
 
 .article__text {
@@ -131,7 +132,7 @@
   row-gap: 20px;
 }
 
-.information_close {
+.information_closed {
   display: none;
 }
 
