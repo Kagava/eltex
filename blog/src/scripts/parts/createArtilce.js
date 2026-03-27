@@ -1,3 +1,6 @@
+import { articlesCount } from "./statistic.js";
+import { addCloseButton } from "./deleteArticle.js";
+
 const monthArray = [
   "января",
   "февраля",
@@ -18,20 +21,32 @@ const tennisClassName = "tennis-article";
 
 const form = document.querySelector(".create-article__form");
 const articlesContainer = document.querySelector(".articles__container");
-const article = document.querySelector(
-  ".articles__article.article_small.article",
-);
+const article = document.querySelector(".template-article");
 
 export function createArticle(target) {
   target.preventDefault();
-  //Получить данные с формы
+  // Получить данные с формы
   const articleType = chooseType();
   const dataForm = getDataForm();
-  const newArticle = article.cloneNode(true);
+  const newArticle = article.content.querySelector(".article").cloneNode(true);
+  if (articlesCount() === 0) {
+    newArticle.classList.remove("article_small");
+    newArticle.classList.add("article-main");
+    const fotoArticle = newArticle.querySelector(".article__foto");
+    fotoArticle.classList.add("foto-main");
+    const textArticle = Array.from(
+      newArticle.querySelector(".article__text").children,
+    );
+    textArticle.forEach((item) => {
+      item.classList.value = item.classList.value.replace(/\w+_closed/, "");
+    });
+  } else {
+    newArticle.querySelector(".article__content").classList =
+      `article__content ${articleType}`;
+  }
   addContent(newArticle, dataForm);
   addDate(newArticle);
-  newArticle.querySelector(".article__content").classList =
-    `article__content ${articleType}`;
+  addCloseButton(newArticle);
   articlesContainer.append(newArticle);
 }
 

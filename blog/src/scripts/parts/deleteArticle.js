@@ -1,4 +1,7 @@
+import { articlesCount } from "./statistic.js";
+
 const articleCollection = document.querySelectorAll(".article");
+const templateArticle = document.querySelector(".template-article");
 
 export function addCloseButtonToAllArticles() {
   articleCollection.forEach((item) => {
@@ -6,7 +9,7 @@ export function addCloseButtonToAllArticles() {
   });
 }
 
-function addCloseButton(article) {
+export function addCloseButton(article) {
   const closeButton = createCloseButton();
   article.append(closeButton);
 }
@@ -23,14 +26,13 @@ function closeArticle(event) {
   const targetArticle = target.closest(".article");
   if (targetArticle.classList.contains("article-main")) {
     targetArticle.remove();
-    deleteMain();
-  }
-  else {
+    if (articlesCount() !== 0) makeNewMain();
+  } else {
     targetArticle.remove();
   }
 }
 
-function deleteMain() {
+function makeNewMain() {
   const firstArtilce = document.querySelector(".article");
   firstArtilce.classList.remove("article_small");
   firstArtilce.classList.add("article-main");
