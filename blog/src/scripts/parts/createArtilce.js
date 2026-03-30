@@ -1,23 +1,7 @@
 import { articlesCount } from "./statistic.js";
-import { addCloseButton } from "./deleteArticle.js";
 import { putItemInLocalStorage } from "./loadArticles.js";
 
 import { Article } from "./article.js";
-
-const monthArray = [
-  "января",
-  "февраля",
-  "марта",
-  "апреля",
-  "мая",
-  "июня",
-  "июля",
-  "августа",
-  "сентября",
-  "октября",
-  "ноября",
-  "декабря",
-];
 
 const imageUrl = "../assets/article-foto.png";
 
@@ -26,34 +10,39 @@ const tennisClassName = "tennis-article";
 
 const form = document.querySelector(".create-article__form");
 const articlesContainer = document.querySelector(".articles__container");
-const article = document.querySelector(".template-article");
 
 export function createArtilceFromLoad(id, type, data, date) {
-  const newArticle = article.content.querySelector(".article").cloneNode(true);
-  newArticle.id = `article-${id}`;
-  newArticle.querySelector(".article__content").classList =
-    `article__content ${type}`;
-  addContent(newArticle, data);
-  const dateString = `Опубликовано: ${date[1]}`;
-  const dateTimeElement = createDate(date[0], dateString);
-  const timeParagraph = newArticle.querySelector(".article__date");
-  timeParagraph.replaceChildren(dateTimeElement);
-  addCloseButton(newArticle);
-  articlesContainer.append(newArticle);
+  const [title, description] = data;
+  const [currentDate, currentDateString] = date;
+  const tempArticle = new Article(
+    id,
+    title,
+    description,
+    imageUrl,
+    type,
+    currentDate,
+    currentDateString,
+  );
+
+  articlesContainer.append(tempArticle.getArticle);
 }
 
 export function createArticle(target) {
+  target.preventDefault();
   const [title, description] = getDataForm();
+  console.log(title, description);
   const articleType = chooseType();
   const tempArticle = new Article(
-    articlesCount(),
+    articlesCount() + 1,
     title,
     description,
     imageUrl,
     articleType,
+    "",
+    "",
   );
+  console.log(tempArticle);
   articlesContainer.prepend(tempArticle.getArticle);
-
   const articleToLocalStorage = tempArticle.prepareArtilceInLoaclStorage();
   putItemInLocalStorage(articleToLocalStorage);
 }
