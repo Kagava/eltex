@@ -45,7 +45,10 @@ export class Article {
       return time;
     }
 
-    const dateTimeElement = createDate(this._date, this._dateString);
+    const dateTimeElement = createDate(
+      this._date,
+      `Опубликовано: ${this._dateString}`,
+    );
     const timeParagraph = this._article.querySelector(".article__date");
     timeParagraph.replaceChildren(dateTimeElement);
   }
