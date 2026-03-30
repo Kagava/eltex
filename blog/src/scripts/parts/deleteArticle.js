@@ -24,5 +24,7 @@ function closeArticle(event) {
     return;
   }
   const targetParent = target.closest(".article");
+  const targetParentId = targetParent.id;
+  localStorage.removeItem(targetParentId);
   targetParent.remove();
 }

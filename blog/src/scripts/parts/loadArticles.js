@@ -10,8 +10,9 @@ export function loadArticles() {
   );
   if (localStorageKeys.length) {
     const articles = [];
-    for (let i = 1; i < localStorageKeys.length; i += 1) {
-      const article = JSON.parse(localStorage.getItem(`article-${i}`));
+    console.log(localStorageKeys);
+    for (let key of localStorageKeys) {
+      const article = JSON.parse(localStorage.getItem(key));
       articles.push(article);
     }
     articlesJob(articles);
@@ -49,6 +50,7 @@ function sortArticles(articles) {
 async function createAritcles(arrayArticles) {
   for (const item of arrayArticles) {
     createArtilceFromLoad(
+      item.id,
       item.category,
       [item.title, item.description],
       [item.date, item.dateFormatted],
@@ -65,7 +67,6 @@ function fillLocalStorage(articles) {
   articles.forEach((item) => {
     putItemInLocalStorage(item);
   });
-  console.log(localStorage.getItem("article-1"));
 }
 
 export function putItemInLocalStorage(item) {

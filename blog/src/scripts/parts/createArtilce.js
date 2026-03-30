@@ -24,8 +24,9 @@ const form = document.querySelector(".create-article__form");
 const articlesContainer = document.querySelector(".articles__container");
 const article = document.querySelector(".template-article");
 
-export function createArtilceFromLoad(type, data, date) {
+export function createArtilceFromLoad(id, type, data, date) {
   const newArticle = article.content.querySelector(".article").cloneNode(true);
+  newArticle.id = `article-${id}`;
   newArticle.querySelector(".article__content").classList =
     `article__content ${type}`;
   addContent(newArticle, data);
