@@ -1,67 +1,50 @@
 import { articlesCount } from "./statistic.js";
-import { addCloseButton } from "./deleteArticle.js";
+import { putItemInLocalStorage } from "./loadArticles.js";
 
-const monthArray = [
-  "января",
-  "февраля",
-  "марта",
-  "апреля",
-  "мая",
-  "июня",
-  "июля",
-  "августа",
-  "сентября",
-  "октября",
-  "ноября",
-  "декабря",
-];
+import { Article } from "./article.js";
+
+const imageUrl = "../assets/article-foto.png";
 
 const frontClassName = "frontend-article";
 const tennisClassName = "tennis-article";
 
 const form = document.querySelector(".create-article__form");
 const articlesContainer = document.querySelector(".articles__container");
-const article = document.querySelector(".template-article");
+
+export function createArtilceFromLoad(id, type, data, date) {
+  const [title, description] = data;
+  const [currentDate, currentDateString] = date;
+  const tempArticle = new Article(
+    id,
+    title,
+    description,
+    imageUrl,
+    type,
+    currentDate,
+    currentDateString,
+  );
+
+  articlesContainer.append(tempArticle.getArticle);
+}
 
 export function createArticle(target) {
   target.preventDefault();
+  const [title, description] = getDataForm();
+  console.log(title, description);
   const articleType = chooseType();
-  const dataForm = getDataForm();
-  const newArticle = article.content.querySelector(".article").cloneNode(true);
-  newArticle.querySelector(".article__content").classList =
-    `article__content ${articleType}`;
-  addContent(newArticle, dataForm);
-  addDate(newArticle);
-  addCloseButton(newArticle);
-  articlesContainer.append(newArticle);
-}
-
-function findMonth(monthNumber) {
-  return monthArray[monthNumber];
-}
-
-function createDate(dateTime, dateString) {
-  const time = document.createElement("time");
-  time.dateTime = dateTime;
-  time.textContent = dateString;
-  return time;
-}
-
-function addDate(article) {
-  const date = new Date();
-  const currentDate = date.getDate();
-  const currentMonth = findMonth(date.getMonth());
-  const currentYear = date.getFullYear();
-  const dateTime = `${currentYear}-${(date.getMonth() + 1).toString().padStart(2, 0)}-${currentDate.toString().padStart(2, 0)}`;
-  const dateString = `Опубликовано: ${currentDate} ${currentMonth} ${currentYear}`;
-  const dateTimeElement = createDate(dateTime, dateString);
-  const timeParagraph = article.querySelector(".article__date");
-  timeParagraph.replaceChildren(dateTimeElement);
-}
-
-function addContent(article, content) {
-  article.querySelector(".article__article-header").innerHTML = `${content[0]}`;
-  article.querySelector(".article__information").innerHTML = `${content[1]}`;
+  const tempArticle = new Article(
+    articlesCount() + 1,
+    title,
+    description,
+    imageUrl,
+    articleType,
+    "",
+    "",
+  );
+  console.log(tempArticle);
+  articlesContainer.prepend(tempArticle.getArticle);
+  const articleToLocalStorage = tempArticle.prepareArtilceInLoaclStorage();
+  putItemInLocalStorage(articleToLocalStorage);
 }
 
 function getDataForm() {
