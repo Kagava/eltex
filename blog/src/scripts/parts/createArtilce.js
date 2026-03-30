@@ -1,5 +1,6 @@
 import { articlesCount } from "./statistic.js";
 import { addCloseButton } from "./deleteArticle.js";
+import { putItemInLocalStorage } from "./loadArticles.js";
 
 const monthArray = [
   "января",
@@ -44,9 +45,16 @@ export function createArticle(target) {
   newArticle.querySelector(".article__content").classList =
     `article__content ${articleType}`;
   addContent(newArticle, dataForm);
-  addDate(newArticle);
+  const date = addDate(newArticle);
   addCloseButton(newArticle);
   articlesContainer.prepend(newArticle);
+
+  const articleToLocalStorage = prepareArticleLocalStorage(
+    dataForm,
+    date,
+    articleType,
+  );
+  putItemInLocalStorage(articleToLocalStorage);
 }
 
 function findMonth(monthNumber) {
@@ -70,6 +78,7 @@ function addDate(article) {
   const dateTimeElement = createDate(dateTime, dateString);
   const timeParagraph = article.querySelector(".article__date");
   timeParagraph.replaceChildren(dateTimeElement);
+  return [dateTime, dateString];
 }
 
 function addContent(article, content) {
@@ -90,6 +99,17 @@ function getDataForm() {
 function chooseType() {
   const inputType = form.querySelector(".create-article__input-type");
   return inputType.value === "tennis" ? tennisClassName : frontClassName;
+}
+
+function prepareArticleLocalStorage(dataArr, dateArr, type) {
+  const id = articlesCount();
+  const title = dataArr[0];
+  const date = dateArr[0];
+  const dateFormatted = dateArr[1];
+  const description = dataArr[1];
+  const image = "../assets/article-foto.png";
+  const category = type;
+  return { id, title, date, dateFormatted, description, image, category };
 }
 
 // TODO:

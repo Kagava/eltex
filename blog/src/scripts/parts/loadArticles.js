@@ -10,6 +10,7 @@ export function loadArticles() {
       const articles = data.articles;
       const sortedArticles = sortArticles(articles);
       createAritcles(sortedArticles);
+      fillLocalStorage(sortedArticles);
     })
     .catch((err) => {
       console.log(err, "THERE IS SOMETING WRONG");
@@ -40,4 +41,15 @@ async function createAritcles(arrayArticles) {
     );
     await delay(50);
   }
+}
+
+function fillLocalStorage(articles) {
+  articles.forEach((item) => {
+    putItemInLocalStorage(item);
+  });
+  console.log(localStorage.getItem("article-1"));
+}
+
+export function putItemInLocalStorage(item) {
+  localStorage.setItem(`article-${item.id}`, JSON.stringify(item));
 }
