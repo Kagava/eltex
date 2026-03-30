@@ -8,7 +8,9 @@ export function loadArticles() {
   const localStorageKeys = Object.keys(localStorage).filter((item) =>
     regex.test(item),
   );
-  if (localStorageKeys.length) {
+  console.log(localStorageKeys);
+  if (localStorageKeys.length !== 0) {
+    console.log("TUT YA");
     const articles = [];
     for (let key of localStorageKeys) {
       const article = JSON.parse(localStorage.getItem(key));

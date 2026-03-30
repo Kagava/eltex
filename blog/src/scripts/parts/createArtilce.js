@@ -2,6 +2,8 @@ import { articlesCount } from "./statistic.js";
 import { addCloseButton } from "./deleteArticle.js";
 import { putItemInLocalStorage } from "./loadArticles.js";
 
+import { Article } from "./article.js";
+
 const monthArray = [
   "января",
   "февраля",
@@ -16,6 +18,8 @@ const monthArray = [
   "ноября",
   "декабря",
 ];
+
+const imageUrl = "../assets/article-foto.png";
 
 const frontClassName = "frontend-article";
 const tennisClassName = "tennis-article";
@@ -39,52 +43,19 @@ export function createArtilceFromLoad(id, type, data, date) {
 }
 
 export function createArticle(target) {
-  target.preventDefault();
+  const [title, description] = getDataForm();
   const articleType = chooseType();
-  const dataForm = getDataForm();
-  const newArticle = article.content.querySelector(".article").cloneNode(true);
-  newArticle.querySelector(".article__content").classList =
-    `article__content ${articleType}`;
-  addContent(newArticle, dataForm);
-  const date = addDate(newArticle);
-  addCloseButton(newArticle);
-  articlesContainer.prepend(newArticle);
-
-  const articleToLocalStorage = prepareArticleLocalStorage(
-    dataForm,
-    date,
+  const tempArticle = new Article(
+    articlesCount(),
+    title,
+    description,
+    imageUrl,
     articleType,
   );
+  articlesContainer.prepend(tempArticle.getArticle);
+
+  const articleToLocalStorage = tempArticle.prepareArtilceInLoaclStorage();
   putItemInLocalStorage(articleToLocalStorage);
-}
-
-function findMonth(monthNumber) {
-  return monthArray[monthNumber];
-}
-
-function createDate(dateTime, dateString) {
-  const time = document.createElement("time");
-  time.dateTime = dateTime;
-  time.textContent = dateString;
-  return time;
-}
-
-function addDate(article) {
-  const date = new Date();
-  const currentDate = date.getDate();
-  const currentMonth = findMonth(date.getMonth());
-  const currentYear = date.getFullYear();
-  const dateTime = `${currentYear}-${(date.getMonth() + 1).toString().padStart(2, 0)}-${currentDate.toString().padStart(2, 0)}`;
-  const dateString = `Опубликовано: ${currentDate} ${currentMonth} ${currentYear}`;
-  const dateTimeElement = createDate(dateTime, dateString);
-  const timeParagraph = article.querySelector(".article__date");
-  timeParagraph.replaceChildren(dateTimeElement);
-  return [dateTime, dateString];
-}
-
-function addContent(article, content) {
-  article.querySelector(".article__article-header").innerHTML = `${content[0]}`;
-  article.querySelector(".article__information").innerHTML = `${content[1]}`;
 }
 
 function getDataForm() {
@@ -100,17 +71,6 @@ function getDataForm() {
 function chooseType() {
   const inputType = form.querySelector(".create-article__input-type");
   return inputType.value === "tennis" ? tennisClassName : frontClassName;
-}
-
-function prepareArticleLocalStorage(dataArr, dateArr, type) {
-  const id = articlesCount();
-  const title = dataArr[0];
-  const date = dateArr[0];
-  const dateFormatted = dateArr[1].slice(14);
-  const description = dataArr[1];
-  const image = "../assets/article-foto.png";
-  const category = type;
-  return { id, title, date, dateFormatted, description, image, category };
 }
 
 // TODO:
