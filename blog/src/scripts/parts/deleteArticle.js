@@ -9,17 +9,20 @@ export function addCloseButtonToAllArticles() {
 export function addCloseButton(article) {
   const closeButton = createCloseButton();
   article.append(closeButton);
+  article.addEventListener("click", closeArticle);
 }
 
 function createCloseButton() {
   const closeButton = document.createElement("div");
   closeButton.className = "close-button article__close";
-  closeButton.addEventListener("click", closeArticle.bind(closeButton));
   return closeButton;
 }
 
 function closeArticle(event) {
   const target = event.target;
-  const targetArticle = target.closest(".article");
-  targetArticle.remove();
+  if (!target.classList.contains("article__close")) {
+    return;
+  }
+  const targetParent = target.closest(".article");
+  targetParent.remove();
 }
