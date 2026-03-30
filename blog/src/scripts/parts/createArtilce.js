@@ -23,6 +23,19 @@ const form = document.querySelector(".create-article__form");
 const articlesContainer = document.querySelector(".articles__container");
 const article = document.querySelector(".template-article");
 
+export function createArtilceFromLoad(type, data, date) {
+  const newArticle = article.content.querySelector(".article").cloneNode(true);
+  newArticle.querySelector(".article__content").classList =
+    `article__content ${type}`;
+  addContent(newArticle, data);
+  const dateString = `Опубликовано: ${date[1]}`;
+  const dateTimeElement = createDate(date[0], dateString);
+  const timeParagraph = article.content.querySelector(".article__date");
+  timeParagraph.replaceChildren(dateTimeElement);
+  addCloseButton(newArticle);
+  articlesContainer.append(newArticle);
+}
+
 export function createArticle(target) {
   target.preventDefault();
   const articleType = chooseType();

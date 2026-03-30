@@ -1,6 +1,11 @@
 import { articlesCount } from "./parts/statistic.js";
 import { createArticle } from "./parts/createArtilce.js";
 import { addCloseButtonToAllArticles } from "./parts/deleteArticle.js";
+import { loadArticles } from "./parts/loadArticles.js";
+
+window.onload = () => {
+  loadArticles();
+};
 
 const body = document.body;
 const stub = document.querySelector(".black-back");
