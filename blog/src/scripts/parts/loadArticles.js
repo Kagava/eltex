@@ -10,7 +10,6 @@ export function loadArticles() {
   );
   if (localStorageKeys.length) {
     const articles = [];
-    console.log(localStorageKeys);
     for (let key of localStorageKeys) {
       const article = JSON.parse(localStorage.getItem(key));
       articles.push(article);
@@ -42,7 +41,7 @@ function sortArticles(articles) {
   sortedArticles.sort((a, b) => {
     const aDate = new Date(a.date);
     const bDate = new Date(b.date);
-    return aDate - bDate;
+    return bDate - aDate;
   });
   return sortedArticles;
 }
