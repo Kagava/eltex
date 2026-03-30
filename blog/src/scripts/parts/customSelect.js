@@ -5,6 +5,9 @@ const listTennis = document.querySelector(".custom-select__tennis");
 const listFrontend = document.querySelector(".custom-select__frontend");
 const spanChoice = document.querySelector(".custom-select__choice");
 const select = document.querySelector(".create-article__input-type");
+const formButtonsArray = Array.from(
+  document.querySelectorAll(".create-article__button"),
+);
 
 list.addEventListener("click", (event) => {
   const target = event.target;
@@ -25,7 +28,13 @@ list.addEventListener("click", (event) => {
         item.style.transform = "translateY(-75%)";
       }
     }
+    formButtonsArray.forEach((item) => {
+      item.classList.remove("under-list");
+    });
   } else {
+    formButtonsArray.forEach((item) => {
+      item.classList.add("under-list");
+    });
     listArrow.classList.add("rotate");
     dropingList();
     setTimeout(() => {
