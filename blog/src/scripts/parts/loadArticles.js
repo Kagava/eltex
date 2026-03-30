@@ -4,22 +4,36 @@ import { createArtilceFromLoad } from "./createArtilce.js";
 const urlArticlesFile = "./src/scripts/data/articles.json";
 
 export function loadArticles() {
-  const promise = fetchJson(urlArticlesFile);
-  promise
-    .then(async (data) => {
-      const articles = data.articles;
-      const sortedArticles = sortArticles(articles);
-      createAritcles(sortedArticles);
-      fillLocalStorage(sortedArticles);
-    })
-    .catch((err) => {
-      console.log(err, "THERE IS SOMETING WRONG");
-    });
+  const regex = /^article-/;
+  const localStorageKeys = Object.keys(localStorage).filter((item) =>
+    regex.test(item),
+  );
+  if (localStorageKeys.length) {
+    const articles = [];
+    for (let i = 1; i < localStorageKeys.length; i += 1) {
+      const article = JSON.parse(localStorage.getItem(`article-${i}`));
+      articles.push(article);
+    }
+    articlesJob(articles);
+  } else {
+    const promise = fetchJson(urlArticlesFile);
+    promise
+      .then(async (data) => {
+        const articles = data.articles;
+        articlesJob(articles);
+      })
+      .catch((err) => {
+        console.log(err, "THERE IS SOMETING WRONG");
+      });
+  }
+
   return 0;
 }
 
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+function articlesJob(articles) {
+  const sortedArticles = sortArticles(articles);
+  createAritcles(sortedArticles);
+  fillLocalStorage(sortedArticles);
 }
 
 function sortArticles(articles) {
@@ -41,6 +55,10 @@ async function createAritcles(arrayArticles) {
     );
     await delay(50);
   }
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function fillLocalStorage(articles) {
