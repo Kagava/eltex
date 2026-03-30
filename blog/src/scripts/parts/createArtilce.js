@@ -46,7 +46,7 @@ export function createArticle(target) {
   addContent(newArticle, dataForm);
   addDate(newArticle);
   addCloseButton(newArticle);
-  articlesContainer.append(newArticle);
+  articlesContainer.prepend(newArticle);
 }
 
 function findMonth(monthNumber) {
