@@ -9,11 +9,11 @@ export class Article {
   constructor(
     id,
     title,
-    date = "",
-    dateString = "",
     description,
     imageUrl,
     category,
+    date = "",
+    dateString = "",
   ) {
     this._id = id;
     this._title = title;
@@ -51,7 +51,7 @@ export class Article {
   }
 
   #findData() {
-    if (this._data !== "") {
+    if (this._date !== "") {
       return;
     }
     const justDate = new Date();
@@ -81,12 +81,6 @@ export class Article {
 
   get getArticle() {
     return this._article;
-  }
-  get data() {
-    return this._date;
-  }
-  get stringData() {
-    return this._dateString;
   }
 }
 
