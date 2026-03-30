@@ -32,7 +32,7 @@ export function createArtilceFromLoad(id, type, data, date) {
   addContent(newArticle, data);
   const dateString = `Опубликовано: ${date[1]}`;
   const dateTimeElement = createDate(date[0], dateString);
-  const timeParagraph = article.content.querySelector(".article__date");
+  const timeParagraph = newArticle.querySelector(".article__date");
   timeParagraph.replaceChildren(dateTimeElement);
   addCloseButton(newArticle);
   articlesContainer.append(newArticle);
@@ -106,7 +106,7 @@ function prepareArticleLocalStorage(dataArr, dateArr, type) {
   const id = articlesCount();
   const title = dataArr[0];
   const date = dateArr[0];
-  const dateFormatted = dateArr[1];
+  const dateFormatted = dateArr[1].slice(14);
   const description = dataArr[1];
   const image = "../assets/article-foto.png";
   const category = type;
