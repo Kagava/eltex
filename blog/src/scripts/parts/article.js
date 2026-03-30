@@ -27,7 +27,12 @@ export class Article {
     this.#setData();
     this.#addContent();
     this.#setClassList();
+    this.#setId();
     addCloseButton(this._article);
+  }
+
+  #setId() {
+    this._article.id = `article-${this._id}`;
   }
 
   #addContent() {
