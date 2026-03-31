@@ -10,12 +10,19 @@
   opacity: 1;
   visibility: visible;
   transition: opacity 0.5s ease;
+  animation-play-state: running;
 }
 
 .loader.is-hidden {
   opacity: 0;
   visibility: visible;
   transition: opacity 0.5s ease;
+  animation-play-state: paused;
+}
+
+.loader.is-hidden::after,
+.loader.is-hidden::before {
+  animation-play-state: paused;
 }
 
 .loader::after,
@@ -27,6 +34,7 @@
   height: 16px;
   background-color: black;
   border-radius: 50%;
+  animation-play-state: running;
 }
 
 .loader::after {
