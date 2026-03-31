@@ -50,7 +50,7 @@
   top: 0%;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 1.3s ease;
 }
 
 .dialog {
@@ -80,15 +80,15 @@
 
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.5s ease;
 }
 
 .dialog.is-hidden,
 .black-back.is-hidden {
   opacity: 0;
-  visibility: hidden;
+  visibility: visible;
   pointer-events: none;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.5s ease;
 }
 
 .dialog__part {
