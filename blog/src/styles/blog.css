@@ -5,6 +5,7 @@
 @import url(footer.css);
 @import url(dialog.css);
 @import url(close-button.css);
+@import url(loader.css);
 
 .article {
   position: relative;
