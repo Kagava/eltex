@@ -68,6 +68,7 @@ function fillLocalStorage(articles) {
   });
 }
 
-export function putItemInLocalStorage(item) {
+export async function putItemInLocalStorage(item) {
   localStorage.setItem(`article-${item.id}`, JSON.stringify(item));
+  await delay(5000);
 }
