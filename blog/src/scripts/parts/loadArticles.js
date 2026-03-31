@@ -3,7 +3,7 @@ import { createArtilceFromLoad } from "./createArtilce.js";
 
 const urlArticlesFile = "./src/scripts/data/articles.json";
 
-export function loadArticles() {
+export async function loadArticles() {
   const regex = /^article-/;
   const localStorageKeys = Object.keys(localStorage).filter((item) =>
     regex.test(item),
@@ -14,25 +14,25 @@ export function loadArticles() {
       const article = JSON.parse(localStorage.getItem(key));
       articles.push(article);
     }
-    articlesJob(articles);
+    await articlesJob(articles);
   } else {
     const promise = fetchJson(urlArticlesFile);
     promise
       .then(async (data) => {
         const articles = data.articles;
-        articlesJob(articles);
+        await articlesJob(articles);
       })
       .catch((err) => {
         console.log(err, "THERE IS SOMETING WRONG");
       });
   }
 
-  return 0;
+  return true;
 }
 
-function articlesJob(articles) {
+async function articlesJob(articles) {
   const sortedArticles = sortArticles(articles);
-  createAritcles(sortedArticles);
+  await createAritcles(sortedArticles);
   fillLocalStorage(sortedArticles);
 }
 
@@ -54,7 +54,7 @@ async function createAritcles(arrayArticles) {
       [item.title, item.description],
       [item.date, item.dateFormatted],
     );
-    await delay(0);
+    await delay(500);
   }
 }
 

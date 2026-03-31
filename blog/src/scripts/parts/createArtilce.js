@@ -30,7 +30,6 @@ export function createArtilceFromLoad(id, type, data, date) {
 export function createArticle(target) {
   target.preventDefault();
   const [title, description] = getDataForm();
-  console.log(title, description);
   const articleType = chooseType();
   const tempArticle = new Article(
     articlesCount() + 1,
@@ -41,7 +40,6 @@ export function createArticle(target) {
     "",
     "",
   );
-  console.log(tempArticle);
   articlesContainer.prepend(tempArticle.getArticle);
   const articleToLocalStorage = tempArticle.prepareArtilceInLoaclStorage();
   putItemInLocalStorage(articleToLocalStorage);

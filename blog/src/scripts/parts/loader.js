@@ -1,11 +1,12 @@
 const loader = document.querySelector(".loader");
+const curtain = document.querySelector(".black-back");
 
-// let angle = 0;
-// setTimeout(function rotate() {
-//   loader.style.transform = `rotate(${angle}deg)`;
-//   if (angle === 361) {
-//     angle = 0;
-//   }
-//   angle += 1;
-//   setTimeout(rotate, 10);
-// }, 10);
+export function openLoader() {
+  loader.classList.remove("is-hidden");
+  curtain.classList.remove("is-hidden");
+}
+
+export function closeLoader() {
+  loader.classList.add("is-hidden");
+  curtain.classList.add("is-hidden");
+}

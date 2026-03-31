@@ -2,9 +2,12 @@ import { articlesCount } from "./parts/statistic.js";
 import { createArticle } from "./parts/createArtilce.js";
 import { addCloseButtonToAllArticles } from "./parts/deleteArticle.js";
 import { loadArticles } from "./parts/loadArticles.js";
+import { openLoader, closeLoader } from "./parts/loader.js";
 
-window.onload = () => {
-  loadArticles();
+window.onload = async () => {
+  openLoader();
+  await loadArticles();
+  closeLoader();
 };
 
 const body = document.body;
