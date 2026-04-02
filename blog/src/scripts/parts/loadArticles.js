@@ -54,7 +54,7 @@ async function createAritcles(arrayArticles) {
       [item.title, item.description],
       [item.date, item.dateFormatted],
     );
-    await delay(500);
+    await delay(10);
   }
 }
 

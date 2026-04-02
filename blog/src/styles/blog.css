@@ -64,6 +64,13 @@
   transition: all 0.5s ease-in-out;
 }
 
+.create-article__button:disabled {
+  background-color: var(--background-color--form-buttons-disabled) !important;
+  color: white !important;
+  cursor: default;
+  pointer-events: none;
+}
+
 .create-article__button.under-list {
   position: relative;
   z-index: -2;

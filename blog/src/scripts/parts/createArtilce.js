@@ -1,6 +1,6 @@
 import { articlesCount } from "./statistic.js";
 import { putItemInLocalStorage } from "./loadArticles.js";
-import { openLoader, closeLoader } from "./loader.js";
+import { openLoaderForm, closeLoaderForm } from "./loader.js";
 
 import { Article } from "./article.js";
 
@@ -29,7 +29,7 @@ export function createArtilceFromLoad(id, type, data, date) {
 }
 
 export async function createArticle(target) {
-  openLoader();
+  openLoaderForm();
   target.preventDefault();
   const [title, description] = getDataForm();
   const articleType = chooseType();
@@ -45,7 +45,7 @@ export async function createArticle(target) {
 
   const articleToLocalStorage = tempArticle.prepareArtilceInLoaclStorage();
   await putItemInLocalStorage(articleToLocalStorage);
-  closeLoader();
+  closeLoaderForm();
   articlesContainer.prepend(tempArticle.getArticle);
 }
 
