@@ -1,0 +1,74 @@
+.loader {
+  position: fixed;
+  box-sizing: border-box;
+  top: 50px;
+  right: 50px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  animation: rotating 1.3s ease infinite;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease;
+  animation-play-state: running;
+}
+
+.loader.is-hidden {
+  opacity: 0;
+  visibility: visible;
+  transition: opacity 0.5s ease;
+  animation-play-state: paused;
+}
+
+.loader.is-hidden::after,
+.loader.is-hidden::before {
+  animation-play-state: paused;
+}
+
+.loader::after,
+.loader::before {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: black;
+  border-radius: 50%;
+  animation-play-state: running;
+}
+
+.loader::after {
+  bottom: 30px;
+  right: 30px;
+  animation: afterAnim 1.3s ease infinite;
+}
+
+.loader::before {
+  top: 30px;
+  left: 30px;
+  animation: beforeAnim 1.3s ease infinite;
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes beforeAnim {
+  50% {
+    transform: translate(30px, 30px);
+  }
+}
+
+@keyframes afterAnim {
+  50% {
+    transform: translate(-30px, -30px);
+  }
+}
