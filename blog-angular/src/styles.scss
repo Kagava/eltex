@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'app/global-styles/constants';
-@import 'app/global-styles/fonts';
+
+@use 'app/ui/global-styles/constants';
+@use 'app/ui/global-styles/fonts';
 
 .wrapper {
   max-width: 1440px;
