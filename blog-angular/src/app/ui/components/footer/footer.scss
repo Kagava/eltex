@@ -8,6 +8,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 468px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .contacts__header {
@@ -68,6 +72,9 @@
   font-size: 18px;
   line-height: 22px;
   color: var(--font-color--addtional-footer);
+  @media (max-width: 468px) {
+    align-items: center;
+  }
 }
 
 .form__item {
