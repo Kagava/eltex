@@ -1,0 +1,117 @@
+.hobby {
+  grid-area: hobby;
+}
+
+.hobby__my-foto {
+  grid-area: my-foto;
+}
+
+.hobby__main-hobby {
+  grid-area: main-hobby;
+}
+
+.hobby__side-up {
+  grid-area: side-up;
+}
+
+.side-up__foto {
+  background-image: url(/rock.jpg);
+  background-position: center;
+}
+
+.hobby__side-down {
+  grid-area: side-down;
+}
+
+.side-down__foto {
+  background-image: url(/language.png);
+  background-position: center;
+}
+
+.hobby__foto {
+  display: block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  @media (max-width: 1200px) {
+    background-position: center;
+  }
+}
+
+.my-foto__signature {
+  box-sizing: border-box;
+  display: block;
+  background-color: transparent;
+  transition: all 0.5s ease-in-out;
+  padding: 16px 15px 0px;
+}
+
+.my-hobby-header {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: -0.02em;
+  color: transparent;
+  transition: all 0.5s ease-in-out;
+}
+
+.my-hobby__item {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.02em;
+  color: transparent;
+  transition: all 0.5s ease-in-out;
+}
+
+.my-foto__foto {
+  background-image: url(/hobby-foto.jpg);
+}
+
+.hobby__content {
+  grid-template-columns: repeat(4, 1fr);
+  height: 472px;
+  display: grid;
+  grid-template-areas:
+    'my-foto main-hobby side-up side-up'
+    'my-foto main-hobby side-down side-down';
+  gap: 1.3vw;
+}
+
+.main-hobby__foto {
+  background-image: url(/sport.png);
+}
+
+.foto-container {
+  padding: 5px 5px 0px 5px;
+}
+
+@media (hover: hover) {
+  .hobby__my-foto:hover {
+    .my-foto__signature {
+      background-color: var(--background-color--hobby-signature);
+      opacity: 0.75;
+    }
+    .my-hobby__item,
+    .my-hobby-header {
+      color: var(--font-color--hobby-card-color);
+    }
+  }
+}
+
+@media (hover: none) {
+  .hobby__my-foto:active {
+    .my-foto__signature {
+      background-color: var(--background-color--hobby-signature);
+      opacity: 0.75;
+    }
+    .my-hobby__item,
+    .my-hobby-header {
+      color: var(--font-color--hobby-card-color);
+    }
+  }
+}
