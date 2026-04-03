@@ -41,6 +41,9 @@ h3 {
   margin: 0;
   font-style: normal;
   font-weight: 700;
+  @media (max-width: 646px) {
+    text-align: center;
+  }
 }
 
 h2 {
