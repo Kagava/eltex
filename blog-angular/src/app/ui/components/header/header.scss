@@ -1,0 +1,70 @@
+@mixin set-font-style($font-style, $font-weight, $font-size, $line-height, $line-spacing, $color) {
+  font-style: $font-style;
+  font-weight: $font-weight;
+  font-size: $font-size;
+  line-height: $line-height;
+  letter-spacing: $line-spacing;
+  color: $color;
+}
+
+.header__content {
+  margin-top: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon__name {
+  @include set-font-style(normal, 500, 30px, 36px, 0.01em, var(--font-color--icon));
+}
+
+.navigation__list {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+.navigation__element {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.navigation__link {
+  @include set-font-style(normal, 400, 15px, 18px, -0.03em, var(--font-color--addtional));
+}
+
+.current-link {
+  cursor: default;
+  font-weight: 700;
+  color: var(--font-color--link);
+}
+
+@media (hover: hover) {
+  .navigation__element:hover {
+    background-color: var(--background-color--pale-first);
+    transition: all 0.5s ease-in-out;
+  }
+
+  .navigation__link:hover {
+    transition: all 0.5 ease-in-out;
+    color: var(--font-color--general);
+  }
+  .current-link:hover {
+    color: var(--font-color--link);
+  }
+}
+
+@media (hover: none) {
+  .navigation__element:active {
+    background-color: var(--background-color--pale-first);
+    transition: all 0.5s ease-in-out;
+  }
+
+  .navigation__link:active {
+    transition: all 0.5 ease-in-out;
+    color: var(--font-color--general);
+  }
+  .current-link:active {
+    color: var(--font-color--link);
+  }
+}
