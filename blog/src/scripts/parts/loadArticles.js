@@ -5,21 +5,20 @@ const urlArticlesFile = "./src/scripts/data/articles.json";
 
 export async function loadArticles() {
   const regex = /^article-/;
-  const localStorageKeys = Object.keys(localStorage).filter((item) =>
-    regex.test(item),
-  );
-  if (localStorageKeys.length) {
-    const articles = [];
-    for (let key of localStorageKeys) {
-      const article = JSON.parse(localStorage.getItem(key));
-      articles.push(article);
-    }
-    await articlesJob(articles);
+  const localStoregeArticles = Object.keys(localStorage)
+    .filter((item) => regex.test(item))
+    .map((key) => JSON.parse(localStorage.getItem(key)));
+  if (localStoregeArticles.length) {
+    await articlesJob(localStoregeArticles);
   } else {
     const promise = fetchJson(urlArticlesFile);
     promise
       .then(async (data) => {
         const articles = data.articles;
+
+        for (const item of articles) {
+          item.id = crypto.randomUUID();
+        }
         await articlesJob(articles);
       })
       .catch((err) => {
@@ -54,7 +53,7 @@ async function createAritcles(arrayArticles) {
       [item.title, item.description],
       [item.date, item.dateFormatted],
     );
-    await delay(10);
+    await delay(50);
   }
 }
 

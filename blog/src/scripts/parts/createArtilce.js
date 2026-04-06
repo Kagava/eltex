@@ -34,7 +34,7 @@ export async function createArticle(target) {
   const [title, description] = getDataForm();
   const articleType = chooseType();
   const tempArticle = new Article(
-    articlesCount() + 1,
+    crypto.randomUUID(),
     title,
     description,
     imageUrl,
