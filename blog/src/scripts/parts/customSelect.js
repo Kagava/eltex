@@ -13,7 +13,6 @@ list.addEventListener("click", (event) => {
   const target = event.target;
   const list = target.closest("ul");
   if (list.getAttribute("disabled")) {
-    console.log("Hello");
     return;
   }
   if (target.classList.contains("custom-select__item")) {

@@ -26,6 +26,10 @@
 
 .create-article__form {
   display: none;
+}
+
+.create-article__fieldset {
+  display: flex;
   flex-direction: column;
   row-gap: 16px;
   font-style: normal;
@@ -33,6 +37,11 @@
   font-size: 18px;
   line-height: 22px;
   color: var(--font-color--addtional-footer);
+  border: none;
+}
+
+.create-article__fieldset:disabled * {
+  cursor: not-allowed;
 }
 
 .create-artilce__form-item {
@@ -67,7 +76,6 @@
 .create-article__button:disabled {
   background-color: var(--background-color--form-buttons-disabled) !important;
   color: white !important;
-  cursor: default;
   pointer-events: none;
 }
 

@@ -1,13 +1,9 @@
 const loader = document.querySelector(".loader");
 const curtain = document.querySelector(".black-back");
 const adrminPanel = document.querySelector(".admin-panel");
-const formElements = Array.from(
-  document.querySelectorAll(".create-artilce__form-item"),
-);
-const formButtons = Array.from(
-  document.querySelectorAll(".create-article__button"),
-);
 const customsSelect = document.querySelector(".custom-select");
+
+const formFieldSet = document.querySelector(".create-article__fieldset");
 
 export function openLoader() {
   loader.classList.remove("is-hidden");
@@ -23,16 +19,14 @@ export function closeLoader() {
 
 export function openLoaderForm() {
   loader.classList.remove("is-hidden");
-  formElements.forEach((element) => element.setAttribute("disabled", ""));
-  formButtons.forEach((element) => element.setAttribute("disabled", ""));
+  formFieldSet.setAttribute("disabled", "");
   customsSelect.setAttribute("disabled", "true");
   customsSelect.setAttribute("tabindex", "none");
 }
 
 export function closeLoaderForm() {
   loader.classList.add("is-hidden");
-  formElements.forEach((element) => element.removeAttribute("disabled"));
-  formButtons.forEach((element) => element.removeAttribute("disabled"));
+  formFieldSet.removeAttribute("disabled", "");
   customsSelect.removeAttribute("disabled", "true");
   customsSelect.removeAttribute("tabindex", "none");
 }
