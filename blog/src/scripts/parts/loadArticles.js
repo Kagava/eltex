@@ -20,6 +20,9 @@ export function loadArticles() {
     promise
       .then(async (data) => {
         const articles = data.articles;
+        for (const item of articles) {
+          item.id = crypto.randomUUID();
+        }
         articlesJob(articles);
       })
       .catch((err) => {

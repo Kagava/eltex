@@ -33,7 +33,7 @@ export function createArticle(target) {
   console.log(title, description);
   const articleType = chooseType();
   const tempArticle = new Article(
-    articlesCount() + 1,
+    crypto.randomUUID(),
     title,
     description,
     imageUrl,
