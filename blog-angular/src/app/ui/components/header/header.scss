@@ -18,43 +18,91 @@
   @include set-font-style(normal, 500, 30px, 36px, 0.01em, var(--font-color--icon));
 }
 
-.burger-menu {
+.burger-button {
   display: none;
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  @media (max-width: 800px) {
+  width: 25px;
+  height: 25px;
+  z-index: 900;
+  flex-direction: column;
+  row-gap: 10px;
+  justify-content: space-around;
+  align-items: center;
+  &::after,
+  &::before {
+    content: '';
     display: block;
+    height: 3px;
+    width: 20px;
+    background-color: var(--font-color--link);
+    transition: transform 0.7s linear;
+  }
+  @media (max-width: 800px) {
+    display: flex;
+  }
+  &_active {
+    row-gap: 0px;
+    &::after {
+      transform: rotate(45deg) translate(-9px);
+    }
+    &::before {
+      transform: rotate(-45deg) translate(-9px);
+    }
   }
 }
 
-.navigation {
+.burger__content {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  width: 100%;
+  height: 100%;
+}
+
+.burger__curtain {
+  background-color: rgba($color: #000000, $alpha: 0.3);
+}
+
+.burger__menu {
+  display: none;
+  position: absolute;
+  right: 0%;
+  top: 0%;
+  z-index: 600;
+  width: 100dvw;
+  height: 100dvh;
+  margin-top: 70px;
+  transition: transform 0.7s linear;
   @media (max-width: 800px) {
-    // transform: translate(100%);
-    width: 70dvw;
-    height: 100dvh;
-    right: 0px;
-    overflow: hidden;
+    display: block;
+    transform: translate(100%);
   }
+  &_active {
+    @media (max-width: 800px) {
+      transform: translate(0);
+    }
+  }
+}
+
+.burger__list {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+  height: 100%;
+  padding: 20%;
+  background-color: white;
+  text-align: center;
+}
+
+.burger__link {
+  @include set-font-style(normal, 400, 20px, 18px, -0.03em, var(--font-color--addtional));
 }
 
 .navigation__list {
   display: flex;
   flex-direction: row;
   column-gap: 20px;
-  transition: transform 0.7s ease-in;
   @media (max-width: 800px) {
-    transform: translate(100%);
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    row-gap: 40px;
-    background-color: var(--background-color--pale-first);
-  }
-  &_active {
-    @media (max-width: 800px) {
-      transform: translate(0);
-    }
+    display: none;
   }
 }
 

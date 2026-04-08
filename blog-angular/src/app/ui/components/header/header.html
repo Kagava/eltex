@@ -4,7 +4,7 @@
       <span class="icon__name">Name-folio</span>
     </div>
     <nav class="navigation">
-      <ul class="navigation__list" [class.navigation__list_active]="isActiveBurger">
+      <ul class="navigation__list">
         <li class="navigation__element">
           <a href="#" class="navigation__link current-link">Главная страница</a>
         </li>
@@ -16,6 +16,23 @@
         </li>
       </ul>
     </nav>
-    <div class="burger-menu" (click)="openBurger()"></div>
+    <div
+      class="burger-button"
+      (click)="openBurger()"
+      [class.burger-button_active]="isActiveBurger"
+    ></div>
+    <div class="burger__menu" [class.burger__menu_active]="isActiveBurger">
+      <ul class="burger__list" (click)="openBurger()">
+        <li class="burger__element">
+          <a href="#" class="burger__link current-link">Главная страница</a>
+        </li>
+        <li class="burger__element">
+          <a href="#" class="burger__link">Блог</a>
+        </li>
+        <li class="burger__element">
+          <a href="#footer" class="burger__link">Контакт</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>
