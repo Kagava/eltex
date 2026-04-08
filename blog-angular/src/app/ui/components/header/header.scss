@@ -18,10 +18,44 @@
   @include set-font-style(normal, 500, 30px, 36px, 0.01em, var(--font-color--icon));
 }
 
+.burger-menu {
+  display: none;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  @media (max-width: 800px) {
+    display: block;
+  }
+}
+
+.navigation {
+  @media (max-width: 800px) {
+    // transform: translate(100%);
+    width: 70dvw;
+    height: 100dvh;
+    right: 0px;
+    overflow: hidden;
+  }
+}
+
 .navigation__list {
   display: flex;
   flex-direction: row;
   column-gap: 20px;
+  transition: transform 0.7s ease-in;
+  @media (max-width: 800px) {
+    transform: translate(100%);
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    row-gap: 40px;
+    background-color: var(--background-color--pale-first);
+  }
+  &_active {
+    @media (max-width: 800px) {
+      transform: translate(0);
+    }
+  }
 }
 
 .navigation__element {
