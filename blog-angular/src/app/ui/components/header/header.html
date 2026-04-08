@@ -21,7 +21,11 @@
       (click)="openBurger()"
       [class.burger-button_active]="isActiveBurger"
     ></div>
-    <div class="burger__menu" [class.burger__menu_active]="isActiveBurger">
+    <div
+      class="burger__menu"
+      [class.burger__menu_active]="isActiveBurger"
+      (window:scroll)="closeBurger()"
+    >
       <ul class="burger__list" (click)="openBurger()">
         <li class="burger__element">
           <a href="#" class="burger__link current-link">Главная страница</a>

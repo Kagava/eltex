@@ -11,4 +11,7 @@ export class Header {
   protected openBurger() {
     this.isActiveBurger = !this.isActiveBurger;
   }
+  protected closeBurger() {
+    this.isActiveBurger = false;
+  }
 }
