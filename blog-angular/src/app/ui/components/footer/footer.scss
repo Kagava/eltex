@@ -1,3 +1,7 @@
+$local-path: '/assets';
+$prod-path: '/eltex/blog/assets';
+$assets-path: $prod-path;
+
 .footer {
   margin-top: 30px;
   background-color: var(--background-color--footer);
@@ -52,15 +56,15 @@
 }
 
 .social-media__vk {
-  background-image: url(/assets/svgs/vk.svg);
+  background-image: url('#{$assets-path}/svgs/vk.svg');
 }
 
 .social-media__tg {
-  background-image: url(/assets/svgs/tg.svg);
+  background-image: url('#{$assets-path}/svgs/tg.svg');
 }
 
 .social-media__gh {
-  background-image: url(/assets/svgs/gh.svg);
+  background-image: url('#{$assets-path}/svgs/gh.svg');
 }
 
 .contacts__form {
@@ -117,13 +121,13 @@
     color: var(--font-color--link);
   }
   .social-media__vk:hover {
-    background-image: url(/assets/svgs/vk-hovered.svg);
+    background-image: url('#{$assets-path}/svgs/vk-hovered.svg');
   }
   .social-media__tg:hover {
-    background-image: url(/assets/svgs/tg-hovered.svg);
+    background-image: url('#{$assets-path}/svgs/tg-hovered.svg');
   }
   .social-media__gh:hover {
-    background-image: url(/assets/svgs/gh-hovered.svg);
+    background-image: url('#{$assets-path}/svgs/gh-hovered.svg');
   }
   .contacts__link:hover {
     color: var(--font-color--link);
@@ -136,13 +140,13 @@
     color: var(--font-color--link);
   }
   .social-media__vk:active {
-    background-image: url(/assets/svgs/vk-hovered.svg);
+    background-image: url('#{$assets-path}/svgs/vk-hovered.svg');
   }
   .social-media__tg:active {
-    background-image: url(/assets/svgs/tg-hovered.svg);
+    background-image: url('#{$assets-path}/svgs/tg-hovered.svg');
   }
   .social-media__gh:active {
-    background-image: url(/assets/svgs/gh-hovered.svg);
+    background-image: url('#{$assets-path}/svgs/tg-hovered.svg');
   }
   .contacts__link:active {
     color: var(--font-color--link);
