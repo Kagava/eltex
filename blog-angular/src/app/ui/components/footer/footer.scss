@@ -52,15 +52,15 @@
 }
 
 .social-media__vk {
-  background-image: url(/svgs/vk.svg);
+  background-image: url(/assets/svgs/vk.svg);
 }
 
 .social-media__tg {
-  background-image: url(/svgs/tg.svg);
+  background-image: url(/assets/svgs/tg.svg);
 }
 
 .social-media__gh {
-  background-image: url(/svgs/gh.svg);
+  background-image: url(/assets/svgs/gh.svg);
 }
 
 .contacts__form {
@@ -117,13 +117,13 @@
     color: var(--font-color--link);
   }
   .social-media__vk:hover {
-    background-image: url(/svgs/vk-hovered.svg);
+    background-image: url(/assets/svgs/vk-hovered.svg);
   }
   .social-media__tg:hover {
-    background-image: url(/svgs/tg-hovered.svg);
+    background-image: url(/assets/svgs/tg-hovered.svg);
   }
   .social-media__gh:hover {
-    background-image: url(/svgs/gh-hovered.svg);
+    background-image: url(/assets/svgs/gh-hovered.svg);
   }
   .contacts__link:hover {
     color: var(--font-color--link);
@@ -136,13 +136,13 @@
     color: var(--font-color--link);
   }
   .social-media__vk:active {
-    background-image: url(/svgs/vk-hovered.svg);
+    background-image: url(/assets/svgs/vk-hovered.svg);
   }
   .social-media__tg:active {
-    background-image: url(/svgs/tg-hovered.svg);
+    background-image: url(/assets/svgs/tg-hovered.svg);
   }
   .social-media__gh:active {
-    background-image: url(/svgs/gh-hovered.svg);
+    background-image: url(/assets/svgs/gh-hovered.svg);
   }
   .contacts__link:active {
     color: var(--font-color--link);
