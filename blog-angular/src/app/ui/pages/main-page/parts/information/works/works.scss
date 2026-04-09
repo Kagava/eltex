@@ -1,6 +1,4 @@
-$local-path: '/assets';
-$prod-path: '/eltex/blog/assets';
-$assets-path: $prod-path;
+@use 'path';
 
 .my-works {
   margin-top: 30px;
@@ -40,15 +38,15 @@ $assets-path: $prod-path;
 }
 
 .pair-em-up-image {
-  background-image: url('#{$assets-path}/pair-em-up.png');
+  background-image: url('#{path.$assets-path}/pair-em-up.png');
 }
 
 .cozy-house-image {
-  background-image: url('#{$assets-path}/Cozy-house.png');
+  background-image: url('#{path.$assets-path}/Cozy-house.png');
 }
 
 .chirstmas-shop-image {
-  background-image: url('#{$assets-path}/christmas-shop.png');
+  background-image: url('#{path.$assets-path}/christmas-shop.png');
 }
 
 .project__information {

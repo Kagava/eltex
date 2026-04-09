@@ -1,6 +1,4 @@
-$local-path: '/assets';
-$prod-path: '/eltex/blog/assets';
-$assets-path: $prod-path;
+@use 'path';
 
 .hobby__my-foto {
   grid-area: my-foto;
@@ -15,7 +13,7 @@ $assets-path: $prod-path;
 }
 
 .side-up__foto {
-  background-image: url('#{$assets-path}/rock.jpg');
+  background-image: url('#{path.$assets-path}/rock.jpg');
   background-position: center;
 }
 
@@ -24,7 +22,7 @@ $assets-path: $prod-path;
 }
 
 .side-down__foto {
-  background-image: url('#{$assets-path}/language.png');
+  background-image: url('#{path.$assets-path}/language.png');
   background-position: center;
 }
 
@@ -69,7 +67,7 @@ $assets-path: $prod-path;
 }
 
 .my-foto__foto {
-  background-image: url('#{$assets-path}/hobby-foto.jpg');
+  background-image: url('#{path.$assets-path}/hobby-foto.jpg');
 }
 
 .hobby__content {
@@ -83,7 +81,7 @@ $assets-path: $prod-path;
 }
 
 .main-hobby__foto {
-  background-image: url('#{$assets-path}/sport.png');
+  background-image: url('#{path.$assets-path}/sport.png');
 }
 
 .foto-container {

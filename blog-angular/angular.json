@@ -23,7 +23,7 @@
             "browser": "src/main.ts",
             "baseHref": "/eltex/blog/",
             "stylePreprocessorOptions": {
-              "includePaths": ["src"]
+              "includePaths": ["src/app/ui/global-styles"]
             },
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",

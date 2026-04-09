@@ -1,6 +1,4 @@
-$local-path: '/assets';
-$prod-path: '/eltex/blog/assets';
-$assets-path: $prod-path;
+@use 'path';
 
 .about {
   display: flex;
@@ -62,7 +60,7 @@ $assets-path: $prod-path;
     content: '';
     width: 200%;
     height: 200%;
-    background-image: url('#{$assets-path}/svgs/about-arrow.svg');
+    background-image: url('#{path.$assets-path}/svgs/about-arrow.svg');
     background-repeat: no-repeat;
     background-position: center;
     top: -50%;
@@ -75,7 +73,7 @@ $assets-path: $prod-path;
   min-width: 350px;
   border-radius: 0px 0px 42% 42%;
   display: inline-block;
-  background-image: url('#{$assets-path}/about-foto.png');
+  background-image: url('#{path.$assets-path}/about-foto.png');
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
@@ -85,7 +83,7 @@ $assets-path: $prod-path;
     width: 216px;
     height: 213px;
     background-color: transparent;
-    background-image: url('#{$assets-path}/something.png');
+    background-image: url('#{path.$assets-path}/something.png');
     left: -86px;
     top: calc(50% - 107px);
   }
