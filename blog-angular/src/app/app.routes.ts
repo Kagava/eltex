@@ -10,7 +10,7 @@ export const routes: Routes = [
         loadComponent: () => import('./ui/pages/main-page/main-page').then((c) => c.MainPage),
       },
       {
-        path: 'ariticles',
+        path: 'articles',
         loadComponent: () => import('./ui/pages/articles/articles').then((c) => c.Articles),
       },
     ],
