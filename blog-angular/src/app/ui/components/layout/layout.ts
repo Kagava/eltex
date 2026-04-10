@@ -12,14 +12,4 @@ import { RouterOutlet } from '@angular/router';
 export class Layout {
   public mainLink: string = 'main';
   public articlesLink: string = 'articles';
-
-  // Сигнальный запрос элемента. required() гарантирует наличие после инициализации
-  private footerEl = viewChild.required<ElementRef<HTMLElement>>('footerEl');
-
-  scrollToFooter(): void {
-    const el = this.footerEl().nativeElement;
-
-    // Плавный скролл к началу элемента
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
 }
