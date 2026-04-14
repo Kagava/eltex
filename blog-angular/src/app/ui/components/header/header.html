@@ -38,13 +38,20 @@
     >
       <ul class="burger__list" (click)="openBurger()">
         <li class="burger__element">
-          <a href="#" class="burger__link current-link">Главная страница</a>
+          <a [routerLink]="mainLink()" class="burger__link" [class.current-link]="isActive('main')"
+            >Главная страница</a
+          >
         </li>
         <li class="burger__element">
-          <a href="#" class="burger__link">Блог</a>
+          <a
+            [routerLink]="articlesLink()"
+            class="burger__link"
+            [class.current-link]="isActive('articles')"
+            >Блог</a
+          >
         </li>
         <li class="burger__element">
-          <a href="#footer" class="burger__link">Контакт</a>
+          <a [routerLink]="routerUrl" fragment="footer" class="burger__link">Контакт</a>
         </li>
       </ul>
     </div>
