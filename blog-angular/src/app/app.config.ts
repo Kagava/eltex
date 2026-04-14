@@ -10,8 +10,6 @@ export const appConfig: ApplicationConfig = {
       routes,
       withInMemoryScrolling({
         anchorScrolling: 'enabled',
-        // Настоятельно рекомендуется: автоматически восстанавливает позицию скролла
-        // при навигации "Назад/Вперёд" браузера
         scrollPositionRestoration: 'enabled',
       }),
     ),
