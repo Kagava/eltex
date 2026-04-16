@@ -9,8 +9,13 @@ import { Component, input, output } from '@angular/core';
 export class DialogStat {
   public isHidden = input<boolean>();
   public isHiddenOut = output<boolean>();
-
+  protected articleCout: number = 0;
   protected changeVision() {
+    console.log(this.isHidden);
     this.isHiddenOut.emit(true);
+  }
+
+  ngDoCheck() {
+    this.articleCout = document.querySelectorAll('.article').length;
   }
 }

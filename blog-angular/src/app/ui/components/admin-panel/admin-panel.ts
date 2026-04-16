@@ -16,6 +16,5 @@ export class AdminPanel {
   protected openStat() {
     this.isStatOpenFlag = !this.isStatOpenFlag;
     this.isStatOpen.emit(this.isStatOpenFlag);
-    console.log('stat is open');
   }
 }
