@@ -100,22 +100,6 @@
   &.rotate {
     z-index: auto;
   }
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--background-color--subimt-button-aticle);
-      cursor: pointer;
-    }
-    background-color: var(--background-color--subimt-button-aticle);
-    cursor: pointer;
-  }
-
-  @media (hover: none) {
-    &:active {
-      background-color: var(--background-color--subimt-button-aticle);
-      cursor: pointer;
-    }
-  }
 }
 
 .custom-select__arrow {
@@ -192,37 +176,11 @@
 .create-article__submit-button {
   color: var(--background-color--subimt-button-aticle--pale);
   background-color: var(--background-color--subimt-button-aticle);
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--background-color--subimt-button-aticle--pale);
-      color: var(--background-color--subimt-button-aticle);
-    }
-  }
-  @media (hover: none) {
-    &:active {
-      background-color: var(--background-color--subimt-button-aticle--pale);
-      color: var(--background-color--subimt-button-aticle);
-    }
-  }
 }
 
 .create-article__refresh-button {
   color: var(--background-color--subimt-button-aticle);
   background-color: var(--background-color--subimt-button-aticle--pale);
-
-  @media (hover: hover) {
-    &:hover {
-      color: var(--background-color--subimt-button-aticle--pale);
-      background-color: var(--background-color--subimt-button-aticle);
-    }
-  }
-  @media (hover: none) {
-    &:active {
-      color: var(--background-color--subimt-button-aticle--pale);
-      background-color: var(--background-color--subimt-button-aticle);
-    }
-  }
 }
 
 .create-article__curtain {
@@ -231,4 +189,34 @@
   left: 0px;
   width: 87vw;
   background-color: white;
+}
+
+@media (hover: hover) {
+  .create-article__submit-button:hover {
+    background-color: var(--background-color--subimt-button-aticle--pale);
+    color: var(--background-color--subimt-button-aticle);
+  }
+  .create-article__refresh-button:hover {
+    color: var(--background-color--subimt-button-aticle--pale);
+    background-color: var(--background-color--subimt-button-aticle);
+  }
+  .custom-select__item:hover {
+    background-color: var(--background-color--subimt-button-aticle);
+    cursor: pointer;
+  }
+}
+
+@media (hover: none) {
+  .create-article__submit-button:active {
+    background-color: var(--background-color--subimt-button-aticle--pale);
+    color: var(--background-color--subimt-button-aticle);
+  }
+  .create-article__refresh-button:active {
+    color: var(--background-color--subimt-button-aticle--pale);
+    background-color: var(--background-color--subimt-button-aticle);
+  }
+  .custom-select__item:active {
+    background-color: var(--background-color--subimt-button-aticle);
+    cursor: pointer;
+  }
 }

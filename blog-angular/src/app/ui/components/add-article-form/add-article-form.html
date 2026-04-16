@@ -2,7 +2,7 @@
   @if (toggleForm()) {
     <div class="">
       <h2 class="create-article__header">Создать статью</h2>
-      <form action="#" method="get" class="create-article__form">
+      <form method="get" class="create-article__form" (submit)="onSubmit($event)">
         <fieldset class="create-article__fieldset">
           <input
             name="Header"
@@ -16,21 +16,32 @@
             class="create-article__input-information create-artilce__form-item"
             placeholder="Текст статьи"
           ></textarea>
-          <ul class="custom-select" tabindex="0">
-            <span class="custom-select__choice">Tennis </span>
-            <li class="custom-select__item custom-select__tennis" data-choice="tennis">Tennis</li>
+          <ul class="custom-select" tabindex="0" (click)="openCustomeSelect($event)">
+            <span class="custom-select__choice">{{ spanSelectValue }} </span>
+            <li
+              class="custom-select__item custom-select__tennis"
+              data-choice="tennis"
+              [class.rotate]="isSelectOpen"
+              [style.transform]="transformString(0)"
+              (click)="tennisChoice($event)"
+            >
+              Tennis
+            </li>
             <li
               class="custom-select__item custom-select__frontend custom-select__item_last"
               data-choice="frontend"
+              [class.rotate]="isSelectOpen"
+              [style.transform]="transformString(1)"
+              (click)="frontendChoice($event)"
             >
               Frontend
             </li>
-            <div class="custom-select__arrow"></div>
+            <div class="custom-select__arrow" [class.rotate]="isSelectOpen"></div>
           </ul>
 
           <select name="type" id="" class="create-article__input-type create-artilce__form-item">
-            <option value="tennis" default>Tennis</option>
-            <option value="frontend">Frontend</option>
+            <option value="tennis" [defaultSelected]="checkDefault('Tennis')">Tennis</option>
+            <option value="frontend" [defaultSelected]="checkDefault('Frontend')">Frontend</option>
           </select>
           <div class="create-article__buttons">
             <button class="create-article__button create-article__submit-button">Добавить</button>
