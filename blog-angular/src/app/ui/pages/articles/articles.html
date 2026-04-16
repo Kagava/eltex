@@ -32,4 +32,9 @@
     }
   </div>
 </section>
-<app-admin-panel></app-admin-panel>
+<app-admin-panel (isStatOpen)="changeVision($event)"></app-admin-panel>
+<app-dialog-stat
+  [isHidden]="visionChangedFlag"
+  (isHiddenOut)="changeVision($event)"
+></app-dialog-stat>
+<app-curtain [isHidden]="visionChangedFlag" (isHiddenOut)="changeVision($event)"></app-curtain>

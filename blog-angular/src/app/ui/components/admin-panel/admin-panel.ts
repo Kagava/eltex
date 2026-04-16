@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
   selector: 'app-admin-panel',
@@ -6,4 +6,16 @@ import { Component } from '@angular/core';
   templateUrl: './admin-panel.html',
   styleUrl: './admin-panel.scss',
 })
-export class AdminPanel {}
+export class AdminPanel {
+  protected isStatOpen = output<boolean>();
+  private isStatOpenFlag = true;
+  protected openForm() {
+    console.log('form is open');
+  }
+
+  protected openStat() {
+    this.isStatOpenFlag = !this.isStatOpenFlag;
+    this.isStatOpen.emit(this.isStatOpenFlag);
+    console.log('stat is open');
+  }
+}
