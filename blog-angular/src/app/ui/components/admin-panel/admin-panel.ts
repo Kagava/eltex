@@ -9,8 +9,11 @@ import { Component, output } from '@angular/core';
 export class AdminPanel {
   protected isStatOpen = output<boolean>();
   private isStatOpenFlag = true;
+  protected isFormOpen = output<boolean>();
+  private isFormOpenFlag = false;
   protected openForm() {
-    console.log('form is open');
+    this.isFormOpenFlag = !this.isFormOpenFlag;
+    this.isFormOpen.emit(this.isFormOpenFlag);
   }
 
   protected openStat() {

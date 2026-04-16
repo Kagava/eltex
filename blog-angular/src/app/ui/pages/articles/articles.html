@@ -32,7 +32,11 @@
     }
   </div>
 </section>
-<app-admin-panel (isStatOpen)="changeVision($event)"></app-admin-panel>
+<app-add-article-form [toggleForm]="openFormFlag"></app-add-article-form>
+<app-admin-panel
+  (isStatOpen)="changeVision($event)"
+  (isFormOpen)="openForm($event)"
+></app-admin-panel>
 <app-dialog-stat
   [isHidden]="visionChangedFlag"
   (isHiddenOut)="changeVision($event)"
