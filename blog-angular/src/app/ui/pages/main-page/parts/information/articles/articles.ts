@@ -1,10 +1,11 @@
 import { Component, inject, output } from '@angular/core';
 import { ArticlesService } from '../../../../../../services/articles-service';
 import { Article } from '../../../../../../models/types/articles';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-articles',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
 })
