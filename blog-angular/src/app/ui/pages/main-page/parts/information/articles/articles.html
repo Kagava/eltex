@@ -2,7 +2,7 @@
   <h2 class="last_articles__header">Последний статьи</h2>
   <div class="last-articles__content">
     @for (article of outputArticles; track article.id) {
-      <div class="last-articles__article article" [class]="article.category">
+      <div class="last-articles__article article" [class]="article.category" [id]="article.id">
         <div class="article__text">
           <h4 class="last-articles__article-header">
             {{ article.title }}

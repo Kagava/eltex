@@ -18,6 +18,9 @@ export class ArticlesService {
 
   public get(quantity: number) {
     const sortedArticles: Article[] = this.sortArticles(this.currentArticles);
+    for (let item of sortedArticles) {
+      item.id = crypto.randomUUID();
+    }
     return sortedArticles.slice(0, quantity);
   }
 }
@@ -25,7 +28,7 @@ export class ArticlesService {
 const articles = {
   articles: [
     {
-      id: 1,
+      id: '1',
       title: 'Идеальная подача: как увеличить скорость мяча без травм',
       date: '2024-05-15',
       dateFormatted: '15 мая 2024',
@@ -35,7 +38,7 @@ const articles = {
       category: 'tennis-article',
     },
     {
-      id: 2,
+      id: '2',
       title: 'Специальная физподготовка: упражнения для теннисистов',
       date: '2024-05-22',
       dateFormatted: '22 мая 2024',
@@ -45,7 +48,7 @@ const articles = {
       category: 'tennis-article',
     },
     {
-      id: 3,
+      id: '3',
       title: 'Выбор ракетки: гид по параметрам для любителей и профи',
       date: '2024-06-05',
       dateFormatted: '5 июня 2024',
@@ -55,7 +58,7 @@ const articles = {
       category: 'tennis-article',
     },
     {
-      id: 4,
+      id: '4',
       title: 'Питание перед матчем: что есть теннисисту для энергии',
       date: '2024-06-18',
       dateFormatted: '18 июня 2024',
@@ -65,7 +68,7 @@ const articles = {
       category: 'tennis-article',
     },
     {
-      id: 5,
+      id: '5',
       title: 'Психология победы: как сохранять концентрацию в напряжении',
       date: '2024-07-01',
       dateFormatted: '1 июля 2024',
@@ -75,7 +78,7 @@ const articles = {
       category: 'tennis-article',
     },
     {
-      id: 6,
+      id: '6',
       title: 'Что нового в React 19: обзор ключевых изменений и хуков',
       date: '2024-05-10',
       dateFormatted: '10 мая 2024',
@@ -85,7 +88,7 @@ const articles = {
       category: 'frontend-article',
     },
     {
-      id: 7,
+      id: '7',
       title: 'CSS Grid против Flexbox: когда и что лучше использовать в верстке',
       date: '2024-05-24',
       dateFormatted: '25 мая 2024',
@@ -95,7 +98,7 @@ const articles = {
       category: 'frontend-article',
     },
     {
-      id: 8,
+      id: '8',
       title: 'Оптимизация Core Web Vitals: ускорение загрузки сайта на React',
       date: '2024-06-16',
       dateFormatted: '16 июня 2024',
@@ -105,7 +108,7 @@ const articles = {
       category: 'frontend-article',
     },
     {
-      id: 9,
+      id: '9',
       title: 'Продвинутый TypeScript: дженерики и утилиты для типизации',
       date: '2024-06-30',
       dateFormatted: '30 июня 2024',
@@ -115,7 +118,7 @@ const articles = {
       category: 'frontend-article',
     },
     {
-      id: 10,
+      id: '10',
       title: 'Доступность веб-интерфейсов: стандарты WCAG для frontend-разработчиков',
       date: '2024-07-15',
       dateFormatted: '15 июля 2024',

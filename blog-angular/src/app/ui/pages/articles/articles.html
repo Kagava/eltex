@@ -14,7 +14,7 @@
   </div>
   <div class="articles__container">
     @for (article of outputArticles; track article.id) {
-      <div class="articles__article article">
+      <div class="articles__article article" [id]="article.id">
         <div class="article__content" [class]="article.category">
           <div class="article__foto"></div>
           <div class="article__text">
