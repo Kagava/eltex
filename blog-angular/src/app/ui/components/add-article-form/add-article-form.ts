@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-article-form',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-article-form.html',
   styleUrl: './add-article-form.scss',
 })
@@ -11,13 +12,19 @@ export class AddArticleForm {
   protected isSelectOpen: boolean;
   private transform: number = 42;
   protected spanSelectValue: string = 'Tennis';
+  public form = new FormGroup({
+    title: new FormControl(),
+    description: new FormControl(),
+    articleType: new FormControl('tennis-article'),
+  });
+
   constructor() {
     this.isSelectOpen = false;
   }
 
   protected onSubmit(e: Event) {
     e.preventDefault();
-    console.log(e);
+    console.log(e, this.form.getRawValue(), this.form.value);
   }
 
   protected openCustomeSelect(event: Event) {
@@ -29,12 +36,14 @@ export class AddArticleForm {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
     this.spanSelectValue = 'Tennis';
+    this.form.patchValue({ articleType: 'tennis-article' });
   }
 
   protected frontendChoice(event: Event) {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
     this.spanSelectValue = 'Frontend';
+    this.form.patchValue({ articleType: 'frontend-article' });
   }
 
   protected transformString(value: number) {

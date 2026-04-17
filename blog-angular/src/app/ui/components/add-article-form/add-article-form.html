@@ -2,19 +2,26 @@
   @if (toggleForm()) {
     <div class="">
       <h2 class="create-article__header">Создать статью</h2>
-      <form method="get" class="create-article__form" (submit)="onSubmit($event)">
+      <form
+        method="get"
+        class="create-article__form"
+        (submit)="onSubmit($event)"
+        [formGroup]="form"
+      >
         <fieldset class="create-article__fieldset">
           <input
             name="Header"
             type="text"
             class="create-article__input-header create-artilce__form-item"
             placeholder="Заголовок"
+            formControlName="title"
           />
           <textarea
             rows="10"
             name="text"
             class="create-article__input-information create-artilce__form-item"
             placeholder="Текст статьи"
+            formControlName="description"
           ></textarea>
           <ul class="custom-select" tabindex="0" (click)="openCustomeSelect($event)">
             <span class="custom-select__choice">{{ spanSelectValue }} </span>
@@ -39,7 +46,12 @@
             <div class="custom-select__arrow" [class.rotate]="isSelectOpen"></div>
           </ul>
 
-          <select name="type" id="" class="create-article__input-type create-artilce__form-item">
+          <select
+            name="type"
+            id=""
+            class="create-article__input-type create-artilce__form-item"
+            formControlName="articleType"
+          >
             <option value="tennis" [defaultSelected]="checkDefault('Tennis')">Tennis</option>
             <option value="frontend" [defaultSelected]="checkDefault('Frontend')">Frontend</option>
           </select>
