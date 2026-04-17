@@ -22,7 +22,7 @@
               {{ article.title }}
             </h3>
             <p class="article__date date">
-              <time [attr.datetime]="article.date">{{ article.dateFormatted }}</time>
+              <time [attr.datetime]="article.date">Опубликовано: {{ article.dateFormatted }}</time>
             </p>
             <div class="article__information">{{ article.description }}</div>
           </div>
@@ -32,7 +32,10 @@
     }
   </div>
 </section>
-<app-add-article-form [toggleForm]="openFormFlag"></app-add-article-form>
+<app-add-article-form
+  [toggleForm]="openFormFlag"
+  (dataOut)="createNewArticle($event)"
+></app-add-article-form>
 <app-admin-panel
   (isStatOpen)="changeVision($event)"
   (isFormOpen)="openForm($event)"

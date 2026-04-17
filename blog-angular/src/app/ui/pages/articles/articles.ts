@@ -5,6 +5,8 @@ import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
 import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
+import { FormData } from '../../../models/types/form-data';
+import { CreateArticle } from '../../../services/create-article';
 
 @Component({
   selector: 'app-articles',
@@ -13,6 +15,7 @@ import { AddArticleForm } from '../../components/add-article-form/add-article-fo
   styleUrl: './articles.scss',
 })
 export class Articles {
+  private createArticleService = inject(CreateArticle);
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
   private articleService = inject(ArticlesService);
@@ -28,5 +31,10 @@ export class Articles {
 
   public openForm(event: boolean) {
     this.openFormFlag = event;
+  }
+
+  public createNewArticle(data: FormData) {
+    this.createArticleService.set(data);
+    this.outputArticles.unshift(this.createArticleService.get());
   }
 }

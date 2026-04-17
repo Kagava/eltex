@@ -1,5 +1,12 @@
-import { Component, input } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, input, output } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { FormData } from '../../../models/types/form-data';
 
 @Component({
   selector: 'app-add-article-form',
@@ -8,14 +15,16 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './add-article-form.scss',
 })
 export class AddArticleForm {
+  private readonly fb = inject(NonNullableFormBuilder);
   public toggleForm = input<boolean>();
   protected isSelectOpen: boolean;
   private transform: number = 42;
   protected spanSelectValue: string = 'Tennis';
-  public form = new FormGroup({
-    title: new FormControl(),
-    description: new FormControl(),
-    articleType: new FormControl('tennis-article'),
+  public dataOut = output<FormData>();
+  public form = this.fb.group({
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+    category: ['tennis-article', Validators.required],
   });
 
   constructor() {
@@ -24,7 +33,7 @@ export class AddArticleForm {
 
   protected onSubmit(e: Event) {
     e.preventDefault();
-    console.log(e, this.form.getRawValue(), this.form.value);
+    this.dataOut.emit(this.form.getRawValue());
   }
 
   protected openCustomeSelect(event: Event) {
@@ -36,14 +45,14 @@ export class AddArticleForm {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
     this.spanSelectValue = 'Tennis';
-    this.form.patchValue({ articleType: 'tennis-article' });
+    this.form.patchValue({ category: 'tennis-article' });
   }
 
   protected frontendChoice(event: Event) {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
     this.spanSelectValue = 'Frontend';
-    this.form.patchValue({ articleType: 'frontend-article' });
+    this.form.patchValue({ category: 'frontend-article' });
   }
 
   protected transformString(value: number) {
