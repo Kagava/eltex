@@ -37,4 +37,13 @@ export class Articles {
     this.createArticleService.set(data);
     this.outputArticles.unshift(this.createArticleService.get());
   }
+
+  public removeArticle(id: string) {
+    const currentArticlesArray = this.outputArticles;
+    for (let i = 0; i < currentArticlesArray.length; i += 1) {
+      if (currentArticlesArray[i].id === id) {
+        this.outputArticles.splice(i, 1);
+      }
+    }
+  }
 }

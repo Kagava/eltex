@@ -27,7 +27,8 @@
             <div class="article__information">{{ article.description }}</div>
           </div>
         </div>
-        <div class="close-button article__close"></div>
+        @let articleId = article.id;
+        <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
       </div>
     }
   </div>
