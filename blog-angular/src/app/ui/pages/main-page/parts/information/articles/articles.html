@@ -1,75 +1,28 @@
 <section class="last-articles">
   <h2 class="last_articles__header">Последний статьи</h2>
   <div class="last-articles__content">
-    <div class="last-articles__article article frontend-article">
-      <div class="article__text">
-        <h4 class="last-articles__article-header">
-          Доступность веб-интерфейсов: стандарты WCAG для frontend-разработчиков
-        </h4>
-        <p class="last-articles__date date">
-          <time datetime="2024-07-15">Опубликовано: 15 июля 2024</time>
-        </p>
-        <p class="last-articles__information information">
-          Инклюзивность становится стандартом. Рассматриваем навигацию с клавиатуры и скринридеры.
-          Научитесь создавать формы, удобные для пользователей. Проверка контрастности и семантики
-          описана просто. Внедрение практик расширит аудиторию. Делайте веб лучше для человека без
-          исключений и ограничений.
-        </p>
+    @for (article of outputArticles; track article.id) {
+      <div class="last-articles__article article" [class]="article.category" [id]="article.id">
+        <div class="article__text">
+          <h4 class="last-articles__article-header">
+            {{ article.title }}
+          </h4>
+          <p class="last-articles__date date">
+            <time [attr.datetime]="article.date">{{ article.dateFormatted }}</time>
+          </p>
+          <p class="last_articles__information information">{{ article.description }}</p>
+        </div>
+        <div class="article__image-container">
+          <img
+            src="assets/article-foto.png"
+            alt="Картиночка для статьи"
+            class="image-container__image"
+          />
+        </div>
       </div>
-      <div class="article__image-container">
-        <img
-          src="assets/article-foto.png"
-          alt="Картиночка для статьи"
-          class="image-container__image"
-        />
-      </div>
-    </div>
-    <div class="last-articles__article article tennis-article">
-      <div class="article__text">
-        <h4 class="last-articles__article-header">
-          Психология победы: как сохранять концентрацию в напряжении
-        </h4>
-        <p class="last-articles__date date">
-          <time datetime="2024-07-01"> Опубликовано: 1 июля 2024</time>
-        </p>
-        <p class="last-articles__information information">
-          Ментальная устойчивость решает исход матчей. Описаны техники дыхания для снятия стресса на
-          корте. Узнайте, как бороться с негативными мыслями после ошибок и сохранять фокус.
-          Интервью с психологом раскроет секреты. Применяйте методы, чтобы выигрывать очки и
-          чувствовать себя увереннее в игре.
-        </p>
-      </div>
-      <div class="article__image-container">
-        <img
-          src="assets/article-foto.png"
-          alt="Картиночка для статьи"
-          class="image-container__image"
-        />
-      </div>
-    </div>
-    <div class="last-articles__article article frontend-article">
-      <div class="article__text">
-        <h4 class="last-articles__article-header">
-          Продвинутый TypeScript: дженерики и утилиты для типизации
-        </h4>
-        <p class="last-articles__date date">
-          <time datetime="2024-06-30"> Опубликовано: 30 июня 2024 </time>
-        </p>
-        <p class="last-articles__information information">
-          Типизация спасает от ошибок в продакшене. Погружаемся в работу с типами и выражениями.
-          Узнайте, как писать код без потери безопасности. Разбор паттернов поможет избежать проблем
-          при рефакторинге. Статья для разработчиков, желающих поднять уровень владения инструментом
-          значительно.
-        </p>
-      </div>
-      <div class="article__image-container">
-        <img
-          src="assets/article-foto.png"
-          alt="Картиночка для статьи"
-          class="image-container__image"
-        />
-      </div>
-    </div>
+    }
   </div>
-  <a href="#" class="last-articles__link-to-blog-page link-to-blog-page">Посмотреть все статьи</a>
+  <a [routerLink]="'/articles'" class="last-articles__link-to-blog-page link-to-blog-page"
+    >Посмотреть все статьи</a
+  >
 </section>

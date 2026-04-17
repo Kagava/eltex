@@ -1,0 +1,14 @@
+<dialog class="dialog" [class.is-hidden]="isHidden()">
+  <h3 class="dialog__header">Статистика страницы</h3>
+  <div class="dialog__container">
+    <div class="dialog__part">
+      <h4 class="dialog__title">Всего статей</h4>
+      <span class="dialog__counter">{{ articleCout }}</span>
+    </div>
+    <div class="dialog__part">
+      <h4 class="dialog__title">Комментарии</h4>
+      <span class="dialog__counter">0</span>
+    </div>
+  </div>
+  <div class="close-button" (click)="changeVision()"></div>
+</dialog>
