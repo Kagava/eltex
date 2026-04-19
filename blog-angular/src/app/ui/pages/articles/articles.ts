@@ -7,10 +7,11 @@ import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
 import { FormData } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
+import { ArticleComponent } from './article/article';
 
 @Component({
   selector: 'app-articles',
-  imports: [AdminPanel, Curtain, DialogStat, AddArticleForm],
+  imports: [AdminPanel, Curtain, DialogStat, AddArticleForm, ArticleComponent],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
 })
@@ -39,6 +40,7 @@ export class Articles {
   }
 
   public removeArticle(id: string) {
+    console.log('have to delete', id);
     const currentArticlesArray = this.outputArticles;
     for (let i = 0; i < currentArticlesArray.length; i += 1) {
       if (currentArticlesArray[i].id === id) {

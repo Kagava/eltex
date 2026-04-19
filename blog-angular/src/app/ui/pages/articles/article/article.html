@@ -1,0 +1,22 @@
+<div class="articles__container">
+  @if (articleArray()) {
+    @for (article of articleArray(); track article.id) {
+      <div class="articles__article article" [id]="article.id">
+        <div class="article__content" [class]="article.category">
+          <div class="article__foto"></div>
+          <div class="article__text">
+            <h3 class="article__article-header">
+              {{ article.title }}
+            </h3>
+            <p class="article__date date">
+              <time [attr.datetime]="article.date">Опубликовано: {{ article.dateFormatted }}</time>
+            </p>
+            <div class="article__information">{{ article.description }}</div>
+          </div>
+        </div>
+        @let articleId = article.id;
+        <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
+      </div>
+    }
+  }
+</div>
