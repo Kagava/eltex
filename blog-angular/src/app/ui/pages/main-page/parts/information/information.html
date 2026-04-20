@@ -2,14 +2,10 @@
   <app-career></app-career>
   <app-hobby></app-hobby>
   <section class="last-articles">
-    <h2 class="last_articles__header">Последний статьи</h2>
     <app-article-component
       [articleArray]="outputArticles"
       (articleToDelete)="removeArticle($event)"
     ></app-article-component>
-    <a [routerLink]="'/articles'" class="last-articles__link-to-blog-page link-to-blog-page"
-      >Посмотреть все статьи</a
-    >
   </section>
   <app-works></app-works>
 </div>

@@ -115,3 +115,116 @@
 .frontend-article {
   background-color: var(--background-color--frontend);
 }
+
+.last-articles {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
+  align-items: center;
+}
+
+.last-articles__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 60px;
+  &:not(:has(.article_main)) {
+    justify-content: center;
+    &::before {
+      content: 'Нет статей';
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 100px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      color: var(--font-color--addtional);
+    }
+  }
+}
+
+.article_main {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  border-radius: 20px;
+  @media (max-width: 1000px) {
+    width: 90%;
+    margin: auto;
+    flex-direction: column-reverse;
+    row-gap: 20px;
+  }
+}
+
+.article__text_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  row-gap: 16px;
+  padding: 40px 0px 0px 40px;
+  @media (max-width: 1200px) {
+    padding: 30px 30px 10px 30px;
+  }
+  @media (max-width: 1000px) {
+    padding: 10px;
+  }
+}
+
+.last-articles__date {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.article__image-container {
+  display: flex;
+  justify-content: center;
+  width: 155%;
+  padding-right: 5px;
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
+}
+
+.image-container__image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.link-to-blog-page {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  color: var(--font-color--link);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  padding: 11px 30px;
+  border: 1px solid var(--background-color--submit-button);
+  border-radius: 5px;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+}
+
+@media (hover: hover) {
+  .link-to-blog-page:hover {
+    color: var(--background-color--submit-button--pale);
+    background-color: var(--font-color--link);
+  }
+}
+
+@media (hover: none) {
+  .link-to-blog-page:active {
+    color: var(--background-color--submit-button--pale);
+    background-color: var(--font-color--link);
+  }
+}

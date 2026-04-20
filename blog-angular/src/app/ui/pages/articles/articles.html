@@ -15,6 +15,7 @@
   <app-article-component
     [articleArray]="outputArticles"
     (articleToDelete)="removeArticle($event)"
+    [articlePage]="true"
   ></app-article-component>
 </section>
 <app-add-article-form
