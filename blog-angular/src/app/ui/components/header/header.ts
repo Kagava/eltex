@@ -1,9 +1,9 @@
-import { Component, inject, input, computed } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, inject, input } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
@@ -11,11 +11,10 @@ export class Header {
   mainLink = input<string>();
   articlesLink = input<string>();
   private readonly router = inject(Router);
-  routerUrl: string = '';
-  isActive(path: string): boolean {
-    this.routerUrl = this.router.url.split(/[,/#.;\s]+/)[1];
-    return this.routerUrl === path;
-  }
+  protected routerUrl = (): string => {
+    return this.router.url.split(/[,/#.;\s]+/).join('');
+  };
+
   protected isActiveBurger = false;
   protected openBurger() {
     this.isActiveBurger = !this.isActiveBurger;

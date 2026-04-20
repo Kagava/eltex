@@ -15,9 +15,5 @@ export class Articles {
   protected outputArticles: Article[] = [];
   constructor() {
     this.outputArticles = this.articleService.get(this.quantityArticles);
-    console.log(this.outputArticles);
-    for (let article of this.outputArticles) {
-      console.log(article.id);
-    }
   }
 }
