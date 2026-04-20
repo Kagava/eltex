@@ -17,7 +17,7 @@ import { FormData } from '../../../models/types/form-data';
 export class AddArticleForm {
   private readonly fb = inject(NonNullableFormBuilder);
   public toggleForm = input<boolean>();
-  protected isSelectOpen: boolean;
+  protected isSelectOpen: boolean = false;
   private transform: number = 42;
   protected spanSelectValue: string = 'Tennis';
   public dataOut = output<FormData>();
@@ -27,9 +27,7 @@ export class AddArticleForm {
     category: ['tennis-article', Validators.required],
   });
 
-  constructor() {
-    this.isSelectOpen = false;
-  }
+  constructor() {}
 
   protected onSubmit(e: Event) {
     e.preventDefault();
