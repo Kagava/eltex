@@ -7,7 +7,7 @@ import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
 import { FormData } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
-import { ArticleComponent } from './article/article';
+import { ArticleComponent } from '../../components/article-component/article-component';
 
 @Component({
   selector: 'app-articles',

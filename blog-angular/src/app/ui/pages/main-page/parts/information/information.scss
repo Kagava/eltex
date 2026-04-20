@@ -6,8 +6,13 @@ app-hobby {
   grid-area: hobby;
 }
 
-app-articles {
+.last-articles {
   grid-area: articles;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
+  align-items: center;
 }
 
 app-works {
@@ -28,5 +33,36 @@ app-works {
       'hobby'
       'articles'
       'my-works';
+  }
+}
+
+.link-to-blog-page {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  color: var(--font-color--link);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  padding: 11px 30px;
+  border: 1px solid var(--background-color--submit-button);
+  border-radius: 5px;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+}
+
+@media (hover: hover) {
+  .link-to-blog-page:hover {
+    color: var(--background-color--submit-button--pale);
+    background-color: var(--font-color--link);
+  }
+}
+
+@media (hover: none) {
+  .link-to-blog-page:active {
+    color: var(--background-color--submit-button--pale);
+    background-color: var(--font-color--link);
   }
 }

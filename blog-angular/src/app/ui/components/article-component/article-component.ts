@@ -1,11 +1,10 @@
 import { Component, input, output } from '@angular/core';
-import { Article } from '../../../../models/types/articles';
-
+import { Article } from '../../../models/types/articles';
 @Component({
-  selector: 'app-article',
+  selector: 'app-article-component',
   imports: [],
-  templateUrl: './article.html',
-  styleUrl: './article.scss',
+  templateUrl: './article-component.html',
+  styleUrl: './article-component.scss',
 })
 export class ArticleComponent {
   public articleArray = input<Article[]>();

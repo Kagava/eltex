@@ -12,10 +12,10 @@
     </div>
     <div class="articles__image"></div>
   </div>
-  <app-article
+  <app-article-component
     [articleArray]="outputArticles"
     (articleToDelete)="removeArticle($event)"
-  ></app-article>
+  ></app-article-component>
 </section>
 <app-add-article-form
   [toggleForm]="openFormFlag"
