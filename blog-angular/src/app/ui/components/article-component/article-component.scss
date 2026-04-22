@@ -24,6 +24,9 @@
       color: var(--font-color--addtional);
     }
   }
+  @media (max-width: 636px) {
+    justify-content: space-around;
+  }
 }
 
 .article {
@@ -60,6 +63,7 @@
       font-size: 24px;
       line-height: 29px;
       display: -webkit-box;
+      line-clamp: 2;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;

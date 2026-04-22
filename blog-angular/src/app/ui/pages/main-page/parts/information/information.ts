@@ -3,13 +3,12 @@ import { Career } from './career/career';
 import { Hobby } from './hobby/hobby';
 import { Works } from './works/works';
 import { ArticleComponent } from '../../../../components/article-component/article-component';
-import { RouterLink } from '@angular/router';
 import { ArticlesService } from '../../../../../services/articles-service';
 import { Article } from '../../../../../models/types/articles';
 
 @Component({
   selector: 'app-information',
-  imports: [Career, Hobby, Works, ArticleComponent, RouterLink],
+  imports: [Career, Hobby, Works, ArticleComponent],
   templateUrl: './information.html',
   styleUrl: './information.scss',
 })
