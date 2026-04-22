@@ -6,6 +6,7 @@
         method="get"
         class="create-article__form"
         (submit)="onSubmit($event)"
+        (reset)="resetForm()"
         [formGroup]="form"
       >
         <fieldset class="create-article__fieldset">
@@ -16,6 +17,19 @@
             placeholder="Заголовок"
             formControlName="title"
           />
+          <span
+            class="create-article__error-span"
+            [class.invalid]="form.get('title')?.invalid && form.get('title')?.touched"
+            >Ошибка:
+            @if (form.get('title')?.errors) {
+              @let currentError = form.get('title')?.errors;
+              @if (currentError!['required']) {
+                поле обязательно для заполнения
+              } @else {
+                минимальная длина заголовка должная быть 25 симоволов
+              }
+            }
+          </span>
           <textarea
             rows="10"
             name="text"
@@ -23,6 +37,11 @@
             placeholder="Текст статьи"
             formControlName="description"
           ></textarea>
+          <span
+            class="create-article__error-span"
+            [class.invalid]="form.get('description')?.invalid && form.get('description')?.touched"
+            >Ошибка: поле обязательно для заполнения</span
+          >
           <ul class="custom-select" tabindex="0" (click)="openCustomeSelect($event)">
             <span class="custom-select__choice">{{ spanSelectValue }} </span>
             <li
@@ -56,7 +75,12 @@
             <option value="frontend" [defaultSelected]="checkDefault('Frontend')">Frontend</option>
           </select>
           <div class="create-article__buttons">
-            <button class="create-article__button create-article__submit-button">Добавить</button>
+            <button
+              class="create-article__button create-article__submit-button"
+              [disabled]="form.invalid"
+            >
+              Добавить
+            </button>
             <button class="create-article__button create-article__refresh-button" type="reset">
               Отменить
             </button>

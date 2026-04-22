@@ -22,16 +22,20 @@ export class AddArticleForm {
   protected spanSelectValue: string = 'Tennis';
   public dataOut = output<FormData>();
   public form = this.fb.group({
-    title: ['', Validators.required],
+    title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
     category: ['tennis-article', Validators.required],
   });
 
+  protected titleError = this.form.get('title')?.errors;
   constructor() {}
 
   protected onSubmit(e: Event) {
     e.preventDefault();
     this.dataOut.emit(this.form.getRawValue());
+
+    this.form.reset();
+    this.resetForm();
   }
 
   protected openCustomeSelect(event: Event) {
@@ -63,5 +67,10 @@ export class AddArticleForm {
 
   protected checkDefault(value: string) {
     return value === this.spanSelectValue;
+  }
+
+  protected resetForm() {
+    console.log('eowaijaw');
+    this.spanSelectValue = 'Tennis';
   }
 }
