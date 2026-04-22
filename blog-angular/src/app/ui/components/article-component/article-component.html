@@ -18,6 +18,7 @@
             </div>
           </div>
           @let articleId = article.id;
+          <div class="edit-button article__edit"><span class="edit-button__center"></span></div>
           <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
         </div>
       }
@@ -49,7 +50,9 @@
               class="image-container__image"
             />
           </div>
+
           @let articleId = article.id;
+          <div class="edit-button article__edit"></div>
           <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
         </div>
       }
