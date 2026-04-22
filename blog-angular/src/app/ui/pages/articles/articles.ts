@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { ArticlesService } from '../../../services/articles-service';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
@@ -27,7 +27,7 @@ export class Articles {
   }
 
   public changeVision(event: boolean) {
-    this.visionChangedFlag = event;
+    this.visionChangedFlag = !event;
   }
 
   public openForm(event: boolean) {

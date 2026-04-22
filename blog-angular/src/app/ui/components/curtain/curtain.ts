@@ -11,6 +11,6 @@ export class Curtain {
   public isHiddenOut = output<boolean>();
 
   protected changeVision() {
-    this.isHiddenOut.emit(true);
+    this.isHiddenOut.emit(false);
   }
 }

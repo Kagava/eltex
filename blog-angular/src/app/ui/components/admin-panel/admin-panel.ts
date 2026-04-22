@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-admin-panel',
@@ -11,13 +11,13 @@ export class AdminPanel {
   private isStatOpenFlag = true;
   protected isFormOpen = output<boolean>();
   private isFormOpenFlag = false;
+  public closeStat = input<boolean>(true);
   protected openForm() {
     this.isFormOpenFlag = !this.isFormOpenFlag;
     this.isFormOpen.emit(this.isFormOpenFlag);
   }
 
   protected openStat() {
-    this.isStatOpenFlag = !this.isStatOpenFlag;
-    this.isStatOpen.emit(this.isStatOpenFlag);
+    this.isStatOpen.emit(this.closeStat());
   }
 }

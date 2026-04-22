@@ -23,11 +23,13 @@
   (dataOut)="createNewArticle($event)"
 ></app-add-article-form>
 <app-admin-panel
+  [closeStat]="visionChangedFlag"
   (isStatOpen)="changeVision($event)"
   (isFormOpen)="openForm($event)"
 ></app-admin-panel>
 <app-dialog-stat
   [isHidden]="visionChangedFlag"
   (isHiddenOut)="changeVision($event)"
+  [articleCout]="outputArticles.length"
 ></app-dialog-stat>
 <app-curtain [isHidden]="visionChangedFlag" (isHiddenOut)="changeVision($event)"></app-curtain>

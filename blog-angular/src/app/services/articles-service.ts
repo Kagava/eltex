@@ -23,6 +23,9 @@ export class ArticlesService {
     }
     return sortedArticles.slice(0, quantity);
   }
+  public getLength() {
+    return this.currentArticles.length;
+  }
 }
 
 const articles = {
