@@ -18,11 +18,10 @@ export class AdminPanel {
   protected openForm() {
     if (this.isEditForm()) {
       this.isFormOpenFlag = false;
-      this.isFormOpen.emit(this.isFormOpenFlag);
     } else {
       this.isFormOpenFlag = !this.isFormOpenFlag;
-      this.isFormOpen.emit(this.isFormOpenFlag);
     }
+    this.isFormOpen.emit(this.isFormOpenFlag);
   }
 
   protected openStat() {
