@@ -17,13 +17,19 @@ import { ArticleComponent } from '../../components/article-component/article-com
 })
 export class Articles {
   private formChild = viewChild<ElementRef>('form');
-  protected dialogVisible: boolean = false;
   private createArticleService = inject(CreateArticle);
+  private articleService = inject(ArticlesService);
+  private quantity = 10;
+
+  protected dialogVisible: boolean = false;
+  protected outputArticles: Article[] = [];
+
+  public editArticleId: string = '';
+  public editArticleData: FormData = { title: '', description: '', category: '' };
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
-  private articleService = inject(ArticlesService);
-  protected outputArticles: Article[] = [];
-  private quantity = 10;
+  public editFormFlag: boolean = false;
+
   constructor() {
     this.outputArticles = this.articleService.get(this.quantity);
   }
@@ -33,6 +39,9 @@ export class Articles {
   }
 
   public openForm(event: boolean) {
+    this.editArticleId = '';
+    this.editArticleData = { title: '', description: '', category: '' };
+    this.editFormFlag = false;
     this.openFormFlag = event;
   }
 
@@ -51,14 +60,16 @@ export class Articles {
     }
   }
 
-  protected editArticle(data: FormData) {
-    this.openForm(true);
+  protected editArticle(data: { data: FormData; id: string }) {
+    this.editFormFlag = true;
+    this.openFormFlag = true;
+    this.editArticleData = data.data;
+    this.editArticleId = data.id;
     this.formChild()?.nativeElement.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
       inline: 'nearest',
     });
-    console.log(data, this.formChild());
   }
 
   ngOnInit() {

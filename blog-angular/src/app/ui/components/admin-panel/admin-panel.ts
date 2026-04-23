@@ -7,14 +7,22 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './admin-panel.scss',
 })
 export class AdminPanel {
-  protected isStatOpen = output<boolean>();
-  private isStatOpenFlag = true;
-  protected isFormOpen = output<boolean>();
   private isFormOpenFlag = false;
+
+  protected isStatOpen = output<boolean>();
+  protected isFormOpen = output<boolean>();
+
+  public isEditForm = input<boolean>();
   public closeStat = input<boolean>(true);
+
   protected openForm() {
-    this.isFormOpenFlag = !this.isFormOpenFlag;
-    this.isFormOpen.emit(this.isFormOpenFlag);
+    if (this.isEditForm()) {
+      this.isFormOpenFlag = false;
+      this.isFormOpen.emit(this.isFormOpenFlag);
+    } else {
+      this.isFormOpenFlag = !this.isFormOpenFlag;
+      this.isFormOpen.emit(this.isFormOpenFlag);
+    }
   }
 
   protected openStat() {

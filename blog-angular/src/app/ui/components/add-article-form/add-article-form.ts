@@ -16,10 +16,14 @@ import { FormData } from '../../../models/types/form-data';
 })
 export class AddArticleForm {
   private readonly fb = inject(NonNullableFormBuilder);
-  public toggleForm = input<boolean>();
-  protected isSelectOpen: boolean = false;
   private transform: number = 42;
+
+  protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
+  protected flagEdit: boolean = false;
+  public toggleForm = input<boolean>();
+  public editData = input<FormData>();
+  public editId = input<string>();
   public dataOut = output<FormData>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
@@ -44,6 +48,7 @@ export class AddArticleForm {
   }
 
   protected tennisChoice(event: Event) {
+    console.log(this.editData(), this.form.getRawValue());
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
     this.spanSelectValue = 'Tennis';
@@ -70,7 +75,32 @@ export class AddArticleForm {
   }
 
   protected resetForm() {
-    console.log('eowaijaw');
     this.spanSelectValue = 'Tennis';
+  }
+
+  ngOnChanges() {
+    console.log(this.editData());
+    const tempData = this.editData();
+    if (tempData && tempData.title !== '') {
+      this.flagEdit = true;
+      this.form.setValue({
+        title: tempData.title,
+        description: tempData.description,
+        category: tempData.category,
+      });
+      if (tempData.category === 'frontend-article') {
+        this.spanSelectValue = 'Fontend';
+      } else {
+        this.spanSelectValue = 'Tennis';
+      }
+    } else {
+      this.flagEdit = false;
+      this.form.setValue({
+        title: '',
+        description: '',
+        category: 'Tennis',
+      });
+      this.spanSelectValue = 'Tennis';
+    }
   }
 }

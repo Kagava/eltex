@@ -21,11 +21,14 @@
 </section>
 <div #form>
   <app-add-article-form
+    [editData]="editArticleData"
+    [editId]="editArticleId"
     [toggleForm]="openFormFlag"
     (dataOut)="createNewArticle($event)"
   ></app-add-article-form>
 </div>
 <app-admin-panel
+  [isEditForm]="editFormFlag"
   [closeStat]="visionChangedFlag"
   (isStatOpen)="changeVision($event)"
   (isFormOpen)="openForm($event)"

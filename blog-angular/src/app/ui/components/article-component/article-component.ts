@@ -13,11 +13,12 @@ export class ArticleComponent {
   public articleArray = input<Article[]>();
   public articleToDelete = output<string>();
   public articlePage = input<boolean>();
-  public isEditFormOpenFlag = output<FormData>();
+  public isEditFormOpenFlag = output<{ data: FormData; id: string }>();
+
   removeArticle(id: string) {
     this.articleToDelete.emit(id);
   }
-  protected openEditForm(data: FormData) {
-    this.isEditFormOpenFlag.emit(data);
+  protected openEditForm(data: FormData, id: string) {
+    this.isEditFormOpenFlag.emit({ data, id });
   }
 }
