@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { RouterLink } from '@angular/router';
-import { FormData } from '../../../models/types/form-data';
+import { FormData, FormDataString } from '../../../models/types/form-data';
 
 @Component({
   selector: 'app-article-component',
@@ -13,7 +13,7 @@ export class ArticleComponent {
   public articleArray = input<Article[]>();
   public articleToDelete = output<string>();
   public articlePage = input<boolean>();
-  public isEditFormOpenFlag = output<{ data: FormData; id: string }>();
+  public isEditFormOpenFlag = output<FormDataString>();
 
   removeArticle(id: string) {
     this.articleToDelete.emit(id);

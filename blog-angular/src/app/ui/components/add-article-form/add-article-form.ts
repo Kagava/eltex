@@ -1,12 +1,6 @@
 import { Component, inject, input, output } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { FormData } from '../../../models/types/form-data';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormData, FormDataString } from '../../../models/types/form-data';
 
 @Component({
   selector: 'app-add-article-form',
@@ -21,10 +15,12 @@ export class AddArticleForm {
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
   protected flagEdit: boolean = false;
+
   public toggleForm = input<boolean>();
   public editData = input<FormData>();
   public editId = input<string>();
   public dataOut = output<FormData>();
+  public dataOutEdit = output<FormDataString>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
@@ -36,8 +32,12 @@ export class AddArticleForm {
 
   protected onSubmit(e: Event) {
     e.preventDefault();
-    this.dataOut.emit(this.form.getRawValue());
-
+    if (this.flagEdit) {
+      this.dataOutEdit.emit({ data: this.form.getRawValue(), id: this.editId()! });
+      this.flagEdit = false;
+    } else {
+      this.dataOut.emit(this.form.getRawValue());
+    }
     this.form.reset();
     this.resetForm();
   }
@@ -48,7 +48,6 @@ export class AddArticleForm {
   }
 
   protected tennisChoice(event: Event) {
-    console.log(this.editData(), this.form.getRawValue());
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
     this.spanSelectValue = 'Tennis';
@@ -79,7 +78,6 @@ export class AddArticleForm {
   }
 
   ngOnChanges() {
-    console.log(this.editData());
     const tempData = this.editData();
     if (tempData && tempData.title !== '') {
       this.flagEdit = true;

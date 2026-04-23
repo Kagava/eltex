@@ -5,7 +5,7 @@ import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
 import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
-import { FormData } from '../../../models/types/form-data';
+import { FormData, FormDataString } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 
@@ -51,7 +51,6 @@ export class Articles {
   }
 
   public removeArticle(id: string) {
-    console.log('have to delete', id);
     const currentArticlesArray = this.outputArticles;
     for (let i = 0; i < currentArticlesArray.length; i += 1) {
       if (currentArticlesArray[i].id === id) {
@@ -60,7 +59,7 @@ export class Articles {
     }
   }
 
-  protected editArticle(data: { data: FormData; id: string }) {
+  protected editArticle(data: FormDataString) {
     this.editFormFlag = true;
     this.openFormFlag = true;
     this.editArticleData = data.data;
@@ -70,6 +69,16 @@ export class Articles {
       block: 'start',
       inline: 'nearest',
     });
+  }
+
+  protected editLivingArticle(data: FormDataString) {
+    for (let article of this.outputArticles) {
+      if (article.id === data.id) {
+        article.category = data.data.category;
+        article.title = data.data.title;
+        article.description = data.data.description;
+      }
+    }
   }
 
   ngOnInit() {

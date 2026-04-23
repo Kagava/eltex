@@ -25,6 +25,7 @@
     [editId]="editArticleId"
     [toggleForm]="openFormFlag"
     (dataOut)="createNewArticle($event)"
+    (dataOutEdit)="editLivingArticle($event)"
   ></app-add-article-form>
 </div>
 <app-admin-panel
