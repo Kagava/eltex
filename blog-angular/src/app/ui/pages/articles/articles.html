@@ -13,23 +13,29 @@
     <div class="articles__image"></div>
   </div>
   <app-article-component
+    (isEditFormOpenFlag)="editArticle($event)"
     [articleArray]="outputArticles"
     (articleToDelete)="removeArticle($event)"
     [articlePage]="true"
   ></app-article-component>
 </section>
-<app-add-article-form
-  [toggleForm]="openFormFlag"
-  (dataOut)="createNewArticle($event)"
-></app-add-article-form>
+<div #form>
+  <app-add-article-form
+    [toggleForm]="openFormFlag"
+    (dataOut)="createNewArticle($event)"
+  ></app-add-article-form>
+</div>
 <app-admin-panel
   [closeStat]="visionChangedFlag"
   (isStatOpen)="changeVision($event)"
   (isFormOpen)="openForm($event)"
 ></app-admin-panel>
-<app-dialog-stat
-  [isHidden]="visionChangedFlag"
-  (isHiddenOut)="changeVision($event)"
-  [articleCout]="outputArticles.length"
-></app-dialog-stat>
-<app-curtain [isHidden]="visionChangedFlag" (isHiddenOut)="changeVision($event)"></app-curtain>
+@if (dialogVisible) {
+  <app-dialog-stat
+    [isHidden]="visionChangedFlag"
+    (isHiddenOut)="changeVision($event)"
+    [articleCout]="outputArticles.length"
+  ></app-dialog-stat>
+
+  <app-curtain [isHidden]="visionChangedFlag" (isHiddenOut)="changeVision($event)"></app-curtain>
+}

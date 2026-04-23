@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { ArticlesService } from '../../../services/articles-service';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
@@ -16,6 +16,8 @@ import { ArticleComponent } from '../../components/article-component/article-com
   styleUrl: './articles.scss',
 })
 export class Articles {
+  private formChild = viewChild<ElementRef>('form');
+  protected dialogVisible: boolean = false;
   private createArticleService = inject(CreateArticle);
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
@@ -47,5 +49,21 @@ export class Articles {
         this.outputArticles.splice(i, 1);
       }
     }
+  }
+
+  protected editArticle(data: FormData) {
+    this.openForm(true);
+    this.formChild()?.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+    console.log(data, this.formChild());
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.dialogVisible = true;
+    }, 0);
   }
 }
