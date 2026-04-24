@@ -9,12 +9,13 @@
     ></app-article-component>
   </section>
   <app-works></app-works>
-  <div #form>
+  <div #form class="form">
     <app-add-article-form
       [editData]="editArticleData"
       [editId]="editArticleId"
       [toggleForm]="openFormFlag"
       (dataOutEdit)="editLivingArticle($event)"
+      (editClose)="closeForm($event)"
     ></app-add-article-form>
   </div>
 </div>

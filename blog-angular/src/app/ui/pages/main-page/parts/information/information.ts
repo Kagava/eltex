@@ -40,15 +40,7 @@ export class Information {
     }
   }
 
-  public openForm(event: boolean) {
-    this.editArticleId = '';
-    this.editArticleData = { title: '', description: '', category: '' };
-    this.editFormFlag = false;
-    this.openFormFlag = event;
-  }
-
   protected editArticle(data: FormDataString) {
-    console.log('EDITING');
     this.editFormFlag = true;
     this.openFormFlag = true;
     this.editArticleData = data.data;
@@ -67,6 +59,13 @@ export class Information {
         article.title = data.data.title;
         article.description = data.data.description;
       }
+    }
+    this.openFormFlag = false;
+  }
+
+  protected closeForm(flag: boolean) {
+    if (flag) {
+      this.openFormFlag = false;
     }
   }
 }

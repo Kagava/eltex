@@ -21,6 +21,7 @@ export class AddArticleForm {
   public editId = input<string>();
   public dataOut = output<FormData>();
   public dataOutEdit = output<FormDataString>();
+  public editClose = output<boolean>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
@@ -74,6 +75,7 @@ export class AddArticleForm {
   }
 
   protected resetForm() {
+    this.editClose.emit(true);
     this.spanSelectValue = 'Tennis';
   }
 
