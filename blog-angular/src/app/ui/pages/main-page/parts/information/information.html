@@ -3,9 +3,18 @@
   <app-hobby></app-hobby>
   <section class="last-articles">
     <app-article-component
+      (isEditFormOpenFlag)="editArticle($event)"
       [articleArray]="outputArticles"
       (articleToDelete)="removeArticle($event)"
     ></app-article-component>
   </section>
   <app-works></app-works>
+  <div #form>
+    <app-add-article-form
+      [editData]="editArticleData"
+      [editId]="editArticleId"
+      [toggleForm]="openFormFlag"
+      (dataOutEdit)="editLivingArticle($event)"
+    ></app-add-article-form>
+  </div>
 </div>

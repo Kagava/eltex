@@ -56,7 +56,11 @@
           </div>
 
           @let articleId = article.id;
-          <div class="edit-button article__edit"><span class="edit-button__center"></span></div>
+          @let articleData =
+            { title: article.title, description: article.description, category: article.category };
+          <div class="edit-button article__edit" (click)="openEditForm(articleData, articleId)">
+            <span class="edit-button__center"></span>
+          </div>
           <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
         </div>
       }
