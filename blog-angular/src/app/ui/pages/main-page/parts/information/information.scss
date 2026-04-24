@@ -6,6 +6,10 @@ app-hobby {
   grid-area: hobby;
 }
 
+.form {
+  grid-area: form;
+}
+
 .last-articles {
   grid-area: articles;
   margin-top: 30px;
@@ -25,14 +29,16 @@ app-works {
   grid-template-areas:
     'aside hobby hobby hobby hobby'
     'articles articles articles articles articles'
-    'my-works my-works my-works my-works my-works';
+    'my-works my-works my-works my-works my-works'
+    'form form form form form';
   @media (max-width: 1200px) {
     grid-template-columns: 1fr;
     grid-template-areas:
       'aside'
       'hobby'
       'articles'
-      'my-works';
+      'my-works'
+      'form';
   }
 }
 

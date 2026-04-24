@@ -9,8 +9,14 @@
 }
 
 .create-article__header {
-  //   display: none;
+  display: flex;
   justify-content: flex-end;
+  @media (max-width: 800px) {
+    justify-content: center;
+  }
+  @media (max-width: 636px) {
+    font-size: 48px;
+  }
 }
 
 .create-article__form {
@@ -23,6 +29,7 @@
 .create-article__fieldset {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   row-gap: 16px;
   font-style: normal;
   font-weight: 400;
@@ -165,12 +172,14 @@
   align-items: center;
   gap: 15px;
 
-  @media (max-width: 636px) {
+  @media (max-width: 1110px) {
     flex-direction: column;
   }
 }
 
 .create-article__button {
+  min-width: 160px;
+  flex-shrink: 1;
   width: 175px;
   height: 50px;
   border-radius: 5px;
