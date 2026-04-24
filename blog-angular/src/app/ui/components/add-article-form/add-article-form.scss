@@ -9,8 +9,14 @@
 }
 
 .create-article__header {
-  //   display: none;
+  display: flex;
   justify-content: flex-end;
+  @media (max-width: 800px) {
+    justify-content: center;
+  }
+  @media (max-width: 636px) {
+    font-size: 48px;
+  }
 }
 
 .create-article__form {
@@ -23,6 +29,7 @@
 .create-article__fieldset {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   row-gap: 16px;
   font-style: normal;
   font-weight: 400;
@@ -41,6 +48,7 @@
 }
 
 .create-artilce__form-item {
+  position: relative;
   width: clamp(230px, 27vw, 520px);
   background-color: transparent;
   border: 1px solid var(--border-color--form);
@@ -57,6 +65,20 @@
     border-color: var(--background-color--subimt-button-aticle);
     box-shadow: 0 0 5px rgb(219, 94, 49, 0.5);
     outline: none;
+  }
+  &.ng-touched.ng-invalid {
+    box-shadow: 0px 0px 3px 3px red;
+  }
+}
+
+.create-article__error-span {
+  font-size: 12px;
+  color: red;
+  text-align: center;
+  width: clamp(230px, 27vw, 520px);
+  display: none;
+  &.invalid {
+    display: inline;
   }
 }
 
@@ -150,12 +172,14 @@
   align-items: center;
   gap: 15px;
 
-  @media (max-width: 636px) {
+  @media (max-width: 1110px) {
     flex-direction: column;
   }
 }
 
 .create-article__button {
+  min-width: 160px;
+  flex-shrink: 1;
   width: 175px;
   height: 50px;
   border-radius: 5px;
@@ -170,6 +194,12 @@
   &.under-list {
     position: relative;
     z-index: -2;
+  }
+
+  &:disabled {
+    background-color: var(--background-color--form-buttons-disabled) !important;
+    color: white !important;
+    pointer-events: none;
   }
 }
 

@@ -3,3 +3,5 @@ export type FormData = {
   description: string;
   category: string;
 };
+
+export type FormDataString = { data: FormData; id: string };

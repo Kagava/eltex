@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-admin-panel',
@@ -7,17 +7,24 @@ import { Component, output } from '@angular/core';
   styleUrl: './admin-panel.scss',
 })
 export class AdminPanel {
-  protected isStatOpen = output<boolean>();
-  private isStatOpenFlag = true;
-  protected isFormOpen = output<boolean>();
   private isFormOpenFlag = false;
+
+  protected isStatOpen = output<boolean>();
+  protected isFormOpen = output<boolean>();
+
+  public isEditForm = input<boolean>();
+  public closeStat = input<boolean>(true);
+
   protected openForm() {
-    this.isFormOpenFlag = !this.isFormOpenFlag;
+    if (this.isEditForm()) {
+      this.isFormOpenFlag = false;
+    } else {
+      this.isFormOpenFlag = !this.isFormOpenFlag;
+    }
     this.isFormOpen.emit(this.isFormOpenFlag);
   }
 
   protected openStat() {
-    this.isStatOpenFlag = !this.isStatOpenFlag;
-    this.isStatOpen.emit(this.isStatOpenFlag);
+    this.isStatOpen.emit(this.closeStat());
   }
 }

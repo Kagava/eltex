@@ -18,6 +18,11 @@
             </div>
           </div>
           @let articleId = article.id;
+          @let articleData =
+            { title: article.title, description: article.description, category: article.category };
+          <div class="edit-button article__edit" (click)="openEditForm(articleData, articleId)">
+            <span class="edit-button__center"></span>
+          </div>
           <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
         </div>
       }
@@ -49,7 +54,13 @@
               class="image-container__image"
             />
           </div>
+
           @let articleId = article.id;
+          @let articleData =
+            { title: article.title, description: article.description, category: article.category };
+          <div class="edit-button article__edit" (click)="openEditForm(articleData, articleId)">
+            <span class="edit-button__center"></span>
+          </div>
           <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
         </div>
       }
