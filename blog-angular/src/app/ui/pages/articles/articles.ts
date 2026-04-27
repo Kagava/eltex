@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { ArticlesService } from '../../../services/articles-service';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
@@ -8,6 +8,8 @@ import { AddArticleForm } from '../../components/add-article-form/add-article-fo
 import { FormData, FormDataString } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
+import { ArticlesStorage } from '../../../services/articles-storage';
+import { LoadArticles } from '../../../services/load-articles';
 
 @Component({
   selector: 'app-articles',
@@ -16,6 +18,9 @@ import { ArticleComponent } from '../../components/article-component/article-com
   styleUrl: './articles.scss',
 })
 export class Articles {
+  private storageService = inject(LoadArticles);
+  private storage = inject(ArticlesStorage);
+  public articles: Article[] = [];
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
   private articleService = inject(ArticlesService);
@@ -30,8 +35,12 @@ export class Articles {
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
 
-  constructor() {
+  constructor(private ref: ChangeDetectorRef) {
     this.outputArticles = this.articleService.get(this.quantity);
+    effect(() => {
+      this.articles = this.storage.articleStorage();
+      this.ref.markForCheck();
+    });
   }
 
   public changeVision(event: boolean) {
@@ -39,6 +48,7 @@ export class Articles {
   }
 
   public openForm(event: boolean) {
+    console.log(this.articles);
     this.editArticleId = '';
     this.editArticleData = { title: '', description: '', category: '' };
     this.editFormFlag = false;
@@ -81,9 +91,7 @@ export class Articles {
     }
   }
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.dialogVisible = true;
-    }, 0);
+  ngDoCheck() {
+    this.dialogVisible = true;
   }
 }
