@@ -8,8 +8,12 @@ export class ArticlesStorage {
   #articleStorage: WritableSignal<Article[]> = signal<Article[]>([]);
   public articleStorage = this.#articleStorage.asReadonly();
 
-  public setArticleStorage(somevalue: any) {
-    console.log('Storage');
-    this.#articleStorage.set(somevalue);
+  public setAritlceStorageIds(data: Article[]) {
+    data.forEach((article) => (article.id = crypto.randomUUID()));
+    this.setArticleStorage(data);
+  }
+
+  public setArticleStorage(data: Article[]) {
+    this.#articleStorage.set(data);
   }
 }

@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { Article } from '../../../models/types/articles';
-import { ArticlesService } from '../../../services/articles-service';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
 import { DialogStat } from '../../components/dialog-stat/dialog-stat';
@@ -9,7 +8,7 @@ import { FormData, FormDataString } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
-import { LoadArticles } from '../../../services/load-articles';
+import { ArticleStorageService } from '../../../services/article-storage-service';
 
 @Component({
   selector: 'app-articles',
@@ -18,10 +17,9 @@ import { LoadArticles } from '../../../services/load-articles';
   styleUrl: './articles.scss',
 })
 export class Articles {
-  private loadArticles = inject(LoadArticles);
+  private articleStorageService = inject(ArticleStorageService);
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
-  private articleService = inject(ArticlesService);
   private quantity = 10;
 
   protected storage = inject(ArticlesStorage);
@@ -35,9 +33,7 @@ export class Articles {
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
 
-  constructor() {
-    this.outputArticles = this.articleService.get(this.quantity);
-  }
+  constructor() {}
 
   public changeVision(event: boolean) {
     this.visionChangedFlag = !event;
@@ -57,12 +53,7 @@ export class Articles {
   }
 
   public removeArticle(id: string) {
-    const currentArticlesArray = this.outputArticles;
-    for (let i = 0; i < currentArticlesArray.length; i += 1) {
-      if (currentArticlesArray[i].id === id) {
-        this.outputArticles.splice(i, 1);
-      }
-    }
+    this.articleStorageService.removeArticle(id);
   }
 
   protected editArticle(data: FormDataString) {

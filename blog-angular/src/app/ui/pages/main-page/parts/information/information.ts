@@ -3,12 +3,11 @@ import { Career } from './career/career';
 import { Hobby } from './hobby/hobby';
 import { Works } from './works/works';
 import { ArticleComponent } from '../../../../components/article-component/article-component';
-import { ArticlesService } from '../../../../../services/articles-service';
 import { Article } from '../../../../../models/types/articles';
 import { AddArticleForm } from '../../../../components/add-article-form/add-article-form';
 import { FormData, FormDataString } from '../../../../../models/types/form-data';
-import { LoadArticles } from '../../../../../services/load-articles';
 import { ArticlesStorage } from '../../../../../services/articles-storage';
+import { ArticleStorageService } from '../../../../../services/article-storage-service';
 
 @Component({
   selector: 'app-information',
@@ -17,12 +16,11 @@ import { ArticlesStorage } from '../../../../../services/articles-storage';
   styleUrl: './information.scss',
 })
 export class Information {
-  private loadArticles = inject(LoadArticles);
+  private articleStorageService = inject(ArticleStorageService);
   private quantityArticles: number = 3;
   private formChild = viewChild<ElementRef>('form');
 
   protected storage = inject(ArticlesStorage);
-  protected articleService = inject(ArticlesService);
   protected outputArticles: Article[] = [];
 
   public editArticleId: string = '';
@@ -31,17 +29,10 @@ export class Information {
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
 
-  constructor() {
-    this.outputArticles = this.articleService.get(this.quantityArticles);
-  }
+  constructor() {}
 
   public removeArticle(id: string) {
-    const currentArticlesArray = this.outputArticles;
-    for (let i = 0; i < currentArticlesArray.length; i += 1) {
-      if (currentArticlesArray[i].id === id) {
-        this.outputArticles.splice(i, 1);
-      }
-    }
+    this.articleStorageService.removeArticle(id);
   }
 
   protected editArticle(data: FormDataString) {
