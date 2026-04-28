@@ -14,13 +14,10 @@
   </div>
   <app-article-component
     (isEditFormOpenFlag)="editArticle($event)"
-    [articleArray]="articles"
+    [articleArray]="storage.articleStorage()"
     (articleToDelete)="removeArticle($event)"
     [articlePage]="true"
   ></app-article-component>
-  <!-- @for (article of articles; track article.id) {
-    {{ article.title }}
-  } -->
 </section>
 <div #form>
   <app-add-article-form

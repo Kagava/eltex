@@ -4,7 +4,7 @@
   <section class="last-articles">
     <app-article-component
       (isEditFormOpenFlag)="editArticle($event)"
-      [articleArray]="outputArticles"
+      [articleArray]="storage.articleStorage()"
       (articleToDelete)="removeArticle($event)"
     ></app-article-component>
   </section>

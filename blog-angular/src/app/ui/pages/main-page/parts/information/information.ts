@@ -7,6 +7,8 @@ import { ArticlesService } from '../../../../../services/articles-service';
 import { Article } from '../../../../../models/types/articles';
 import { AddArticleForm } from '../../../../components/add-article-form/add-article-form';
 import { FormData, FormDataString } from '../../../../../models/types/form-data';
+import { LoadArticles } from '../../../../../services/load-articles';
+import { ArticlesStorage } from '../../../../../services/articles-storage';
 
 @Component({
   selector: 'app-information',
@@ -15,9 +17,11 @@ import { FormData, FormDataString } from '../../../../../models/types/form-data'
   styleUrl: './information.scss',
 })
 export class Information {
+  private loadArticles = inject(LoadArticles);
   private quantityArticles: number = 3;
   private formChild = viewChild<ElementRef>('form');
 
+  protected storage = inject(ArticlesStorage);
   protected articleService = inject(ArticlesService);
   protected outputArticles: Article[] = [];
 

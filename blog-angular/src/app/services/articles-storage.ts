@@ -5,9 +5,11 @@ import { Article } from '../models/types/articles';
   providedIn: 'root',
 })
 export class ArticlesStorage {
-  public articleStorage: WritableSignal<Article[]> = signal<Article[]>([]);
+  #articleStorage: WritableSignal<Article[]> = signal<Article[]>([]);
+  public articleStorage = this.#articleStorage.asReadonly();
 
-  public setArticleSrotage(somevalue: any) {
-    this.articleStorage.set(somevalue);
+  public setArticleStorage(somevalue: any) {
+    console.log('Storage');
+    this.#articleStorage.set(somevalue);
   }
 }

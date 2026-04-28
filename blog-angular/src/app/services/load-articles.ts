@@ -17,6 +17,6 @@ export class LoadArticles {
     this.http
       .get('./assets/data/articles.json')
       .pipe(map((data: any) => data.articles))
-      .subscribe((data: Article[]) => this.storage.setArticleSrotage(data));
+      .subscribe((data: Article[]) => this.storage.setArticleStorage(data));
   }
 }

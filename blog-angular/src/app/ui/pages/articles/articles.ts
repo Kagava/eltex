@@ -18,29 +18,25 @@ import { LoadArticles } from '../../../services/load-articles';
   styleUrl: './articles.scss',
 })
 export class Articles {
-  private storageService = inject(LoadArticles);
-  private storage = inject(ArticlesStorage);
-  public articles: Article[] = [];
+  private loadArticles = inject(LoadArticles);
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
   private articleService = inject(ArticlesService);
   private quantity = 10;
 
+  protected storage = inject(ArticlesStorage);
   protected dialogVisible: boolean = false;
   protected outputArticles: Article[] = [];
 
+  public articles: Article[] = [];
   public editArticleId: string = '';
   public editArticleData: FormData = { title: '', description: '', category: '' };
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
 
-  constructor(private ref: ChangeDetectorRef) {
+  constructor() {
     this.outputArticles = this.articleService.get(this.quantity);
-    effect(() => {
-      this.articles = this.storage.articleStorage();
-      this.ref.markForCheck();
-    });
   }
 
   public changeVision(event: boolean) {
