@@ -45,9 +45,9 @@ export class AddArticleForm {
     if (this.formService.isEditMode()) {
       this.dataOut.emit({ ...this.form.getRawValue(), id: this.editId()! });
     } else {
+      console.log(this.form.getRawValue());
       this.dataOut.emit(this.form.getRawValue());
     }
-    // this.formService.formClose();
     this.form.reset();
     this.resetForm();
   }
@@ -84,7 +84,7 @@ export class AddArticleForm {
   }
 
   protected resetForm() {
-    this.editClose.emit(true);
+    this.formService.formClose();
     this.spanSelectValue = 'Tennis';
   }
 
@@ -107,7 +107,7 @@ export class AddArticleForm {
       this.form.setValue({
         title: '',
         description: '',
-        category: 'Tennis',
+        category: 'tennis-article',
       });
       this.spanSelectValue = 'Tennis';
     }
