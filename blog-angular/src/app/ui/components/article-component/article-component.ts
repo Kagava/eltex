@@ -21,9 +21,10 @@ export class ArticleComponent {
   removeArticle(id: string) {
     this.articleToDelete.emit(id);
   }
-  protected openEditForm(data: FormData, id: string) {
+  protected openEditForm(data: FormData) {
+    console.log(data);
     this.formService.formEdit();
     this.formService.formOpen();
-    this.isEditFormOpenFlag.emit({ ...data, id });
+    this.isEditFormOpenFlag.emit({ ...data });
   }
 }
