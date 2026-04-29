@@ -9,6 +9,7 @@ import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
 import { ArticleStorageService } from '../../../services/article-storage-service';
+import { FormService } from '../../../services/form-service';
 
 @Component({
   selector: 'app-articles',
@@ -45,8 +46,8 @@ export class Articles {
   }
 
   public createNewArticle(data: FormData) {
-    this.createArticleService.set(data);
-    this.outputArticles.unshift(this.createArticleService.get());
+    const article: Article = this.createArticleService.get(data);
+    this.articleStorageService.addArticle(article);
   }
 
   public removeArticle(id: string) {

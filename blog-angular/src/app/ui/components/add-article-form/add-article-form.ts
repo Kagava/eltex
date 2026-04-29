@@ -47,6 +47,7 @@ export class AddArticleForm {
     } else {
       this.dataOut.emit(this.form.getRawValue());
     }
+    // this.formService.formClose();
     this.form.reset();
     this.resetForm();
   }

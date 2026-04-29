@@ -14,6 +14,11 @@ export class ArticleStorageService {
     this.getArticlesFromFile();
   }
 
+  public addArticle(article: Article) {
+    const articles: Article[] = [article, ...this.storage.articleStorage()];
+    this.storage.setArticleStorage(articles);
+  }
+
   public removeArticle(id: string) {
     const articles: Article[] = [...this.storage.articleStorage()];
     this.storage.setArticleStorage(articles.filter((article) => article.id !== id));
