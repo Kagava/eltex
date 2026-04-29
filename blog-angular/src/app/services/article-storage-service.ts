@@ -3,6 +3,7 @@ import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { Article } from '../models/types/articles';
+import { FormData } from '../models/types/form-data';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,15 @@ export class ArticleStorageService {
   public removeArticle(id: string) {
     const articles: Article[] = [...this.storage.articleStorage()];
     this.storage.setArticleStorage(articles.filter((article) => article.id !== id));
+  }
+
+  public updateArticle(data: FormData) {
+    const articles: Article[] = [...this.storage.articleStorage()];
+    this.storage.setArticleStorage(
+      articles.map((article) => {
+        return article.id === data.id ? { ...article, ...data } : article;
+      }),
+    );
   }
 
   public getArticlesFromFile() {

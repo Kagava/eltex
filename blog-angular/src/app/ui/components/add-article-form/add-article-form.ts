@@ -25,10 +25,9 @@ export class AddArticleForm {
   protected spanSelectValue: string = 'Tennis';
 
   public toggleForm = input<boolean>();
-  public editData = input<FormData>();
-  public editId = input<string>();
+  public editData = input.required<FormData | null>();
   public dataOut = output<FormData>();
-  public editClose = output<boolean>();
+  public dataOutEdit = output<FormData>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
@@ -43,7 +42,7 @@ export class AddArticleForm {
   protected onSubmit(e: Event) {
     e.preventDefault();
     if (this.formService.isEditMode()) {
-      this.dataOut.emit({ ...this.form.getRawValue(), id: this.editId()! });
+      this.dataOutEdit.emit({ ...this.form.getRawValue(), id: this.editData()!.id });
     } else {
       console.log(this.form.getRawValue());
       this.dataOut.emit(this.form.getRawValue());

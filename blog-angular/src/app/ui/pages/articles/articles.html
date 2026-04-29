@@ -13,7 +13,7 @@
     <div class="articles__image"></div>
   </div>
   <app-article-component
-    (isEditFormOpenFlag)="editArticle($event)"
+    (isEditFormOpenFlag)="openEditArticleForm($event)"
     [articleArray]="storage.articleStorage()"
     (articleToDelete)="removeArticle($event)"
     [articlePage]="true"
@@ -22,9 +22,9 @@
 <div #form>
   <app-add-article-form
     [editData]="editArticleData"
-    [editId]="editArticleId"
     [toggleForm]="openFormFlag"
     (dataOut)="createNewArticle($event)"
+    (dataOutEdit)="updateArticle($event)"
   ></app-add-article-form>
 </div>
 <app-admin-panel

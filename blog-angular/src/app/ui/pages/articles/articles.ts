@@ -28,8 +28,7 @@ export class Articles {
   protected outputArticles: Article[] = [];
 
   public articles: Article[] = [];
-  public editArticleId: string = '';
-  public editArticleData: FormData = { title: '', description: '', category: '' };
+  public editArticleData: FormData | null = null;
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
@@ -40,12 +39,8 @@ export class Articles {
     this.visionChangedFlag = !event;
   }
 
-  public openForm(event: boolean) {
-    this.editArticleId = '';
-    this.editArticleData = { title: '', description: '', category: '' };
-  }
-
   public createNewArticle(data: FormData) {
+    console.log('HELLNO');
     const article: Article = this.createArticleService.get(data);
     this.articleStorageService.addArticle(article);
   }
@@ -54,11 +49,8 @@ export class Articles {
     this.articleStorageService.removeArticle(id);
   }
 
-  protected editArticle(data: FormData) {
-    this.editArticleData.category = data.category;
-    this.editArticleData.description = data.description;
-    this.editArticleData.title = data.title;
-    this.editArticleData.id = data.id;
+  protected openEditArticleForm(data: FormData) {
+    this.editArticleData = data;
     this.formChild()?.nativeElement.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
@@ -66,14 +58,8 @@ export class Articles {
     });
   }
 
-  protected editLivingArticle(data: FormData) {
-    for (let article of this.outputArticles) {
-      if (article.id === data.id) {
-        article.category = data.category;
-        article.title = data.title;
-        article.description = data.description;
-      }
-    }
+  protected updateArticle(data: FormData) {
+    this.articleStorageService.updateArticle(data);
   }
 
   ngDoCheck() {
