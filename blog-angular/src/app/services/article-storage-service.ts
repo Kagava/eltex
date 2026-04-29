@@ -16,19 +16,13 @@ export class ArticleStorageService {
 
   public removeArticle(id: string) {
     const articles: Article[] = [...this.storage.articleStorage()];
-    console.log(articles);
-    for (let i = 0; i < articles.length; i += 1) {
-      if (articles[i].id === id) {
-        articles.splice(i, 1);
-      }
-    }
-    this.storage.setArticleStorage(articles);
+    this.storage.setArticleStorage(articles.filter((article) => article.id !== id));
   }
 
   public getArticlesFromFile() {
     this.http
       .get('./assets/data/articles.json')
       .pipe(map((data: any) => data.articles))
-      .subscribe((data: Article[]) => this.storage.setAritlceStorageIds(data));
+      .subscribe((data: Article[]) => this.storage.changeId(data));
   }
 }
