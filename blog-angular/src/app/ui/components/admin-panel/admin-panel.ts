@@ -1,4 +1,5 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
+import { FormService } from '../../../services/form-service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -7,21 +8,18 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './admin-panel.scss',
 })
 export class AdminPanel {
-  private isFormOpenFlag = false;
+  private formService = inject(FormService);
 
   protected isStatOpen = output<boolean>();
-  protected isFormOpen = output<boolean>();
 
-  public isEditForm = input<boolean>();
   public closeStat = input<boolean>(true);
 
-  protected openForm() {
-    if (this.isEditForm()) {
-      this.isFormOpenFlag = false;
+  protected toogleForm() {
+    if (this.formService.isFormOpen()) {
+      this.formService.formClose();
     } else {
-      this.isFormOpenFlag = !this.isFormOpenFlag;
+      this.formService.formOpen();
     }
-    this.isFormOpen.emit(this.isFormOpenFlag);
   }
 
   protected openStat() {

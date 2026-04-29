@@ -29,10 +29,8 @@
   ></app-add-article-form>
 </div>
 <app-admin-panel
-  [isEditForm]="editFormFlag"
   [closeStat]="visionChangedFlag"
   (isStatOpen)="changeVision($event)"
-  (isFormOpen)="openForm($event)"
 ></app-admin-panel>
 @if (dialogVisible) {
   <app-dialog-stat

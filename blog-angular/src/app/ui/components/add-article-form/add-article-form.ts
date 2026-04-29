@@ -1,6 +1,7 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormData, FormDataString } from '../../../models/types/form-data';
+import { FormService } from '../../../services/form-service';
 
 @Component({
   selector: 'app-add-article-form',
@@ -12,6 +13,14 @@ export class AddArticleForm {
   private readonly fb = inject(NonNullableFormBuilder);
   private transform: number = 42;
 
+  protected formService = inject(FormService);
+  protected formTitle = computed(() => {
+    return this.formService.isFormEdit() ? 'Редактировать статью' : 'Создать статью';
+  });
+
+  protected formButton = computed(() => {
+    return this.formService.isFormEdit() ? ' Редактировать' : 'Добавить';
+  });
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
   protected flagEdit: boolean = false;
@@ -29,7 +38,9 @@ export class AddArticleForm {
   });
 
   protected titleError = this.form.get('title')?.errors;
-  constructor() {}
+  constructor() {
+    this.formService.formClose();
+  }
 
   protected onSubmit(e: Event) {
     e.preventDefault();
