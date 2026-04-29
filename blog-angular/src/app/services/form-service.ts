@@ -7,8 +7,8 @@ export class FormService {
   #isFormOpen: WritableSignal<boolean> = signal<boolean>(false);
   public readonly isFormOpen = this.#isFormOpen.asReadonly();
 
-  #isFormEdit: WritableSignal<boolean> = signal<boolean>(false);
-  public readonly isFormEdit = this.#isFormEdit.asReadonly();
+  #isEditMode: WritableSignal<boolean> = signal<boolean>(false);
+  public readonly isEditMode = this.#isEditMode.asReadonly();
 
   public formClose() {
     this.#isFormOpen.set(false);
@@ -19,10 +19,10 @@ export class FormService {
   }
 
   public formEdit() {
-    this.#isFormEdit.set(true);
+    this.#isEditMode.set(true);
   }
 
   public formNotEdit() {
-    this.#isFormEdit.set(false);
+    this.#isEditMode.set(false);
   }
 }

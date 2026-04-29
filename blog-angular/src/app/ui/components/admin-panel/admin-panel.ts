@@ -18,6 +18,7 @@ export class AdminPanel {
     if (this.formService.isFormOpen()) {
       this.formService.formClose();
     } else {
+      this.formService.formNotEdit();
       this.formService.formOpen();
     }
   }

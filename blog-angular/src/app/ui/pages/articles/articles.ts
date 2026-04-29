@@ -4,7 +4,7 @@ import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
 import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
-import { FormData, FormDataString } from '../../../models/types/form-data';
+import { FormData } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
@@ -40,11 +40,8 @@ export class Articles {
   }
 
   public openForm(event: boolean) {
-    console.log(this.articles);
     this.editArticleId = '';
     this.editArticleData = { title: '', description: '', category: '' };
-    this.editFormFlag = false;
-    this.openFormFlag = event;
   }
 
   public createNewArticle(data: FormData) {
@@ -56,11 +53,11 @@ export class Articles {
     this.articleStorageService.removeArticle(id);
   }
 
-  protected editArticle(data: FormDataString) {
-    this.editFormFlag = true;
-    this.openFormFlag = true;
-    this.editArticleData = data.data;
-    this.editArticleId = data.id;
+  protected editArticle(data: FormData) {
+    this.editArticleData.category = data.category;
+    this.editArticleData.description = data.description;
+    this.editArticleData.title = data.title;
+    this.editArticleData.id = data.id;
     this.formChild()?.nativeElement.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
@@ -68,12 +65,12 @@ export class Articles {
     });
   }
 
-  protected editLivingArticle(data: FormDataString) {
+  protected editLivingArticle(data: FormData) {
     for (let article of this.outputArticles) {
       if (article.id === data.id) {
-        article.category = data.data.category;
-        article.title = data.data.title;
-        article.description = data.data.description;
+        article.category = data.category;
+        article.title = data.title;
+        article.description = data.description;
       }
     }
   }

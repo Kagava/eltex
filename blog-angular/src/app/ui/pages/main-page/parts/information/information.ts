@@ -5,7 +5,7 @@ import { Works } from './works/works';
 import { ArticleComponent } from '../../../../components/article-component/article-component';
 import { Article } from '../../../../../models/types/articles';
 import { AddArticleForm } from '../../../../components/add-article-form/add-article-form';
-import { FormData, FormDataString } from '../../../../../models/types/form-data';
+import { FormData } from '../../../../../models/types/form-data';
 import { ArticlesStorage } from '../../../../../services/articles-storage';
 import { ArticleStorageService } from '../../../../../services/article-storage-service';
 
@@ -35,11 +35,10 @@ export class Information {
     this.articleStorageService.removeArticle(id);
   }
 
-  protected editArticle(data: FormDataString) {
+  protected editArticle(data: FormData) {
     this.editFormFlag = true;
     this.openFormFlag = true;
-    this.editArticleData = data.data;
-    this.editArticleId = data.id;
+    this.editArticleData = data;
     this.formChild()?.nativeElement.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
@@ -47,12 +46,12 @@ export class Information {
     });
   }
 
-  protected editLivingArticle(data: FormDataString) {
+  protected editLivingArticle(data: FormData) {
     for (let article of this.outputArticles) {
       if (article.id === data.id) {
-        article.category = data.data.category;
-        article.title = data.data.title;
-        article.description = data.data.description;
+        article.category = data.category;
+        article.title = data.title;
+        article.description = data.description;
       }
     }
     this.openFormFlag = false;

@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormData, FormDataString } from '../../../models/types/form-data';
+import { FormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
 
 @Component({
@@ -15,21 +15,19 @@ export class AddArticleForm {
 
   protected formService = inject(FormService);
   protected formTitle = computed(() => {
-    return this.formService.isFormEdit() ? 'Редактировать статью' : 'Создать статью';
+    return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
   });
 
   protected formButton = computed(() => {
-    return this.formService.isFormEdit() ? ' Редактировать' : 'Добавить';
+    return this.formService.isEditMode() ? ' Редактировать' : 'Добавить';
   });
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
-  protected flagEdit: boolean = false;
 
   public toggleForm = input<boolean>();
   public editData = input<FormData>();
   public editId = input<string>();
   public dataOut = output<FormData>();
-  public dataOutEdit = output<FormDataString>();
   public editClose = output<boolean>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
@@ -44,9 +42,8 @@ export class AddArticleForm {
 
   protected onSubmit(e: Event) {
     e.preventDefault();
-    if (this.flagEdit) {
-      this.dataOutEdit.emit({ data: this.form.getRawValue(), id: this.editId()! });
-      this.flagEdit = false;
+    if (this.formService.isEditMode()) {
+      this.dataOut.emit({ ...this.form.getRawValue(), id: this.editId()! });
     } else {
       this.dataOut.emit(this.form.getRawValue());
     }
@@ -93,7 +90,7 @@ export class AddArticleForm {
   ngOnChanges() {
     const tempData = this.editData();
     if (tempData && tempData.title !== '') {
-      this.flagEdit = true;
+      this.formService.formEdit();
       this.form.setValue({
         title: tempData.title,
         description: tempData.description,
@@ -105,7 +102,7 @@ export class AddArticleForm {
         this.spanSelectValue = 'Tennis';
       }
     } else {
-      this.flagEdit = false;
+      this.formService.formNotEdit();
       this.form.setValue({
         title: '',
         description: '',
