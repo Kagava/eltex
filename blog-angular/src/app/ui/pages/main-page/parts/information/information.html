@@ -2,19 +2,21 @@
   <app-career></app-career>
   <app-hobby></app-hobby>
   <section class="articles">
-    <app-paggination-button [direction]="false"></app-paggination-button>
+    <app-paggination-button
+      [direction]="false"
+      (pageChange)="changingPage($event)"
+    ></app-paggination-button>
     <div class="last-articles">
       <app-article-component
         (isEditFormOpenFlag)="openEditArticleForm($event)"
         [articleArray]="storage.articleStorage()"
         (articleToDelete)="removeArticle($event)"
       ></app-article-component>
-      <!-- <div class="paggination-buttons">
-      <app-paggination-button [direction]="false"></app-paggination-button>
-      <app-paggination-button [direction]="true"></app-paggination-button>
-    </div> -->
     </div>
-    <app-paggination-button [direction]="true"></app-paggination-button>
+    <app-paggination-button
+      [direction]="true"
+      (pageChange)="changingPage($event)"
+    ></app-paggination-button>
   </section>
   <app-works></app-works>
   <div #form class="form">

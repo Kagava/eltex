@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { RouterLink } from '@angular/router';
 import { FormData } from '../../../models/types/form-data';

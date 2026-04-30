@@ -48,4 +48,18 @@ export class Information {
   protected updateArticle(data: FormData) {
     this.articleStorageService.updateArticle(data);
   }
+
+  protected changingPage(direction: boolean) {
+    const articles = this.storage.articleStorage().length;
+    const curentPage = this.storage.mainPage();
+    if (direction) {
+      if (curentPage < Math.floor(articles / 3)) {
+        this.storage.incrementMainPage();
+      }
+    } else {
+      if (curentPage > 0) {
+        this.storage.decrementMainPage();
+      }
+    }
+  }
 }

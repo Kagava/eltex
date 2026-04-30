@@ -32,6 +32,8 @@
     <div class="last-articles__content">
       @for (article of articleArray(); track $index) {
         @if ($index >= mainPage() && $index < mainPage() + 3) {
+          <!-- {{ $index }}
+          {{ mainPage() }} -->
           <div
             class="last-articles__article article_main"
             [class]="article.category"
