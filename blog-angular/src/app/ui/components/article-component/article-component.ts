@@ -19,6 +19,7 @@ export class ArticleComponent {
   public isEditFormOpenFlag = output<FormData>();
 
   removeArticle(id: string) {
+    this.formService.formClose();
     this.articleToDelete.emit(id);
   }
   protected openEditForm(data: FormData) {
