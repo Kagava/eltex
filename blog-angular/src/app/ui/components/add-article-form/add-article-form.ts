@@ -24,7 +24,6 @@ export class AddArticleForm {
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
 
-  public toggleForm = input<boolean>();
   public editData = input.required<FormData | null>();
   public dataOut = output<FormData>();
   public dataOutEdit = output<FormData>();

@@ -3,7 +3,7 @@
   <app-hobby></app-hobby>
   <section class="last-articles">
     <app-article-component
-      (isEditFormOpenFlag)="editArticle($event)"
+      (isEditFormOpenFlag)="openEditArticleForm($event)"
       [articleArray]="storage.articleStorage()"
       (articleToDelete)="removeArticle($event)"
     ></app-article-component>
@@ -12,7 +12,7 @@
   <div #form class="form">
     <app-add-article-form
       [editData]="editArticleData"
-      [toggleForm]="openFormFlag"
+      (dataOutEdit)="updateArticle($event)"
     ></app-add-article-form>
   </div>
 </div>

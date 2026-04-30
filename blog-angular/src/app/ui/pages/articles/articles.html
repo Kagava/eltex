@@ -22,7 +22,6 @@
 <div #form>
   <app-add-article-form
     [editData]="editArticleData"
-    [toggleForm]="openFormFlag"
     (dataOut)="createNewArticle($event)"
     (dataOutEdit)="updateArticle($event)"
   ></app-add-article-form>

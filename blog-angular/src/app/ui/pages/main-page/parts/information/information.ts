@@ -35,9 +35,7 @@ export class Information {
     this.articleStorageService.removeArticle(id);
   }
 
-  protected editArticle(data: FormData) {
-    this.editFormFlag = true;
-    this.openFormFlag = true;
+  protected openEditArticleForm(data: FormData) {
     this.editArticleData = data;
     this.formChild()?.nativeElement.scrollIntoView({
       behavior: 'smooth',
@@ -46,20 +44,7 @@ export class Information {
     });
   }
 
-  protected editLivingArticle(data: FormData) {
-    for (let article of this.outputArticles) {
-      if (article.id === data.id) {
-        article.category = data.category;
-        article.title = data.title;
-        article.description = data.description;
-      }
-    }
-    this.openFormFlag = false;
-  }
-
-  protected closeForm(flag: boolean) {
-    if (flag) {
-      this.openFormFlag = false;
-    }
+  protected updateArticle(data: FormData) {
+    this.articleStorageService.updateArticle(data);
   }
 }
