@@ -151,6 +151,14 @@
   }
 }
 
+.last-articles__article-header {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .article_main {
   position: relative;
   display: flex;
@@ -189,17 +197,24 @@
 
 .article__image-container {
   display: flex;
-  justify-content: center;
+  justify-content: end;
   width: 155%;
   padding-right: 5px;
   @media (max-width: 1000px) {
     width: 100%;
+    justify-content: center;
   }
 }
 
 .image-container__image {
+  max-width: 567px;
+  max-height: 340px;
   width: 100%;
   border-radius: 5px;
+  @media (max-width: 1000px) {
+    max-width: none;
+    max-height: none;
+  }
 }
 
 .link-to-blog-page {
