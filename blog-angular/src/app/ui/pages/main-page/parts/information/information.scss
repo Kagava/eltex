@@ -10,9 +10,20 @@ app-hobby {
   grid-area: form;
 }
 
-.last-articles {
-  grid-area: articles;
+.articles {
   margin-top: 30px;
+  grid-area: articles;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  @media (max-width: 636px) {
+    flex-direction: column;
+  }
+}
+
+.last-articles {
   display: flex;
   flex-direction: column;
   row-gap: 35px;

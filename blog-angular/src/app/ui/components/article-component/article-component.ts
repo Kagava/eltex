@@ -3,6 +3,7 @@ import { Article } from '../../../models/types/articles';
 import { RouterLink } from '@angular/router';
 import { FormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
+import { ArticlesStorage } from '../../../services/articles-storage';
 
 @Component({
   selector: 'app-article-component',
@@ -12,6 +13,9 @@ import { FormService } from '../../../services/form-service';
 })
 export class ArticleComponent {
   private formService = inject(FormService);
+
+  protected storage = inject(ArticlesStorage);
+  protected mainPage = computed(() => this.storage.mainPage() * 3);
 
   public articleArray = input<Article[]>();
   public articleToDelete = output<string>();

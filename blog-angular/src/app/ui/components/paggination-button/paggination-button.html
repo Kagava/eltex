@@ -1,1 +1,7 @@
-<div class="paggination-button" [class]="direction()" [class.disabled]="false"></div>
+<div
+  class="paggination-button"
+  [class.left]="!direction()"
+  [class.right]="direction()"
+  [class.disabled]="false"
+  (click)="changePage()"
+></div>
