@@ -7,6 +7,10 @@
       [articleArray]="storage.articleStorage()"
       (articleToDelete)="removeArticle($event)"
     ></app-article-component>
+    <div class="paggination-buttons">
+      <app-paggination-button [direction]="'left'"></app-paggination-button>
+      <app-paggination-button [direction]="'right'"></app-paggination-button>
+    </div>
   </section>
   <app-works></app-works>
   <div #form class="form">

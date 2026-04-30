@@ -1,0 +1,43 @@
+@use 'path';
+
+.paggination-button {
+  height: 40px;
+  width: 40px;
+  border: 1px solid black;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  &:hover {
+    cursor: pointer;
+    box-shadow:
+      2px 2px 6px 4px rgba(0, 0, 0, 0.45),
+      -2px -2px 6px 4px rgba(0, 0, 0, 0.45);
+    // transform: rotate(45deg);
+  }
+}
+
+.left {
+  background-image: url('#{path.$assets-path}/svgs/chevrons-left_active.svg');
+  &:hover {
+    background-image: url('#{path.$assets-path}/svgs/chevrons-left_hovered.svg');
+  }
+  &.disabled {
+    background-image: url('#{path.$assets-path}/svgs/chevrons-left_disabled.svg') !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.right {
+  background-image: url('#{path.$assets-path}/svgs/chevrons-right_active.svg');
+  &:hover {
+    background-image: url('#{path.$assets-path}/svgs/chevrons-right_hovered.svg');
+  }
+  &.disabled {
+    background-image: url('#{path.$assets-path}/svgs/chevrons-right_disabled.svg') !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+  }
+}

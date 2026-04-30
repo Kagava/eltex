@@ -8,10 +8,11 @@ import { AddArticleForm } from '../../../../components/add-article-form/add-arti
 import { FormData } from '../../../../../models/types/form-data';
 import { ArticlesStorage } from '../../../../../services/articles-storage';
 import { ArticleStorageService } from '../../../../../services/article-storage-service';
+import { PagginationButton } from '../../../../components/paggination-button/paggination-button';
 
 @Component({
   selector: 'app-information',
-  imports: [Career, Hobby, Works, ArticleComponent, AddArticleForm],
+  imports: [Career, Hobby, Works, ArticleComponent, AddArticleForm, PagginationButton],
   templateUrl: './information.html',
   styleUrl: './information.scss',
 })

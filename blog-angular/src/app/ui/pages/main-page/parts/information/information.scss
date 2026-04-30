@@ -72,3 +72,9 @@ app-works {
     background-color: var(--font-color--link);
   }
 }
+
+.paggination-buttons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
