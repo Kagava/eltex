@@ -5,6 +5,7 @@
     <app-paggination-button
       [direction]="false"
       (pageChange)="changingPage($event)"
+      class="paggiation-component__element"
     ></app-paggination-button>
     <div class="last-articles">
       <app-article-component
@@ -16,6 +17,7 @@
     <app-paggination-button
       [direction]="true"
       (pageChange)="changingPage($event)"
+      class="paggiation-component__element"
     ></app-paggination-button>
   </section>
   <app-works></app-works>

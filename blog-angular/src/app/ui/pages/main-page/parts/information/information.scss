@@ -19,7 +19,8 @@ app-hobby {
   align-items: center;
   gap: 20px;
   @media (max-width: 636px) {
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
 }
 
@@ -33,6 +34,7 @@ app-hobby {
 app-works {
   grid-area: my-works;
 }
+
 .main__information {
   margin-top: 30px;
   display: grid;
@@ -84,8 +86,8 @@ app-works {
   }
 }
 
-.paggination-buttons {
-  display: flex;
-  flex-direction: row;
-  column-gap: 20px;
+.paggiation-component {
+  @media (max-width: 636px) {
+    order: 1;
+  }
 }
