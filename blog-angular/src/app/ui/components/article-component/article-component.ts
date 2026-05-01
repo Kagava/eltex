@@ -16,10 +16,11 @@ export class ArticleComponent {
 
   protected storage = inject(ArticlesStorage);
   protected mainPage = computed(() => this.storage.mainPage() * 3);
+  protected articlePage = computed(() => this.storage.articlePage() * 7);
 
   public articleArray = input<Article[]>();
   public articleToDelete = output<string>();
-  public articlePage = input<boolean>();
+  public articlePageFlag = input<boolean>();
   public isEditFormOpenFlag = output<FormData>();
 
   removeArticle(id: string) {

@@ -12,12 +12,26 @@
     </div>
     <div class="articles__image"></div>
   </div>
-  <app-article-component
-    (isEditFormOpenFlag)="openEditArticleForm($event)"
-    [articleArray]="storage.articleStorage()"
-    (articleToDelete)="removeArticle($event)"
-    [articlePage]="true"
-  ></app-article-component>
+  <div class="paggination-content">
+    <app-paggination-button
+      [disabledButtonLeft]="isBeginOfPage"
+      [direction]="false"
+      (pageChange)="changingPage($event)"
+      class="paggiation-component__element"
+    ></app-paggination-button>
+    <app-article-component
+      (isEditFormOpenFlag)="openEditArticleForm($event)"
+      [articleArray]="storage.articleStorage()"
+      (articleToDelete)="removeArticle($event)"
+      [articlePageFlag]="true"
+    ></app-article-component>
+    <app-paggination-button
+      [disabledButtonRight]="isEndOfPage"
+      [direction]="true"
+      (pageChange)="changingPage($event)"
+      class="paggiation-component__element"
+    ></app-paggination-button>
+  </div>
 </section>
 <div #form>
   <app-add-article-form

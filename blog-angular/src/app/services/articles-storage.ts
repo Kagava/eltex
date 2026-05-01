@@ -22,4 +22,15 @@ export class ArticlesStorage {
   public decrementMainPage() {
     this.#mainPage.update((value) => value - 1);
   }
+
+  #articlePage: WritableSignal<number> = signal<number>(0);
+  public articlePage = this.#articlePage.asReadonly();
+
+  public incrementArticlePage() {
+    this.#articlePage.update((value) => value + 1);
+  }
+
+  public decrementArticlePage() {
+    this.#articlePage.update((value) => value - 1);
+  }
 }

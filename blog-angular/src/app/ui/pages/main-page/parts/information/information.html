@@ -3,6 +3,7 @@
   <app-hobby></app-hobby>
   <section class="articles">
     <app-paggination-button
+      [disabledButtonLeft]="isBeginOfPage"
       [direction]="false"
       (pageChange)="changingPage($event)"
       class="paggiation-component__element"
@@ -15,6 +16,7 @@
       ></app-article-component>
     </div>
     <app-paggination-button
+      [disabledButtonRight]="isEndOfPage"
       [direction]="true"
       (pageChange)="changingPage($event)"
       class="paggiation-component__element"

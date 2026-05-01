@@ -23,10 +23,10 @@
   &:hover {
     background-image: url('#{path.$assets-path}/svgs/chevrons-left_hovered.svg');
   }
-  &.disabled {
+  &.disabled_left {
+    pointer-events: none;
     background-image: url('#{path.$assets-path}/svgs/chevrons-left_disabled.svg') !important;
     box-shadow: none !important;
-    cursor: not-allowed !important;
   }
 }
 
@@ -35,9 +35,9 @@
   &:hover {
     background-image: url('#{path.$assets-path}/svgs/chevrons-right_hovered.svg');
   }
-  &.disabled {
+  &.disabled_right {
+    pointer-events: none;
     background-image: url('#{path.$assets-path}/svgs/chevrons-right_disabled.svg') !important;
     box-shadow: none !important;
-    cursor: not-allowed !important;
   }
 }

@@ -1,6 +1,5 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { ArticlesStorage } from '../../../services/articles-storage';
-import { computeMsgId } from '@angular/compiler';
 
 @Component({
   selector: 'app-paggination-button',
@@ -13,6 +12,8 @@ export class PagginationButton {
 
   protected pageChange = output<boolean>();
 
+  public disabledButtonLeft = input<boolean>(false);
+  public disabledButtonRight = input<boolean>(false);
   public direction = input.required<boolean>();
 
   protected changePage() {

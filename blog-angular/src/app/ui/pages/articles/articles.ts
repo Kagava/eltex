@@ -9,11 +9,10 @@ import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
 import { ArticleStorageService } from '../../../services/article-storage-service';
-import { FormService } from '../../../services/form-service';
-
+import { PagginationButton } from '../../components/paggination-button/paggination-button';
 @Component({
   selector: 'app-articles',
-  imports: [AdminPanel, Curtain, DialogStat, AddArticleForm, ArticleComponent],
+  imports: [AdminPanel, Curtain, DialogStat, AddArticleForm, ArticleComponent, PagginationButton],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
 })
@@ -21,7 +20,7 @@ export class Articles {
   private articleStorageService = inject(ArticleStorageService);
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
-  private quantity = 10;
+  private quantityArticles = 7;
 
   protected storage = inject(ArticlesStorage);
   protected dialogVisible: boolean = false;
@@ -32,6 +31,8 @@ export class Articles {
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
+  public isEndOfPage = true;
+  public isBeginOfPage = true;
 
   constructor() {}
 
@@ -64,5 +65,39 @@ export class Articles {
 
   ngDoCheck() {
     this.dialogVisible = true;
+  }
+
+  protected changingPage(direction: boolean) {
+    const articles = this.storage.articleStorage().length;
+    const currentPage = this.storage.articlePage();
+    if (direction) {
+      if (currentPage < Math.floor(articles / this.quantityArticles)) {
+        this.storage.incrementArticlePage();
+      }
+    } else {
+      if (currentPage > 0) {
+        this.storage.decrementArticlePage();
+      }
+    }
+    this.countButtonFlags(this.storage.articlePage());
+  }
+
+  ngOnInit() {
+    const tempArticlePage = this.storage.articlePage();
+    this.countButtonFlags(tempArticlePage);
+  }
+
+  private countButtonFlags(currentPage: number) {
+    const articles = this.storage.articleStorage().length;
+    if (currentPage !== 0) {
+      this.isBeginOfPage = false;
+    } else {
+      this.isBeginOfPage = true;
+    }
+    if (currentPage !== Math.floor(articles / this.quantityArticles)) {
+      this.isEndOfPage = false;
+    } else {
+      this.isEndOfPage = true;
+    }
   }
 }

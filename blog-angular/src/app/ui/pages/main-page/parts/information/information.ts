@@ -24,11 +24,11 @@ export class Information {
   protected storage = inject(ArticlesStorage);
   protected outputArticles: Article[] = [];
 
+  public isEndOfPage = true;
+  public isBeginOfPage = true;
   public editArticleId: string = '';
   public editArticleData: FormData = { title: '', description: '', category: '' };
   public visionChangedFlag: boolean = true;
-  public openFormFlag: boolean = false;
-  public editFormFlag: boolean = false;
 
   constructor() {}
 
@@ -50,16 +50,37 @@ export class Information {
   }
 
   protected changingPage(direction: boolean) {
+    console.log('change inf', this.storage.mainPage());
     const articles = this.storage.articleStorage().length;
-    const curentPage = this.storage.mainPage();
+    const currentPage = this.storage.mainPage();
     if (direction) {
-      if (curentPage < Math.floor(articles / 3)) {
+      if (currentPage < Math.floor(articles / this.quantityArticles)) {
         this.storage.incrementMainPage();
       }
     } else {
-      if (curentPage > 0) {
+      if (currentPage > 0) {
         this.storage.decrementMainPage();
       }
+    }
+    this.countButtonFlags(this.storage.mainPage());
+  }
+
+  ngOnInit() {
+    const tempMainPage = this.storage.mainPage();
+    this.countButtonFlags(tempMainPage);
+  }
+
+  private countButtonFlags(currentPage: number) {
+    const articles = this.storage.articleStorage().length;
+    if (currentPage !== 0) {
+      this.isBeginOfPage = false;
+    } else {
+      this.isBeginOfPage = true;
+    }
+    if (currentPage !== Math.floor(articles / this.quantityArticles)) {
+      this.isEndOfPage = false;
+    } else {
+      this.isEndOfPage = true;
     }
   }
 }
