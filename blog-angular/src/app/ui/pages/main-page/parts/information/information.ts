@@ -7,7 +7,7 @@ import { Article } from '../../../../../models/types/articles';
 import { AddArticleForm } from '../../../../components/add-article-form/add-article-form';
 import { FormData } from '../../../../../models/types/form-data';
 import { ArticlesStorage } from '../../../../../services/articles-storage';
-import { ArticleStorageService } from '../../../../../services/article-storage-service';
+import { ARTICLE_STORAGE_SERVISE } from '../../../../../tokens/article-storage-servic-token';
 import { PagginationButton } from '../../../../components/paggination-button/paggination-button';
 
 @Component({
@@ -17,7 +17,7 @@ import { PagginationButton } from '../../../../components/paggination-button/pag
   styleUrl: './information.scss',
 })
 export class Information {
-  private articleStorageService = inject(ArticleStorageService);
+  private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
   private quantityArticles: number = 3;
   private formChild = viewChild<ElementRef>('form');
 

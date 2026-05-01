@@ -6,11 +6,12 @@ import { Article } from '../models/types/articles';
 import { FormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IArticleStorageService } from '../models/interfaces/article-storage-service.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ArticleStorageService {
+export class ArticleStorageService implements IArticleStorageService {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
 
