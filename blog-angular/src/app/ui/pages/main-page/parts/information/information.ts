@@ -50,7 +50,6 @@ export class Information {
   }
 
   protected changingPage(direction: boolean) {
-    console.log('change inf', this.storage.mainPage());
     const articles = this.storage.articleStorage().length;
     const currentPage = this.storage.mainPage();
     if (direction) {
