@@ -35,9 +35,6 @@
   @media (max-width: 1010px) {
     width: 100%;
   }
-  @media (max-width: 636px) {
-    width: clamp(370px, 50vw, 560px);
-  }
   &:first-child {
     width: 100%;
     & .article__foto {
@@ -68,6 +65,9 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+  }
+  > .article__content {
+    min-height: 333px;
   }
 }
 

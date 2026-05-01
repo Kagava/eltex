@@ -20,9 +20,6 @@
 
 .left {
   background-image: url('#{path.$assets-path}/svgs/chevrons-left_active.svg');
-  &:hover {
-    background-image: url('#{path.$assets-path}/svgs/chevrons-left_hovered.svg');
-  }
   &.disabled_left {
     pointer-events: none;
     background-image: url('#{path.$assets-path}/svgs/chevrons-left_disabled.svg') !important;
@@ -32,12 +29,35 @@
 
 .right {
   background-image: url('#{path.$assets-path}/svgs/chevrons-right_active.svg');
-  &:hover {
-    background-image: url('#{path.$assets-path}/svgs/chevrons-right_hovered.svg');
-  }
   &.disabled_right {
     pointer-events: none;
     background-image: url('#{path.$assets-path}/svgs/chevrons-right_disabled.svg') !important;
     box-shadow: none !important;
+  }
+}
+
+@media (hover: hover) {
+  .right {
+    &:hover {
+      background-image: url('#{path.$assets-path}/svgs/chevrons-right_hovered.svg');
+    }
+  }
+  .left {
+    &:hover {
+      background-image: url('#{path.$assets-path}/svgs/chevrons-left_hovered.svg');
+    }
+  }
+}
+
+@media (hover: none) {
+  .right {
+    &:active {
+      background-image: url('#{path.$assets-path}/svgs/chevrons-right_hovered.svg');
+    }
+  }
+  .left {
+    &:active {
+      background-image: url('#{path.$assets-path}/svgs/chevrons-left_hovered.svg');
+    }
   }
 }
