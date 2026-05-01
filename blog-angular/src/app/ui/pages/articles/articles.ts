@@ -10,6 +10,7 @@ import { ArticleComponent } from '../../components/article-component/article-com
 import { ArticlesStorage } from '../../../services/articles-storage';
 import { ArticleStorageService } from '../../../services/article-storage-service';
 import { PagginationButton } from '../../components/paggination-button/paggination-button';
+
 @Component({
   selector: 'app-articles',
   imports: [AdminPanel, Curtain, DialogStat, AddArticleForm, ArticleComponent, PagginationButton],
@@ -34,14 +35,19 @@ export class Articles {
   public isEndOfPage = true;
   public isBeginOfPage = true;
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      if (this.storage.articleStorage()) {
+        this.countButtonFlags(this.storage.articlePage());
+      }
+    });
+  }
 
   public changeVision(event: boolean) {
     this.visionChangedFlag = !event;
   }
 
   public createNewArticle(data: FormData) {
-    console.log('HELLNO');
     const article: Article = this.createArticleService.get(data);
     this.articleStorageService.addArticle(article);
   }
