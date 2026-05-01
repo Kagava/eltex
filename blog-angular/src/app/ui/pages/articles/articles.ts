@@ -94,10 +94,11 @@ export class Articles {
     } else {
       this.isBeginOfPage = true;
     }
-    if (currentPage !== Math.floor(articles / this.quantityArticles)) {
-      this.isEndOfPage = false;
-    } else {
+    console.log(currentPage, Math.ceil(articles / this.quantityArticles));
+    if (currentPage + 1 === Math.ceil(articles / this.quantityArticles)) {
       this.isEndOfPage = true;
+    } else {
+      this.isEndOfPage = false;
     }
   }
 }

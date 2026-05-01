@@ -35,6 +35,9 @@
   @media (max-width: 1010px) {
     width: 100%;
   }
+  @media (max-width: 500px) {
+    width: 90%;
+  }
   &:first-child {
     width: 100%;
     & .article__foto {
@@ -165,7 +168,7 @@
   flex-direction: row;
   column-gap: 20px;
   border-radius: 20px;
-  @media (max-width: 1000px) {
+  @media (max-width: 1200px) {
     width: 90%;
     margin: auto;
     flex-direction: column-reverse;
@@ -174,16 +177,19 @@
 }
 
 .article__text_main {
+  width: 30dvw;
   display: flex;
   flex-direction: column;
   justify-content: start;
   row-gap: 16px;
-  padding: 40px 0px 0px 40px;
+  padding: 40px 0px 10px 40px;
   @media (max-width: 1200px) {
-    padding: 30px 30px 10px 30px;
+    width: 90%;
+    margin: auto;
   }
   @media (max-width: 1000px) {
     padding: 10px;
+    margin: none;
   }
 }
 
@@ -197,8 +203,7 @@
 
 .article__image-container {
   display: flex;
-  justify-content: end;
-  width: 155%;
+  justify-content: start;
   padding-right: 5px;
   @media (max-width: 1000px) {
     width: 100%;
@@ -207,8 +212,6 @@
 }
 
 .image-container__image {
-  max-width: 567px;
-  max-height: 340px;
   width: 100%;
   border-radius: 5px;
   @media (max-width: 1000px) {
