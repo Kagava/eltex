@@ -10,9 +10,21 @@ app-hobby {
   grid-area: form;
 }
 
-.last-articles {
-  grid-area: articles;
+.articles {
   margin-top: 30px;
+  grid-area: articles;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  @media (max-width: 636px) {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+
+.last-articles {
   display: flex;
   flex-direction: column;
   row-gap: 35px;
@@ -22,6 +34,7 @@ app-hobby {
 app-works {
   grid-area: my-works;
 }
+
 .main__information {
   margin-top: 30px;
   display: grid;
@@ -70,5 +83,11 @@ app-works {
   .link-to-blog-page:active {
     color: var(--background-color--submit-button--pale);
     background-color: var(--font-color--link);
+  }
+}
+
+.paggiation-component__element {
+  @media (max-width: 636px) {
+    order: 1;
   }
 }

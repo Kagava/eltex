@@ -45,3 +45,21 @@
   background-color: transparent;
   background-image: url('#{path.$assets-path}/something.png');
 }
+
+.paggination-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  @media (max-width: 700px) {
+    flex-wrap: wrap;
+  }
+}
+
+.paggiation-component__element {
+  @media (max-width: 700px) {
+    order: 1;
+  }
+}

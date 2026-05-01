@@ -1,30 +1,30 @@
-@if (articlePage()) {
+@if (articlePageFlag()) {
   <div class="articles__container">
     @if (articleArray()) {
-      @for (article of articleArray(); track article.id) {
-        <div class="articles__article article" [id]="article.id">
-          <div class="article__content" [class]="article.category">
-            <div class="article__foto"></div>
-            <div class="article__text">
-              <h3 class="article__article-header">
-                {{ article.title }}
-              </h3>
-              <p class="article__date date">
-                <time [attr.datetime]="article.date"
-                  >Опубликовано: {{ article.dateFormatted }}</time
-                >
-              </p>
-              <div class="article__information">{{ article.description }}</div>
+      @for (article of articleArray(); track $index) {
+        @if ($index >= articlePage() && $index < articlePage() + 7) {
+          <div class="articles__article article" [id]="article.id">
+            <div class="article__content" [class]="article.category">
+              <div class="article__foto"></div>
+              <div class="article__text">
+                <h3 class="article__article-header">
+                  {{ article.title }}
+                </h3>
+                <p class="article__date date">
+                  <time [attr.datetime]="article.date"
+                    >Опубликовано: {{ article.dateFormatted }}</time
+                  >
+                </p>
+                <div class="article__information">{{ article.description }}</div>
+              </div>
             </div>
+            @let articleId = article.id;
+            <div class="edit-button article__edit" (click)="openEditForm(article)">
+              <span class="edit-button__center"></span>
+            </div>
+            <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
           </div>
-          @let articleId = article.id;
-          @let articleData =
-            { title: article.title, description: article.description, category: article.category };
-          <div class="edit-button article__edit" (click)="openEditForm(articleData, articleId)">
-            <span class="edit-button__center"></span>
-          </div>
-          <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
-        </div>
+        }
       }
     }
   </div>
@@ -32,37 +32,37 @@
   <section class="last-articles">
     <h2 class="last_articles__header">Последний статьи</h2>
     <div class="last-articles__content">
-      @for (article of articleArray(); track article.id) {
-        <div
-          class="last-articles__article article_main"
-          [class]="article.category"
-          [id]="article.id"
-        >
-          <div class="article__text_main">
-            <h4 class="last-articles__article-header">
-              {{ article.title }}
-            </h4>
-            <p class="last-articles__date date">
-              <time [attr.datetime]="article.date">{{ article.dateFormatted }}</time>
-            </p>
-            <p class="last_articles__information information">{{ article.description }}</p>
-          </div>
-          <div class="article__image-container">
-            <img
-              src="assets/article-foto.png"
-              alt="Картиночка для статьи"
-              class="image-container__image"
-            />
-          </div>
+      @for (article of articleArray(); track $index) {
+        @if ($index >= mainPage() && $index < mainPage() + 3) {
+          <div
+            class="last-articles__article article_main"
+            [class]="article.category"
+            [id]="article.id"
+          >
+            <div class="article__text_main">
+              <h4 class="last-articles__article-header">
+                {{ article.title }}
+              </h4>
+              <p class="last-articles__date date">
+                <time [attr.datetime]="article.date">{{ article.dateFormatted }}</time>
+              </p>
+              <p class="last_articles__information information">{{ article.description }}</p>
+            </div>
+            <div class="article__image-container">
+              <img
+                src="assets/article-foto.png"
+                alt="Картиночка для статьи"
+                class="image-container__image"
+              />
+            </div>
 
-          @let articleId = article.id;
-          @let articleData =
-            { title: article.title, description: article.description, category: article.category };
-          <div class="edit-button article__edit" (click)="openEditForm(articleData, articleId)">
-            <span class="edit-button__center"></span>
+            @let articleId = article.id;
+            <div class="edit-button article__edit" (click)="openEditForm(article)">
+              <span class="edit-button__center"></span>
+            </div>
+            <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
           </div>
-          <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
-        </div>
+        }
       }
     </div>
     <a [routerLink]="'/articles'" class="last-articles__link-to-blog-page link-to-blog-page"

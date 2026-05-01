@@ -1,7 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { RouterLink } from '@angular/router';
-import { FormData, FormDataString } from '../../../models/types/form-data';
+import { FormData } from '../../../models/types/form-data';
+import { FormService } from '../../../services/form-service';
+import { ArticlesStorage } from '../../../services/articles-storage';
 
 @Component({
   selector: 'app-article-component',
@@ -10,15 +12,25 @@ import { FormData, FormDataString } from '../../../models/types/form-data';
   styleUrl: './article-component.scss',
 })
 export class ArticleComponent {
+  private formService = inject(FormService);
+
+  protected storage = inject(ArticlesStorage);
+  protected mainPage = computed(() => this.storage.mainPage() * 3);
+  protected articlePage = computed(() => this.storage.articlePage() * 7);
+
   public articleArray = input<Article[]>();
   public articleToDelete = output<string>();
-  public articlePage = input<boolean>();
-  public isEditFormOpenFlag = output<FormDataString>();
+  public articlePageFlag = input<boolean>();
+  public isEditFormOpenFlag = output<FormData>();
 
   removeArticle(id: string) {
+    this.formService.formClose();
     this.articleToDelete.emit(id);
   }
-  protected openEditForm(data: FormData, id: string) {
-    this.isEditFormOpenFlag.emit({ data, id });
+  protected openEditForm(data: FormData) {
+    console.log(data);
+    this.formService.formEdit();
+    this.formService.formOpen();
+    this.isEditFormOpenFlag.emit({ ...data });
   }
 }

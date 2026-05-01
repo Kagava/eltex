@@ -1,0 +1,64 @@
+@use 'path';
+
+.paggination-button {
+  height: 40px;
+  width: 40px;
+  border: 1px solid black;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  &:hover {
+    cursor: pointer;
+    box-shadow:
+      2px 2px 6px 4px rgba(0, 0, 0, 0.45),
+      -2px -2px 6px 4px rgba(0, 0, 0, 0.45);
+  }
+}
+
+.left {
+  background-image: url('#{path.$assets-path}/svgs/chevrons-left_active.svg');
+  &.disabled_left {
+    border-color: #666666;
+    pointer-events: none;
+    background-image: url('#{path.$assets-path}/svgs/chevrons-left_disabled.svg') !important;
+    box-shadow: none !important;
+  }
+}
+
+.right {
+  background-image: url('#{path.$assets-path}/svgs/chevrons-right_active.svg');
+  &.disabled_right {
+    border-color: #666666;
+    pointer-events: none;
+    background-image: url('#{path.$assets-path}/svgs/chevrons-right_disabled.svg') !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (hover: hover) {
+  .right {
+    &:hover {
+      background-image: url('#{path.$assets-path}/svgs/chevrons-right_hovered.svg');
+    }
+  }
+  .left {
+    &:hover {
+      background-image: url('#{path.$assets-path}/svgs/chevrons-left_hovered.svg');
+    }
+  }
+}
+
+@media (hover: none) {
+  .right {
+    &:active {
+      background-image: url('#{path.$assets-path}/svgs/chevrons-right_hovered.svg');
+    }
+  }
+  .left {
+    &:active {
+      background-image: url('#{path.$assets-path}/svgs/chevrons-left_hovered.svg');
+    }
+  }
+}

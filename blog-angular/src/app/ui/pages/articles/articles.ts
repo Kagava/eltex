@@ -1,69 +1,68 @@
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { Article } from '../../../models/types/articles';
-import { ArticlesService } from '../../../services/articles-service';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
 import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
-import { FormData, FormDataString } from '../../../models/types/form-data';
+import { FormData } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
+import { ArticlesStorage } from '../../../services/articles-storage';
+import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-token';
+import { PagginationButton } from '../../components/paggination-button/paggination-button';
+import { ArticleStorageService } from '../../../services/article-storage-service';
 
 @Component({
   selector: 'app-articles',
-  imports: [AdminPanel, Curtain, DialogStat, AddArticleForm, ArticleComponent],
+  imports: [AdminPanel, Curtain, DialogStat, AddArticleForm, ArticleComponent, PagginationButton],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
+  providers: [
+    ArticlesStorage,
+    { provide: ARTICLE_STORAGE_SERVISE, useClass: ArticleStorageService },
+  ],
 })
 export class Articles {
+  private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
-  private articleService = inject(ArticlesService);
-  private quantity = 10;
+  private quantityArticles = 7;
 
+  protected storage = inject(ArticlesStorage);
   protected dialogVisible: boolean = false;
   protected outputArticles: Article[] = [];
 
-  public editArticleId: string = '';
-  public editArticleData: FormData = { title: '', description: '', category: '' };
+  public articles: Article[] = [];
+  public editArticleData: FormData | null = null;
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
+  public isEndOfPage = true;
+  public isBeginOfPage = true;
 
   constructor() {
-    this.outputArticles = this.articleService.get(this.quantity);
+    effect(() => {
+      if (this.storage.articleStorage()) {
+        this.countButtonFlags(this.storage.articlePage());
+      }
+    });
   }
 
   public changeVision(event: boolean) {
     this.visionChangedFlag = !event;
   }
 
-  public openForm(event: boolean) {
-    this.editArticleId = '';
-    this.editArticleData = { title: '', description: '', category: '' };
-    this.editFormFlag = false;
-    this.openFormFlag = event;
-  }
-
   public createNewArticle(data: FormData) {
-    this.createArticleService.set(data);
-    this.outputArticles.unshift(this.createArticleService.get());
+    const article: Article = this.createArticleService.get(data);
+    this.articleStorageService.addArticle(article);
   }
 
   public removeArticle(id: string) {
-    const currentArticlesArray = this.outputArticles;
-    for (let i = 0; i < currentArticlesArray.length; i += 1) {
-      if (currentArticlesArray[i].id === id) {
-        this.outputArticles.splice(i, 1);
-      }
-    }
+    this.articleStorageService.removeArticle(id);
   }
 
-  protected editArticle(data: FormDataString) {
-    this.editFormFlag = true;
-    this.openFormFlag = true;
-    this.editArticleData = data.data;
-    this.editArticleId = data.id;
+  protected openEditArticleForm(data: FormData) {
+    this.editArticleData = data;
     this.formChild()?.nativeElement.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
@@ -71,19 +70,46 @@ export class Articles {
     });
   }
 
-  protected editLivingArticle(data: FormDataString) {
-    for (let article of this.outputArticles) {
-      if (article.id === data.id) {
-        article.category = data.data.category;
-        article.title = data.data.title;
-        article.description = data.data.description;
+  protected updateArticle(data: FormData) {
+    this.articleStorageService.updateArticle(data);
+  }
+
+  ngDoCheck() {
+    this.dialogVisible = true;
+  }
+
+  protected changingPage(direction: boolean) {
+    const articles = this.storage.articleStorage().length;
+    const currentPage = this.storage.articlePage();
+    if (direction) {
+      if (currentPage < Math.floor(articles / this.quantityArticles)) {
+        this.storage.incrementArticlePage();
+      }
+    } else {
+      if (currentPage > 0) {
+        this.storage.decrementArticlePage();
       }
     }
+    this.countButtonFlags(this.storage.articlePage());
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.dialogVisible = true;
-    }, 0);
+    const tempArticlePage = this.storage.articlePage();
+    this.countButtonFlags(tempArticlePage);
+  }
+
+  private countButtonFlags(currentPage: number) {
+    const articles = this.storage.articleStorage().length;
+    if (currentPage !== 0) {
+      this.isBeginOfPage = false;
+    } else {
+      this.isBeginOfPage = true;
+    }
+    console.log(currentPage, Math.ceil(articles / this.quantityArticles));
+    if (currentPage + 1 === Math.ceil(articles / this.quantityArticles)) {
+      this.isEndOfPage = true;
+    } else {
+      this.isEndOfPage = false;
+    }
   }
 }

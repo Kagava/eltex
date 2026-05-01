@@ -1,6 +1,7 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormData, FormDataString } from '../../../models/types/form-data';
+import { FormData } from '../../../models/types/form-data';
+import { FormService } from '../../../services/form-service';
 
 @Component({
   selector: 'app-add-article-form',
@@ -12,16 +13,20 @@ export class AddArticleForm {
   private readonly fb = inject(NonNullableFormBuilder);
   private transform: number = 42;
 
+  protected formService = inject(FormService);
+  protected formTitle = computed(() => {
+    return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
+  });
+
+  protected formButton = computed(() => {
+    return this.formService.isEditMode() ? ' Редактировать' : 'Добавить';
+  });
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
-  protected flagEdit: boolean = false;
 
-  public toggleForm = input<boolean>();
-  public editData = input<FormData>();
-  public editId = input<string>();
+  public editData = input.required<FormData | null>();
   public dataOut = output<FormData>();
-  public dataOutEdit = output<FormDataString>();
-  public editClose = output<boolean>();
+  public dataOutEdit = output<FormData>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
@@ -29,14 +34,16 @@ export class AddArticleForm {
   });
 
   protected titleError = this.form.get('title')?.errors;
-  constructor() {}
+  constructor() {
+    this.formService.formClose();
+  }
 
   protected onSubmit(e: Event) {
     e.preventDefault();
-    if (this.flagEdit) {
-      this.dataOutEdit.emit({ data: this.form.getRawValue(), id: this.editId()! });
-      this.flagEdit = false;
+    if (this.formService.isEditMode()) {
+      this.dataOutEdit.emit({ ...this.form.getRawValue(), id: this.editData()!.id });
     } else {
+      console.log(this.form.getRawValue());
       this.dataOut.emit(this.form.getRawValue());
     }
     this.form.reset();
@@ -75,14 +82,14 @@ export class AddArticleForm {
   }
 
   protected resetForm() {
-    this.editClose.emit(true);
+    this.formService.formClose();
     this.spanSelectValue = 'Tennis';
   }
 
   ngOnChanges() {
     const tempData = this.editData();
     if (tempData && tempData.title !== '') {
-      this.flagEdit = true;
+      this.formService.formEdit();
       this.form.setValue({
         title: tempData.title,
         description: tempData.description,
@@ -94,11 +101,11 @@ export class AddArticleForm {
         this.spanSelectValue = 'Tennis';
       }
     } else {
-      this.flagEdit = false;
+      this.formService.formNotEdit();
       this.form.setValue({
         title: '',
         description: '',
-        category: 'Tennis',
+        category: 'tennis-article',
       });
       this.spanSelectValue = 'Tennis';
     }
