@@ -9,7 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleStorageService } from '../models/interfaces/article-storage-service.interface';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: null,
 })
 export class ArticleStorageService implements IArticleStorageService {
   private storage = inject(ArticlesStorage);
