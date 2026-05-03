@@ -10,17 +10,12 @@ import { ArticleComponent } from '../../components/article-component/article-com
 import { ArticlesStorage } from '../../../services/articles-storage';
 import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-token';
 import { PagginationButton } from '../../components/paggination-button/paggination-button';
-import { ArticleStorageService } from '../../../services/article-storage-service';
 
 @Component({
   selector: 'app-articles',
   imports: [AdminPanel, Curtain, DialogStat, AddArticleForm, ArticleComponent, PagginationButton],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
-  providers: [
-    ArticlesStorage,
-    { provide: ARTICLE_STORAGE_SERVISE, useClass: ArticleStorageService },
-  ],
 })
 export class Articles {
   private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
