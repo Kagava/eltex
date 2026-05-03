@@ -1,13 +1,7 @@
 import { Component, computed, effect, inject, input, output } from '@angular/core';
-import {
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-  MinLengthValidator,
-} from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
-import { MaxLengthValidationError } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-add-article-form',
@@ -18,8 +12,9 @@ import { MaxLengthValidationError } from '@angular/forms/signals';
 export class AddArticleForm {
   private readonly fb = inject(NonNullableFormBuilder);
   private transform: number = 42;
+  private formService = inject(FormService);
 
-  protected formService = inject(FormService);
+  protected isFormOpen = this.formService.isFormOpen();
   protected formTitle = computed(() => {
     return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
   });

@@ -20,8 +20,9 @@ export class Information {
   private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
   private quantityArticles: number = 3;
   private formChild = viewChild<ElementRef>('form');
+  private storage = inject(ArticlesStorage);
 
-  protected storage = inject(ArticlesStorage);
+  protected articlesStorage = this.storage.articleStorage();
   protected outputArticles: Article[] = [];
 
   public isEndOfPage = true;
