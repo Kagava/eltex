@@ -1,7 +1,13 @@
 import { Component, computed, effect, inject, input, output } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+  MinLengthValidator,
+} from '@angular/forms';
 import { FormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
+import { MaxLengthValidationError } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-add-article-form',
@@ -86,6 +92,25 @@ export class AddArticleForm {
     this.formService.formClose();
   }
 
+  protected hasError(controlName: string) {
+    const control = this.form.get(controlName);
+    const isValid = control?.invalid && control.touched;
+    return Boolean(isValid);
+  }
+
+  protected getControlErrors(controlName: string) {
+    const control = this.form.get(controlName);
+    const errors: Record<string, unknown> | null = control?.errors ?? null;
+    if (errors) {
+      const errorsArray: string[] = [];
+      Object.entries(errors).forEach(([errorType, errorValue]) => {
+        errorsArray.push(this.errorMassege(errorType, errorValue));
+      });
+      return errorsArray;
+    }
+    return [];
+  }
+
   private editDataEffect() {
     effect(() => {
       const tempData = this.editData();
@@ -100,5 +125,20 @@ export class AddArticleForm {
         this.form.reset();
       }
     });
+  }
+
+  private errorMassege(errorType: string, errorValue: unknown) {
+    switch (errorType) {
+      case 'required':
+        return 'Поле обязательно для заполнения';
+      case 'minlength':
+        const { requiredLength, actualLength } = errorValue as {
+          requiredLength: number;
+          actualLength: number;
+        };
+        return `Нужно еще ${requiredLength - actualLength} символов`;
+      default:
+        return 'Ошибка заполнение поля';
+    }
   }
 }
