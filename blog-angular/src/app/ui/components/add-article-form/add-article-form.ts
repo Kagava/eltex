@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, effect, inject, input, output } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
@@ -22,7 +22,9 @@ export class AddArticleForm {
     return this.formService.isEditMode() ? ' Редактировать' : 'Добавить';
   });
   protected isSelectOpen: boolean = false;
-  protected spanSelectValue: string = 'Tennis';
+  protected spanSelectValue = computed(() => {
+    return this.editData()?.category === 'frontend-article' ? 'Frontend' : 'Tennis';
+  });
 
   public editData = input.required<FormData | null>();
   public dataOut = output<FormData>();
@@ -36,6 +38,7 @@ export class AddArticleForm {
   protected titleError = this.form.get('title')?.errors;
   constructor() {
     this.formService.formClose();
+    this.editDataEffect();
   }
 
   protected onSubmit(e: Event) {
@@ -58,14 +61,12 @@ export class AddArticleForm {
   protected tennisChoice(event: Event) {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
-    this.spanSelectValue = 'Tennis';
     this.form.patchValue({ category: 'tennis-article' });
   }
 
   protected frontendChoice(event: Event) {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
-    this.spanSelectValue = 'Frontend';
     this.form.patchValue({ category: 'frontend-article' });
   }
 
@@ -78,36 +79,26 @@ export class AddArticleForm {
   }
 
   protected checkDefault(value: string) {
-    return value === this.spanSelectValue;
+    return value === this.spanSelectValue();
   }
 
   protected resetForm() {
     this.formService.formClose();
-    this.spanSelectValue = 'Tennis';
   }
 
-  ngOnChanges() {
-    const tempData = this.editData();
-    if (tempData && tempData.title !== '') {
-      this.formService.formEdit();
-      this.form.setValue({
-        title: tempData.title,
-        description: tempData.description,
-        category: tempData.category,
-      });
-      if (tempData.category === 'frontend-article') {
-        this.spanSelectValue = 'Fontend';
+  private editDataEffect() {
+    effect(() => {
+      const tempData = this.editData();
+      if (tempData && tempData.title !== '') {
+        this.formService.formEdit();
+        this.form.reset({
+          title: tempData.title,
+          description: tempData.description,
+          category: tempData.category,
+        });
       } else {
-        this.spanSelectValue = 'Tennis';
+        this.form.reset();
       }
-    } else {
-      this.formService.formNotEdit();
-      this.form.setValue({
-        title: '',
-        description: '',
-        category: 'tennis-article',
-      });
-      this.spanSelectValue = 'Tennis';
-    }
+    });
   }
 }
