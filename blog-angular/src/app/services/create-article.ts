@@ -46,7 +46,7 @@ export class CreateArticle {
       id: crypto.randomUUID() as string,
       date: time[0],
       dateFormatted: time[1],
-      image: `../assets/article-foto.png`,
+      image: `../blog/assets/article-foto.png`,
     };
   }
 }

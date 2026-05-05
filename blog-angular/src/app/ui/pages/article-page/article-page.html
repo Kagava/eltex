@@ -1,4 +1,23 @@
 @if (currentArticle()) {
-  <h2 class="">{{ currentArticle()?.title }}</h2>
-  <p>{{ currentArticle()?.description }}</p>
+  <div class="article-container">
+    <div class="wrapper">
+      <div class="article" [class]="currentArticle()?.category">
+        <div class="aritlce__image">
+          <img [src]="currentArticle()?.image" [alt]="currentArticle()?.title" />
+        </div>
+        <div class="article__title">
+          <h2 class="article__header">{{ currentArticle()?.title }}</h2>
+          <p class="article__date">
+            <time [attr.datetime]="currentArticle()?.date"
+              ><i>Опубликовано: {{ currentArticle()?.dateFormatted }}</i></time
+            >
+          </p>
+        </div>
+        <div class="article__description">{{ currentArticle()?.description }}</div>
+      </div>
+      <div class="comments"></div>
+    </div>
+  </div>
+} @else {
+  SOMETHING WENT WRONG
 }

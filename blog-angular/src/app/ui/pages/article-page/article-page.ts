@@ -19,16 +19,12 @@ export class ArticlePage {
   protected currentArticle = computed(() => this.articleStorage.articleInfo());
   protected articleId = signal<string>('');
 
-  constructor() {
-    effect(() => {
-      const id = this.articleId();
-      this.articleRepository.findArticle(id);
-    });
-  }
+  constructor() {}
 
   ngOnInit() {
     this.activeRouter.params
       .pipe(takeUntilDestroyed(this.destroyRef$))
       .subscribe((obj) => this.articleId.set(obj['id']));
+    this.articleRepository.findArticle(this.articleId());
   }
 }
