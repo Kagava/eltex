@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ArticleSrotage } from '../../../services/article/article-srotage';
+import { ArticleRepositoryStorage } from '../../../services/article/article-repository-storage';
 @Component({
   selector: 'app-article-page',
   imports: [],
@@ -9,15 +11,24 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './article-page.scss',
 })
 export class ArticlePage {
+  private articleStorage = inject(ArticleSrotage);
+  private articleRepository = inject(ArticleRepositoryStorage);
   private activeRouter = inject(ActivatedRoute);
   private destroyRef$ = inject(DestroyRef);
-  protected articleId: string = '';
 
-  constructor() {}
+  protected currentArticle = computed(() => this.articleStorage.articleInfo());
+  protected articleId = signal<string>('');
+
+  constructor() {
+    effect(() => {
+      const id = this.articleId();
+      this.articleRepository.findArticle(id);
+    });
+  }
 
   ngOnInit() {
     this.activeRouter.params
       .pipe(takeUntilDestroyed(this.destroyRef$))
-      .subscribe((obj) => (this.articleId = obj['id']));
+      .subscribe((obj) => this.articleId.set(obj['id']));
   }
 }

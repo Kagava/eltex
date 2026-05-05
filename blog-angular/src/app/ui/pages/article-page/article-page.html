@@ -1,2 +1,4 @@
-<p>article-page works!</p>
-{{ articleId }}
+@if (currentArticle()) {
+  <h2 class="">{{ currentArticle()?.title }}</h2>
+  <p>{{ currentArticle()?.description }}</p>
+}

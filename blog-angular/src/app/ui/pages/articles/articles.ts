@@ -8,7 +8,6 @@ import { FormData } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
-import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-token';
 import { PagginationButton } from '../../components/paggination-button/paggination-button';
 import { ArticleStorageService } from '../../../services/article-storage-service';
 
@@ -17,13 +16,9 @@ import { ArticleStorageService } from '../../../services/article-storage-service
   imports: [AdminPanel, Curtain, DialogStat, AddArticleForm, ArticleComponent, PagginationButton],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
-  providers: [
-    ArticlesStorage,
-    { provide: ARTICLE_STORAGE_SERVISE, useClass: ArticleStorageService },
-  ],
 })
 export class Articles {
-  private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
+  private articleStorageService = inject(ArticleStorageService);
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
   private quantityArticles = 7;

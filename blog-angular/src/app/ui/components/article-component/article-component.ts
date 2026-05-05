@@ -4,7 +4,7 @@ import { RouterLink, Router } from '@angular/router';
 import { FormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
 import { ArticlesStorage } from '../../../services/articles-storage';
-
+import { ArticleRepositoryStorage } from '../../../services/article/article-repository-storage';
 @Component({
   selector: 'app-article-component',
   imports: [RouterLink],
@@ -12,6 +12,7 @@ import { ArticlesStorage } from '../../../services/articles-storage';
   styleUrl: './article-component.scss',
 })
 export class ArticleComponent {
+  private articleStorage = inject(ArticleRepositoryStorage);
   private formService = inject(FormService);
   private router = inject(Router);
 
