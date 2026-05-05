@@ -47,6 +47,8 @@ export class CreateArticle {
       date: time[0],
       dateFormatted: time[1],
       image: `../blog/assets/article-foto.png`,
+      articleRating: 0,
+      comments: [],
     };
   }
 }

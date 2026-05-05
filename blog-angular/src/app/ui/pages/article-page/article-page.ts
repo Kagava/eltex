@@ -25,6 +25,6 @@ export class ArticlePage {
     this.activeRouter.params
       .pipe(takeUntilDestroyed(this.destroyRef$))
       .subscribe((obj) => this.articleId.set(obj['id']));
-    this.articleRepository.findArticle(this.articleId());
+    this.articleRepository.getArticle(this.articleId());
   }
 }

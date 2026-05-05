@@ -14,7 +14,7 @@ export class ArticleRepositoryStorage {
 
   protected currentArticle: Article | null = null;
 
-  public findArticle(id: string) {
+  public getArticle(id: string) {
     for (let article of this.articlesStorage()) {
       if (article.id === id) {
         this.articleSrotage.setArticleInfo(article);

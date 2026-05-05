@@ -76,7 +76,6 @@ export class Information {
     } else {
       this.isBeginOfPage = true;
     }
-    console.log(currentPage + 1, Math.ceil(articles / this.quantityArticles));
     if (currentPage + 1 === Math.ceil(articles / this.quantityArticles)) {
       this.isEndOfPage = true;
     } else {
