@@ -4,7 +4,11 @@
       @for (article of articleArray(); track $index) {
         @if ($index >= articlePage() && $index < articlePage() + 7) {
           <div class="articles__article article" [id]="article.id">
-            <div class="article__content" [class]="article.category">
+            <div
+              class="article__content"
+              [class]="article.category"
+              (click)="onArticleClick(article.id)"
+            >
               <div class="article__foto"></div>
               <div class="article__text">
                 <h3 class="article__article-header">
@@ -19,10 +23,13 @@
               </div>
             </div>
             @let articleId = article.id;
-            <div class="edit-button article__edit" (click)="openEditForm(article)">
+            <div class="edit-button article__edit" (click)="openEditForm($event, article)">
               <span class="edit-button__center"></span>
             </div>
-            <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
+            <div
+              class="close-button article__close"
+              (click)="removeArticle($event, articleId)"
+            ></div>
           </div>
         }
       }
@@ -38,6 +45,7 @@
             class="last-articles__article article_main"
             [class]="article.category"
             [id]="article.id"
+            (click)="onArticleClick(article.id)"
           >
             <div class="article__text_main">
               <h4 class="last-articles__article-header">
@@ -57,10 +65,13 @@
             </div>
 
             @let articleId = article.id;
-            <div class="edit-button article__edit" (click)="openEditForm(article)">
+            <div class="edit-button article__edit" (click)="openEditForm($event, article)">
               <span class="edit-button__center"></span>
             </div>
-            <div class="close-button article__close" (click)="removeArticle(articleId)"></div>
+            <div
+              class="close-button article__close"
+              (click)="removeArticle($event, articleId)"
+            ></div>
           </div>
         }
       }

@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { Article } from '../../../models/types/articles';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { FormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
 import { ArticlesStorage } from '../../../services/articles-storage';
@@ -13,6 +13,7 @@ import { ArticlesStorage } from '../../../services/articles-storage';
 })
 export class ArticleComponent {
   private formService = inject(FormService);
+  private router = inject(Router);
 
   protected storage = inject(ArticlesStorage);
   protected mainPage = computed(() => this.storage.mainPage() * 3);
@@ -23,14 +24,18 @@ export class ArticleComponent {
   public articlePageFlag = input<boolean>();
   public isEditFormOpenFlag = output<FormData>();
 
-  removeArticle(id: string) {
+  removeArticle(e: MouseEvent, id: string) {
+    e.stopPropagation();
     this.formService.formClose();
     this.articleToDelete.emit(id);
   }
-  protected openEditForm(data: FormData) {
-    console.log(data);
+  protected openEditForm(e: MouseEvent, data: FormData) {
+    e.stopPropagation();
     this.formService.formEdit();
     this.formService.formOpen();
     this.isEditFormOpenFlag.emit({ ...data });
+  }
+  protected onArticleClick(id: string) {
+    this.router.navigateByUrl(`article/${id}`);
   }
 }
