@@ -1,9 +1,7 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Article, Comment } from '../../models/types/articles';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ArticleSrotage {
   #articleInfo: WritableSignal<Article | null> = signal<Article | null>(null);
 

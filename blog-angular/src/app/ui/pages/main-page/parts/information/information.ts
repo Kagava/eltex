@@ -9,7 +9,7 @@ import { FormData } from '../../../../../models/types/form-data';
 import { ArticlesStorage } from '../../../../../services/articles-storage';
 import { ARTICLE_STORAGE_SERVISE } from '../../../../../tokens/article-storage-servic-token';
 import { PagginationButton } from '../../../../components/paggination-button/paggination-button';
-import { ArticleStorageService } from '../../../../../services/article-storage-service';
+
 @Component({
   selector: 'app-information',
   imports: [Career, Hobby, Works, ArticleComponent, AddArticleForm, PagginationButton],
@@ -17,7 +17,7 @@ import { ArticleStorageService } from '../../../../../services/article-storage-s
   styleUrl: './information.scss',
 })
 export class Information {
-  private articleStorageService = inject(ArticleStorageService);
+  private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
   private quantityArticles: number = 3;
   private formChild = viewChild<ElementRef>('form');
 

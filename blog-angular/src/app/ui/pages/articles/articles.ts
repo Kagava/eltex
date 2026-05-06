@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
@@ -9,7 +9,7 @@ import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
 import { PagginationButton } from '../../components/paggination-button/paggination-button';
-import { ArticleStorageService } from '../../../services/article-storage-service';
+import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-token';
 
 @Component({
   selector: 'app-articles',
@@ -18,7 +18,7 @@ import { ArticleStorageService } from '../../../services/article-storage-service
   styleUrl: './articles.scss',
 })
 export class Articles {
-  private articleStorageService = inject(ArticleStorageService);
+  private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
   private quantityArticles = 7;

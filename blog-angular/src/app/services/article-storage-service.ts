@@ -8,9 +8,7 @@ import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleStorageService } from '../models/interfaces/article-storage-service.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ArticleStorageService implements IArticleStorageService {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);

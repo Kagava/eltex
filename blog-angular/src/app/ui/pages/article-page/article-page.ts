@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ArticleSrotage } from '../../../services/article/article-srotage';
-import { ArticleRepositoryStorage } from '../../../services/article/article-repository-storage';
+import { ARTICLE_REPOSITORY_STORAGE } from '../../../tokens/article-repository-storage-token';
 @Component({
   selector: 'app-article-page',
   imports: [],
@@ -12,7 +12,7 @@ import { ArticleRepositoryStorage } from '../../../services/article/article-repo
 })
 export class ArticlePage {
   private articleStorage = inject(ArticleSrotage);
-  private articleRepository = inject(ArticleRepositoryStorage);
+  private articleRepository = inject(ARTICLE_REPOSITORY_STORAGE);
   private activeRouter = inject(ActivatedRoute);
   private destroyRef$ = inject(DestroyRef);
 

@@ -3,9 +3,7 @@ import { ArticleSrotage } from './article-srotage';
 import { ArticlesStorage } from '../articles-storage';
 import { Article } from '../../models/types/articles';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ArticleRepositoryStorage {
   private articleSrotage = inject(ArticleSrotage);
   private storage = inject(ArticlesStorage);
