@@ -19,10 +19,6 @@
     max-height: none;
   }
 }
-
-.article__title {
-}
-
 .article__description {
   color: black;
   font-size: 20px;
@@ -41,13 +37,32 @@
   }
 }
 
-.article__date {
-}
-
 .tennis-article {
   background-color: var(--background-color--tennis);
 }
 
 .frontend-article {
   background-color: var(--background-color--frontend);
+}
+
+.rating-button {
+  text-align: center;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  transition: background-color 0.3s ease-in-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (hover: hover) {
+  .rating-button {
+    &:hover {
+      cursor: pointer;
+      background-color: grey;
+    }
+  }
 }

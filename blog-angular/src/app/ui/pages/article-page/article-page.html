@@ -13,6 +13,11 @@
         </p>
       </div>
       <div class="article__description">{{ currentArticle()?.description }}</div>
+      <div class="article__rating-container">
+        <span class="article__dec rating-button" (click)="ratingDown()">-</span>
+        <span class="article__rating">{{ currentArticle()?.articleRating }}</span>
+        <span class="article__increase rating-button" (click)="ratingUp()">+</span>
+      </div>
     </div>
     <div class="comments">
       <app-comment-component [comments]="currentArticle()?.comments"> </app-comment-component>

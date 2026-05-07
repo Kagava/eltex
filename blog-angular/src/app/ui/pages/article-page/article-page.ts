@@ -5,6 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ArticleSrotage } from '../../../services/article/article-srotage';
 import { ARTICLE_REPOSITORY_STORAGE } from '../../../tokens/article-repository-storage-token';
 import { CommentComponent } from './comment-component/comment-component';
+import { Article } from '../../../models/types/articles';
 @Component({
   selector: 'app-article-page',
   imports: [CommentComponent],
@@ -27,6 +28,21 @@ export class ArticlePage {
       .pipe(takeUntilDestroyed(this.destroyRef$))
       .subscribe((obj) => this.articleId.set(obj['id']));
     this.articleRepository.getArticle(this.articleId());
-    console.log(this.currentArticle()?.comments);
+  }
+
+  protected ratingDown() {
+    const tempRating = this.currentArticle()?.articleRating;
+    this.articleRepository.updateArticle({
+      ...this.currentArticle(),
+      articleRating: tempRating !== undefined ? tempRating - 1 : -1,
+    } as Article);
+  }
+
+  protected ratingUp() {
+    const tempRating = this.currentArticle()?.articleRating;
+    this.articleRepository.updateArticle({
+      ...this.currentArticle(),
+      articleRating: tempRating !== undefined ? tempRating + 1 : 1,
+    } as Article);
   }
 }
