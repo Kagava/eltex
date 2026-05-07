@@ -58,11 +58,7 @@ export class Articles {
 
   protected openEditArticleForm(data: FormData) {
     this.editArticleData = data;
-    this.formChild()?.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    });
+    this.openForm();
   }
 
   protected updateArticle(data: FormData) {
@@ -106,5 +102,13 @@ export class Articles {
     } else {
       this.isEndOfPage = false;
     }
+  }
+
+  protected openForm() {
+    this.formChild()?.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
   }
 }

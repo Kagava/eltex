@@ -11,6 +11,7 @@ export class AdminPanel {
   private formService = inject(FormService);
 
   protected isStatOpen = output<boolean>();
+  protected isOpenForm = output();
 
   public closeStat = input<boolean>(true);
 
@@ -20,6 +21,7 @@ export class AdminPanel {
     } else {
       this.formService.formNotEdit();
       this.formService.formOpen();
+      this.isOpenForm.emit();
     }
   }
 
