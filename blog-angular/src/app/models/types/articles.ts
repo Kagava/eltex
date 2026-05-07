@@ -14,6 +14,8 @@ export type Comment = {
   name: string;
   commentText: string;
   commentRating: number;
+  date: string;
+  image: string;
 };
 
 export type ObjArticles = {

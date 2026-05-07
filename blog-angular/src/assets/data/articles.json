@@ -9,11 +9,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "tennis-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "2",
@@ -24,11 +35,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "tennis-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "3",
@@ -39,11 +61,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "tennis-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "4",
@@ -54,11 +87,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "tennis-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "5",
@@ -73,12 +117,16 @@
         {
           "name": "Kagava",
           "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-          "commentRating": 1
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
         },
         {
           "name": "Kagava",
           "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-          "commentRating": 1
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
         }
       ]
     },
@@ -91,11 +139,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "frontend-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "7",
@@ -106,11 +165,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "frontend-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "8",
@@ -121,11 +191,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "frontend-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "9",
@@ -136,11 +217,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "frontend-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "10",
@@ -151,11 +243,22 @@
       "image": "../blog/assets/article-foto.png",
       "category": "frontend-article",
       "articleRating": 2,
-      "comments": {
-        "name": "Kagava",
-        "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
-        "commentRating": 1
-      }
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     }
   ]
 }
