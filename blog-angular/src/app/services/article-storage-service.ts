@@ -133,8 +133,8 @@ export class ArticleStorageService implements IArticleStorageService {
           const articles = JSON.parse(articlesLc);
           observer.next(articles);
         } catch {
-          observer.error(0);
           observer.next([]);
+          observer.error(0);
         }
       } else {
         console.error('NOT FOUND');

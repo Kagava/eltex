@@ -1,0 +1,21 @@
+.comments__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.comment {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  border: 1px solid rgb(73, 73, 73);
+  border-radius: 20px;
+  padding: 5px;
+  background-color: #fcfdf1;
+}
+
+.comment__image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}

@@ -1,0 +1,14 @@
+<div class="comments__content">
+  @for (comment of comments(); track $index) {
+    <div class="comment">
+      <div class="comment__image-cont">
+        <img [src]="comment.image" alt="Аватар коментатора" class="comment__image" />
+      </div>
+      <div class="comment__content">
+        <h4 class="comment__header">{{ comment.name }}</h4>
+        <p class="comment__text">{{ comment.commentText }}</p>
+        <time class="comment__time">{{ comment.date }}</time>
+      </div>
+    </div>
+  }
+</div>

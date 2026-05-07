@@ -4,9 +4,10 @@ import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ArticleSrotage } from '../../../services/article/article-srotage';
 import { ARTICLE_REPOSITORY_STORAGE } from '../../../tokens/article-repository-storage-token';
+import { CommentComponent } from './comment-component/comment-component';
 @Component({
   selector: 'app-article-page',
-  imports: [],
+  imports: [CommentComponent],
   templateUrl: './article-page.html',
   styleUrl: './article-page.scss',
 })
@@ -26,5 +27,6 @@ export class ArticlePage {
       .pipe(takeUntilDestroyed(this.destroyRef$))
       .subscribe((obj) => this.articleId.set(obj['id']));
     this.articleRepository.getArticle(this.articleId());
+    console.log(this.currentArticle()?.comments);
   }
 }
