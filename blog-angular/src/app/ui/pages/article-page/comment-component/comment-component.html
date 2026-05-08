@@ -1,14 +1,21 @@
 <div class="comments__content">
   @for (comment of comments(); track $index) {
-    <div class="comment">
+    <mat-card class="comment">
       <div class="comment__image-cont">
         <img [src]="comment.image" alt="Аватар коментатора" class="comment__image" />
       </div>
-      <div class="comment__content">
-        <h4 class="comment__header">{{ comment.name }}</h4>
-        <p class="comment__text">{{ comment.commentText }}</p>
-        <time class="comment__time">{{ comment.date }}</time>
+      <div>
+        <mat-card-header class="comment__content">
+          <mat-card-title class="comment__header">{{ comment.name }}</mat-card-title>
+          <time class="comment__time">{{ comment.date }}</time>
+        </mat-card-header>
+        <mat-card-subtitle class="comment__text">{{ comment.commentText }}</mat-card-subtitle>
       </div>
-    </div>
+      <mat-card-actions>
+        <button mat-button class="comment__buttons" (click)="commentRatingDown($index)">-</button>
+        <span class="comment__rating">{{ comment.commentRating }}</span>
+        <button mat-button class="comment__buttons" (click)="commentRatingUp($index)">+</button>
+      </mat-card-actions>
+    </mat-card>
   }
 </div>

@@ -5,7 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ArticleSrotage } from '../../../services/article/article-srotage';
 import { ARTICLE_REPOSITORY_STORAGE } from '../../../tokens/article-repository-storage-token';
 import { CommentComponent } from './comment-component/comment-component';
-import { Article } from '../../../models/types/articles';
+
 @Component({
   selector: 'app-article-page',
   imports: [CommentComponent],

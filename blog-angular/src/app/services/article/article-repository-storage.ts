@@ -1,8 +1,8 @@
-import { DestroyRef, inject, Injectable } from '@angular/core';
+import { CSP_NONCE, DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticleSrotage } from './article-srotage';
 import { ArticlesStorage } from '../articles-storage';
-import { Article } from '../../models/types/articles';
-import { merge, mergeMap, Observable } from 'rxjs';
+import { Article, Comment } from '../../models/types/articles';
+import { Observable, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ARTICLE_STORAGE_SERVISE } from '../../tokens/article-storage-servic-token';
 
@@ -16,14 +16,20 @@ export class ArticleRepositoryStorage {
 
   protected currentArticle: Article | null = null;
 
-  protected updateArticle(rating: number) {
+  public updateArticle(rating: number) {
     this.updateArticleStorage(rating)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((article) => {
         this.articleStorageService.updateRating(article);
       });
   }
-
+  public updateArticleComments(id: number, ratingDelta: number) {
+    this.updateArticleCommentsStorage(id, ratingDelta)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((article) => {
+        this.articleStorageService.updateRating(article);
+      });
+  }
   public getArticle(id: string) {
     this.getArticleFromStorage(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -52,6 +58,25 @@ export class ArticleRepositoryStorage {
       if (currentArticle) {
         try {
           const changedArticle: Article = { ...currentArticle, articleRating: rating };
+          this.articleSrotage.setArticleInfo(changedArticle);
+          observer.next(changedArticle);
+        } catch (e) {
+          console.error(e);
+          observer.error();
+        }
+      }
+      observer.complete();
+    });
+  }
+
+  private updateArticleCommentsStorage(id: number, ratingDelta: number) {
+    return new Observable<Article>((observer) => {
+      const currentArticle = this.articleSrotage.articleInfo();
+      if (currentArticle) {
+        try {
+          const articleComments = currentArticle.comments;
+          articleComments[id].commentRating += ratingDelta;
+          const changedArticle: Article = { ...currentArticle, comments: articleComments };
           this.articleSrotage.setArticleInfo(changedArticle);
           observer.next(changedArticle);
         } catch (e) {

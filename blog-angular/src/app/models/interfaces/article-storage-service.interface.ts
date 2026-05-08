@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Article } from '../types/articles';
 import { FormData } from '../types/form-data';
 

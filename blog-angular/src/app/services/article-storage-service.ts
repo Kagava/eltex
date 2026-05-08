@@ -166,6 +166,7 @@ export class ArticleStorageService implements IArticleStorageService {
           articlesParsed.map((item: Article) => {
             if (item.id === article.id) {
               item.articleRating = article.articleRating;
+              item.comments = article.comments;
             }
           });
           localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(articlesParsed));
