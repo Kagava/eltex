@@ -7,7 +7,6 @@ import { ARTICLE_REPOSITORY_STORAGE } from '../../../../tokens/article-repositor
 import { NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
 @Component({
   selector: 'app-comment-component',
   imports: [
@@ -40,11 +39,13 @@ export class CommentComponent {
     this.articleRepository.updateArticleComments(id, 1);
   }
 
+  protected submitForm() {
+    this.articleRepository.addComment(this.form.getRawValue());
+  }
+
   protected hasError(controlName: string) {
     const control = this.form.get(controlName);
     const isValid = control?.invalid && control.touched;
-    console.log(control?.invalid, control?.touched);
-    console.log(this.form.getRawValue());
     return Boolean(isValid);
   }
 

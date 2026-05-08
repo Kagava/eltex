@@ -18,10 +18,10 @@
       </mat-card-actions>
     </mat-card>
   }
-  <form [formGroup]="form">
+  <form [formGroup]="form" (submit)="submitForm()">
+    @let isValidName = hasError('name');
+    @let isValidComment = hasError('comment');
     <fieldset class="comment-fieldset">
-      @let isValidName = hasError('name');
-      @let isValidComment = hasError('comment');
       <mat-form-field>
         <mat-label [class.mat-label_invalid]="isValidName">NickName</mat-label>
         <input matInput formControlName="name" />
@@ -44,6 +44,10 @@
           </mat-error>
         }
       </mat-form-field>
+      <div class="comment-form__buttons">
+        <button type matButton [disabled]="form.invalid">Send</button>
+        <button matButton type="reset">Reset</button>
+      </div>
     </fieldset>
   </form>
 </div>

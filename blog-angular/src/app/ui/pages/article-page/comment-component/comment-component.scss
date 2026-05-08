@@ -21,11 +21,7 @@
 }
 
 .comment__buttons {
-  width: 20px;
-  height: 20px;
-  padding: 0px;
   border: 1px solid black;
-  transition: background-color 0.3s ease-in-out;
 }
 
 .comment-fieldset {
@@ -33,22 +29,4 @@
   flex-direction: column;
   row-gap: 20px;
   width: clamp(300px, 30%, 500px);
-}
-
-.mat-mdc-form-field-error,
-.mat-label_invalid {
-  color: #ba1a1a;
-  .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--invalid
-    .mdc-line-ripple::before {
-    border-bottom-color: red;
-  }
-}
-
-@media (hover: hover) {
-  .comment__buttons {
-    &:hover {
-      cursor: pointer;
-      background-color: grey;
-    }
-  }
 }

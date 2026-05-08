@@ -7,6 +7,10 @@ import { FormData } from '../models/types/form-data';
 export class CreateArticle {
   constructor() {}
 
+  public findShortData() {
+    return this.findData()[0];
+  }
+
   findData(): string[] {
     const justDate = new Date();
     const currentDate = justDate.getDate();
