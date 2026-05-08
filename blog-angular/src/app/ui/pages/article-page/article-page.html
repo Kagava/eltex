@@ -1,8 +1,12 @@
 @if (currentArticle()) {
   <div class="wrapper article-container">
     <div class="article" [class]="currentArticle()?.category">
-      <div class="aritlce__image">
-        <img [src]="currentArticle()?.image" [alt]="currentArticle()?.title" />
+      <div class="aritlce__image-cont">
+        <img
+          [src]="currentArticle()?.image"
+          [alt]="currentArticle()?.title"
+          class="articel__image"
+        />
       </div>
       <div class="article__title">
         <h2 class="article__header">{{ currentArticle()?.title }}</h2>

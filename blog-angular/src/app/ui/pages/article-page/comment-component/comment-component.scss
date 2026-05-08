@@ -6,12 +6,20 @@
 
 .comment {
   display: grid;
-  grid-template-columns: 120px 1fr 100px;
+  grid-template-columns: 120px 1fr 200px;
   align-items: center;
   border: 1px solid rgb(73, 73, 73);
   border-radius: 20px;
   padding: 5px;
   background-color: #fcfdf1;
+  @media (max-width: 636px) {
+    & > * {
+      justify-self: center;
+    }
+    grid-template-columns: 0.7fr;
+    grid-template-rows: 120px 1fr 52px;
+    justify-content: center;
+  }
 }
 
 .comment__image {
@@ -21,6 +29,7 @@
 }
 
 .comment__buttons {
+  width: 20px;
   border: 1px solid black;
 }
 
@@ -29,4 +38,13 @@
   flex-direction: column;
   row-gap: 20px;
   width: clamp(300px, 30%, 500px);
+}
+
+.comment__text {
+  padding-left: 10px;
+}
+
+.mat-mdc-card-actions {
+  max-width: 200px;
+  justify-content: space-between;
 }
