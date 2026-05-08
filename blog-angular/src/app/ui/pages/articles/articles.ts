@@ -9,7 +9,6 @@ import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
 import { PagginationButton } from '../../components/paggination-button/paggination-button';
-
 import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-token';
 
 @Component({
@@ -23,9 +22,8 @@ export class Articles {
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
   private quantityArticles = 7;
-  private storage = inject(ArticlesStorage);
 
-  protected storageArticles = this.storage.articleStorage();
+  protected storage = inject(ArticlesStorage);
   protected dialogVisible: boolean = false;
   protected outputArticles: Article[] = [];
 
