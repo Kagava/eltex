@@ -16,6 +16,7 @@ import { ARTICLE_STORAGE_SERVISE } from './tokens/article-storage-servic-token';
     ArticleSrotage,
     ArticlesStorage,
     { provide: ARTICLE_REPOSITORY_STORAGE, useClass: ArticleRepositoryStorage },
+    { provide: ARTICLE_STORAGE_SERVISE, useClass: ArticleStorageService },
   ],
 })
 export class App {
