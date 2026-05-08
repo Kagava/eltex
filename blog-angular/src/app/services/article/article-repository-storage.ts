@@ -1,19 +1,28 @@
-import { destroyPlatform, DestroyRef, effect, inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticleSrotage } from './article-srotage';
 import { ArticlesStorage } from '../articles-storage';
 import { Article } from '../../models/types/articles';
-import { Observable } from 'rxjs';
+import { merge, mergeMap, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ARTICLE_STORAGE_SERVISE } from '../../tokens/article-storage-servic-token';
 
 @Injectable()
 export class ArticleRepositoryStorage {
   private destroyRef = inject(DestroyRef);
   private articleSrotage = inject(ArticleSrotage);
   private storage = inject(ArticlesStorage);
-
+  private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
   private articlesStorage = this.storage.articleStorage;
 
   protected currentArticle: Article | null = null;
+
+  protected updateArticle(rating: number) {
+    this.updateArticleStorage(rating)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((article) => {
+        this.articleStorageService.updateRating(article);
+      });
+  }
 
   public getArticle(id: string) {
     this.getArticleFromStorage(id)
@@ -29,9 +38,26 @@ export class ArticleRepositoryStorage {
             observer.next(article);
           }
         }
-      } catch {
-        console.error('THERE IS NO SUCH ARTICLE');
+      } catch (e) {
+        console.error(e);
         observer.error();
+      }
+      observer.complete();
+    });
+  }
+
+  private updateArticleStorage(rating: number) {
+    return new Observable<Article>((observer) => {
+      const currentArticle = this.articleSrotage.articleInfo();
+      if (currentArticle) {
+        try {
+          const changedArticle: Article = { ...currentArticle, articleRating: rating };
+          this.articleSrotage.setArticleInfo(changedArticle);
+          observer.next(changedArticle);
+        } catch (e) {
+          console.error(e);
+          observer.error();
+        }
       }
       observer.complete();
     });

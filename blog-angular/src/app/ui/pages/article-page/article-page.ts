@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -31,18 +31,18 @@ export class ArticlePage {
   }
 
   protected ratingDown() {
-    const tempRating = this.currentArticle()?.articleRating;
-    this.articleRepository.updateArticle({
-      ...this.currentArticle(),
-      articleRating: tempRating !== undefined ? tempRating - 1 : -1,
-    } as Article);
+    const tempArticle = this.currentArticle();
+    if (tempArticle !== null) {
+      const tempRating = tempArticle.articleRating;
+      this.articleRepository.updateArticle(tempRating - 1);
+    }
   }
 
   protected ratingUp() {
-    const tempRating = this.currentArticle()?.articleRating;
-    this.articleRepository.updateArticle({
-      ...this.currentArticle(),
-      articleRating: tempRating !== undefined ? tempRating + 1 : 1,
-    } as Article);
+    const tempArticle = this.currentArticle();
+    if (tempArticle !== null) {
+      const tempRating = tempArticle.articleRating;
+      this.articleRepository.updateArticle(tempRating + 1);
+    }
   }
 }

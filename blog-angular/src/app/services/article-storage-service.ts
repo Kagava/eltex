@@ -24,6 +24,15 @@ export class ArticleStorageService implements IArticleStorageService {
     }
   }
 
+  public updateRating(article: Article): void {
+    this.updateRatingLc(article)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        mergeMap(() => this.getArticlesFromLocalStotage()),
+      )
+      .subscribe((articles) => this.storage.setArticleStorage(articles));
+  }
+
   public addArticle(article: Article) {
     this.addArticleLc(article)
       .pipe(
@@ -43,12 +52,10 @@ export class ArticleStorageService implements IArticleStorageService {
           const articles: Article[] = JSON.parse(articlesLc) ?? [];
           const updatedList: Article[] = [article, ...articles];
           localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(updatedList));
-        } catch {
-          console.log('ERROR');
+        } catch (e) {
+          console.error(e);
+          observer.error();
         }
-      } else {
-        console.error();
-        observer.error();
       }
       observer.next();
       observer.complete();
@@ -76,12 +83,10 @@ export class ArticleStorageService implements IArticleStorageService {
             return article.id !== id;
           });
           localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(removedList));
-        } catch {
-          console.log('ERROR');
+        } catch (e) {
+          console.error(e);
+          observer.error();
         }
-      } else {
-        console.error();
-        observer.next();
       }
       observer.next();
       observer.complete();
@@ -113,12 +118,10 @@ export class ArticleStorageService implements IArticleStorageService {
             }
           });
           localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(updatedArticles));
-        } catch {
-          console.log('ERROR');
+        } catch (e) {
+          console.error(e);
+          observer.error();
         }
-      } else {
-        console.error();
-        observer.next();
       }
       observer.next();
       observer.complete();
@@ -132,12 +135,10 @@ export class ArticleStorageService implements IArticleStorageService {
         try {
           const articles = JSON.parse(articlesLc);
           observer.next(articles);
-        } catch {
+        } catch (e) {
+          console.error(e);
           observer.next([]);
-          observer.error(0);
         }
-      } else {
-        console.error('NOT FOUND');
       }
       observer.complete();
     });
@@ -154,6 +155,28 @@ export class ArticleStorageService implements IArticleStorageService {
         this.storage.setArticleStorage(dataId);
         this.saveToLoacalStorage(dataId);
       });
+  }
+
+  private updateRatingLc(article: Article) {
+    return new Observable<void>((observer) => {
+      const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
+      if (articlesLc) {
+        try {
+          const articlesParsed = JSON.parse(articlesLc);
+          articlesParsed.map((item: Article) => {
+            if (item.id === article.id) {
+              item.articleRating = article.articleRating;
+            }
+          });
+          localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(articlesParsed));
+        } catch (e) {
+          console.error(e);
+          observer.error();
+        }
+      }
+      observer.next();
+      observer.complete();
+    });
   }
 
   private saveToLoacalStorage(data: Article[]) {
