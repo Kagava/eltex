@@ -12,8 +12,9 @@ import { FormService } from '../../../services/form-service';
 export class AddArticleForm {
   private readonly fb = inject(NonNullableFormBuilder);
   private transform: number = 42;
+  private formService = inject(FormService);
 
-  protected formService = inject(FormService);
+  protected isFormOpen = this.formService.isFormOpen();
   protected formTitle = computed(() => {
     return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
   });
@@ -86,6 +87,7 @@ export class AddArticleForm {
     this.formService.formClose();
   }
 
+
   private editDataEffect() {
     effect(() => {
       const tempData = this.editData();
@@ -101,6 +103,7 @@ export class AddArticleForm {
       }
     });
   }
+
 
   protected hasError(controlName: string) {
     const control = this.form.get(controlName);
