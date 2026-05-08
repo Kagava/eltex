@@ -6,8 +6,25 @@
       "date": "2024-05-15",
       "dateFormatted": "15 мая 2024",
       "description": "В статье разбирается биомеханика правильной подачи в большом теннисе. Рассмотрим ошибки новичков, приводящие к травмам плеча. Узнайте, как работать над хватом и позицией ног для мощности удара. Советы тренеров помогут вывести игру на новый уровень через месяц. Читайте гайд и улучшайте результаты прямо сейчас.",
-      "image": "../assets/article-foto.png",
-      "category": "tennis-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "tennis-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "2",
@@ -15,8 +32,25 @@
       "date": "2024-05-22",
       "dateFormatted": "22 мая 2024",
       "description": "Теннис требует взрывной силы. В материале собраны топ-10 упражнений из кроссфита для игроков. Вы узнаете, как укрепить кор и ноги для быстрого перемещения по корту. Программа на три тренировки в неделю предотвратит усталость во время матчей. Поддерживайте форму и выигрывайте турниры с нами.",
-      "image": "../assets/article-foto.png",
-      "category": "tennis-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "tennis-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "3",
@@ -24,8 +58,25 @@
       "date": "2024-06-05",
       "dateFormatted": "5 июня 2024",
       "description": "От веса до баланса струн: как подобрать инвентарь под стиль? Анализируем различия моделей для контроля и мощности. Статья поможет избежать ошибок при покупке ракетки. Обсуждаем натяжку струн и влияние грипсы на комфорт. Выбор сэкономит деньги и улучшит результаты на корте. Читайте обзор перед покупкой.",
-      "image": "../assets/article-foto.png",
-      "category": "tennis-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "tennis-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "4",
@@ -33,8 +84,25 @@
       "date": "2024-06-18",
       "dateFormatted": "18 июня 2024",
       "description": "Энергетические запасы критичны в партиях. Разбираем углеводную загрузку и гидратацию. Узнайте, какие перекусы не вызовут тяжести, но дадут силы. Исключаем вредные продукты и составляем меню за три часа до корта. Советы нутрициологов помогут держать темп до тай-брейка. Питание чемпиона в деталях.",
-      "image": "../assets/article-foto.png",
-      "category": "tennis-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "tennis-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "5",
@@ -42,8 +110,25 @@
       "date": "2024-07-01",
       "dateFormatted": "1 июля 2024",
       "description": "Ментальная устойчивость решает исход матчей. Описаны техники дыхания для снятия стресса на корте. Узнайте, как бороться с негативными мыслями после ошибок и сохранять фокус. Интервью с психологом раскроет секреты. Применяйте методы, чтобы выигрывать очки и чувствовать себя увереннее в игре.",
-      "image": "../assets/article-foto.png",
-      "category": "tennis-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "tennis-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "6",
@@ -51,8 +136,25 @@
       "date": "2024-05-10",
       "dateFormatted": "10 мая 2024",
       "description": "Фреймворк эволюционирует, предлагая возможности. Разбираем серверные компоненты и формы. Узнайте, как оптимизировать рендеринг и уменьшить бандл. Примеры кода помогут внедрить новинки в проекты. Это must-read для инженера. Изучайте технологии и развивайте навыки эффективно для работы.",
-      "image": "../assets/article-foto.png",
-      "category": "frontend-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "frontend-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "7",
@@ -60,8 +162,25 @@
       "date": "2024-05-24",
       "dateFormatted": "25 мая 2024",
       "description": "Спор верстальщиков получает ответ. Сравниваем производительность модулей макета. Разбираем случаи сеток и адаптивности для устройств. Научитесь комбинировать технологии для интерфейсов. Гайд включает шпаргалку по свойствам. Она сэкономит время при написании стилей для современных веб-проектов.",
-      "image": "../assets/article-foto.png",
-      "category": "frontend-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "frontend-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "8",
@@ -69,8 +188,25 @@
       "date": "2024-06-16",
       "dateFormatted": "16 июня 2024",
       "description": "Скорость влияет на SEO и конверсию. Даны инструкции по улучшению метрик LCP и CLS. Обсуждаем загрузку изображений и минимизацию кода. Кейсы показывают рост позиций в поиске. Используйте техники, чтобы ресурс работал быстро на слабых устройствах. Оптимизация важна для успеха вашего бизнеса.",
-      "image": "../assets/article-foto.png",
-      "category": "frontend-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "frontend-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "9",
@@ -78,8 +214,25 @@
       "date": "2024-06-30",
       "dateFormatted": "30 июня 2024",
       "description": "Типизация спасает от ошибок в продакшене. Погружаемся в работу с типами и выражениями. Узнайте, как писать код без потери безопасности. Разбор паттернов поможет избежать проблем при рефакторинге. Статья для разработчиков, желающих поднять уровень владения инструментом значительно.",
-      "image": "../assets/article-foto.png",
-      "category": "frontend-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "frontend-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     },
     {
       "id": "10",
@@ -87,8 +240,25 @@
       "date": "2024-07-15",
       "dateFormatted": "15 июля 2024",
       "description": "Инклюзивность становится стандартом. Рассматриваем навигацию с клавиатуры и скринридеры. Научитесь создавать формы, удобные для пользователей. Проверка контрастности и семантики описана просто. Внедрение практик расширит аудиторию. Делайте веб лучше для человека без исключений и ограничений.",
-      "image": "../assets/article-foto.png",
-      "category": "frontend-article"
+      "image": "../blog/assets/article-foto.png",
+      "category": "frontend-article",
+      "articleRating": 2,
+      "comments": [
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        },
+        {
+          "name": "Kagava",
+          "commentText": "Coool maaaaaaaaaaaaaaaaaaaaaaan",
+          "commentRating": 1,
+          "date": "2024-06-30",
+          "image": "../blog/assets/mock-comm.jpg"
+        }
+      ]
     }
   ]
 }
