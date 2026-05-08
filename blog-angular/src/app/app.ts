@@ -1,8 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { Layout } from './ui/components/layout/layout';
-import { ARTICLE_STORAGE_SERVISE } from './tokens/article-storage-servic-token';
-import { ArticleStorageService } from './services/article-storage-service';
+import { ArticleSrotage } from './services/article/article-srotage';
+import { ArticleRepositoryStorage } from './services/article/article-repository-storage';
 import { ArticlesStorage } from './services/articles-storage';
+import { ArticleStorageService } from './services/article-storage-service';
+import { ARTICLE_REPOSITORY_STORAGE } from './tokens/article-repository-storage-token';
+import { ARTICLE_STORAGE_SERVISE } from './tokens/article-storage-servic-token';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +13,9 @@ import { ArticlesStorage } from './services/articles-storage';
   templateUrl: './app.html',
   styleUrl: './app.scss',
   providers: [
+    ArticleSrotage,
     ArticlesStorage,
-    { provide: ARTICLE_STORAGE_SERVISE, useClass: ArticleStorageService },
+    { provide: ARTICLE_REPOSITORY_STORAGE, useClass: ArticleRepositoryStorage },
   ],
 })
 export class App {

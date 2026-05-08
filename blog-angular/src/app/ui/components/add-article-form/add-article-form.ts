@@ -87,6 +87,24 @@ export class AddArticleForm {
     this.formService.formClose();
   }
 
+
+  private editDataEffect() {
+    effect(() => {
+      const tempData = this.editData();
+      if (tempData && tempData.title !== '') {
+        this.formService.formEdit();
+        this.form.reset({
+          title: tempData.title,
+          description: tempData.description,
+          category: tempData.category,
+        });
+      } else {
+        this.form.reset();
+      }
+    });
+  }
+
+
   protected hasError(controlName: string) {
     const control = this.form.get(controlName);
     const isValid = control?.invalid && control.touched;
@@ -105,23 +123,6 @@ export class AddArticleForm {
     }
     return [];
   }
-
-  private editDataEffect() {
-    effect(() => {
-      const tempData = this.editData();
-      if (tempData && tempData.title !== '') {
-        this.formService.formEdit();
-        this.form.reset({
-          title: tempData.title,
-          description: tempData.description,
-          category: tempData.category,
-        });
-      } else {
-        this.form.reset();
-      }
-    });
-  }
-
   private errorMassege(errorType: string, errorValue: unknown) {
     switch (errorType) {
       case 'required':

@@ -41,6 +41,7 @@
   ></app-add-article-form>
 </div>
 <app-admin-panel
+  (isOpenForm)="openForm()"
   [closeStat]="visionChangedFlag"
   (isStatOpen)="changeVision($event)"
 ></app-admin-panel>

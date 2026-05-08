@@ -1,0 +1,32 @@
+@if (currentArticle()) {
+  <div class="wrapper article-container">
+    <div class="article" [class]="currentArticle()?.category">
+      <div class="aritlce__image-cont">
+        <img
+          [src]="currentArticle()?.image"
+          [alt]="currentArticle()?.title"
+          class="articel__image"
+        />
+      </div>
+      <div class="article__title">
+        <h2 class="article__header">{{ currentArticle()?.title }}</h2>
+        <p class="article__date">
+          <time [attr.datetime]="currentArticle()?.date"
+            ><i>Опубликовано: {{ currentArticle()?.dateFormatted }}</i></time
+          >
+        </p>
+      </div>
+      <div class="article__description">{{ currentArticle()?.description }}</div>
+      <div class="article__rating-container">
+        <span class="article__dec rating-button" (click)="ratingDown()">-</span>
+        <span class="article__rating">{{ currentArticle()?.articleRating }}</span>
+        <span class="article__increase rating-button" (click)="ratingUp()">+</span>
+      </div>
+    </div>
+    <div class="comments">
+      <app-comment-component> </app-comment-component>
+    </div>
+  </div>
+} @else {
+  SOMETHING WENT WRONG
+}

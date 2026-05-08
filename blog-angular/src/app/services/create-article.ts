@@ -7,6 +7,10 @@ import { FormData } from '../models/types/form-data';
 export class CreateArticle {
   constructor() {}
 
+  public findShortData() {
+    return this.findData()[0];
+  }
+
   findData(): string[] {
     const justDate = new Date();
     const currentDate = justDate.getDate();
@@ -46,7 +50,9 @@ export class CreateArticle {
       id: crypto.randomUUID() as string,
       date: time[0],
       dateFormatted: time[1],
-      image: `../assets/article-foto.png`,
+      image: `../blog/assets/article-foto.png`,
+      articleRating: 0,
+      comments: [],
     };
   }
 }

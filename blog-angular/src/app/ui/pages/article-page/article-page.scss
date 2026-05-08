@@ -1,0 +1,87 @@
+@use 'path';
+
+.article-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.aritlce__image-cont {
+  max-width: 700px;
+  max-height: 400px;
+  float: left;
+  padding: 0px 20px 20px 0px;
+  border-radius: 50%;
+  @media (max-width: 1200px) {
+    float: none;
+    max-width: none;
+    max-height: none;
+    padding: 0px;
+  }
+}
+
+.articel__image {
+  @media (max-width: 1200px) {
+    width: clamp(360px, 80dvw, 900px);
+  }
+}
+
+.article__description {
+  color: black;
+  font-size: 20px;
+}
+
+.article {
+  min-height: 400px;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 20px;
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.tennis-article {
+  background-color: var(--background-color--tennis);
+}
+
+.frontend-article {
+  background-color: var(--background-color--frontend);
+}
+
+.article__rating-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.rating-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  border: 1px solid black;
+  transition: background-color 0.3s ease-in-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: bold;
+}
+
+@media (hover: hover) {
+  .rating-button {
+    &:hover {
+      cursor: pointer;
+      background-color: grey;
+    }
+  }
+}

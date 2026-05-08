@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
@@ -8,8 +8,9 @@ import { FormData } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
-import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-token';
 import { PagginationButton } from '../../components/paggination-button/paggination-button';
+
+import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-token';
 
 @Component({
   selector: 'app-articles',
@@ -59,11 +60,7 @@ export class Articles {
 
   protected openEditArticleForm(data: FormData) {
     this.editArticleData = data;
-    this.formChild()?.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    });
+    this.openForm();
   }
 
   protected updateArticle(data: FormData) {
@@ -107,5 +104,13 @@ export class Articles {
     } else {
       this.isEndOfPage = false;
     }
+  }
+
+  protected openForm() {
+    this.formChild()?.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
   }
 }
