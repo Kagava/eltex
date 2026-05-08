@@ -22,8 +22,9 @@ export class Articles {
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
   private quantityArticles = 7;
+  private storage = inject(ArticlesStorage);
 
-  protected storage = inject(ArticlesStorage);
+  protected storageArticles = this.storage.articleStorage();
   protected dialogVisible: boolean = false;
   protected outputArticles: Article[] = [];
 

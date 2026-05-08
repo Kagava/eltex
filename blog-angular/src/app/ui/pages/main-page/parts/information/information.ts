@@ -21,7 +21,9 @@ export class Information {
   private quantityArticles: number = 3;
   private formChild = viewChild<ElementRef>('form');
 
-  protected storage = inject(ArticlesStorage);
+  private storage = inject(ArticlesStorage);
+
+  protected articlesStorage = this.storage.articleStorage();
   protected outputArticles: Article[] = [];
 
   public isEndOfPage = true;
