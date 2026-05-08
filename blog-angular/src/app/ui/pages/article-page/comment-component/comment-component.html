@@ -18,4 +18,32 @@
       </mat-card-actions>
     </mat-card>
   }
+  <form [formGroup]="form">
+    <fieldset class="comment-fieldset">
+      @let isValidName = hasError('name');
+      @let isValidComment = hasError('comment');
+      <mat-form-field>
+        <mat-label [class.mat-label_invalid]="isValidName">NickName</mat-label>
+        <input matInput formControlName="name" />
+        @if (isValidName) {
+          <mat-error>
+            @for (error of getControlErrors('name'); track $index) {
+              {{ error }}
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label [class.mat-label_invalid]="isValidComment">Comment</mat-label>
+        <textarea matInput formControlName="comment"></textarea>
+        @if (isValidComment) {
+          <mat-error>
+            @for (error of getControlErrors('name'); track $index) {
+              {{ error }}
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+    </fieldset>
+  </form>
 </div>
