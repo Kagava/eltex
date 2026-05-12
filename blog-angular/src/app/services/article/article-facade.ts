@@ -2,20 +2,19 @@ import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticleStorage } from './article-srotage';
 import { ArticlesStorage } from '../articles-storage';
 import { Article, Comment } from '../../models/types/articles';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../tokens/article-local-storage-service';
 import { FormDataComment } from '../../models/types/form-data-comment';
 import { CreateArticle } from '../create-article';
 import { IArticleFacade } from '../../models/interfaces/article-facade';
+import { LC_KEY_ARTICLES } from '../../constans/localStotageConstants';
 
 @Injectable()
 export class ArticleFacade implements IArticleFacade {
   private destroyRef = inject(DestroyRef);
   private articleStorage = inject(ArticleStorage);
-  private storage = inject(ArticlesStorage);
   private articleStorageService = inject(ARTICLE_LOCAL_STORAGE_SERVICE);
-  private articlesStorage = this.storage.articleStorage;
   private needData = inject(CreateArticle);
 
   public updateArticle(rating: number) {
@@ -49,15 +48,19 @@ export class ArticleFacade implements IArticleFacade {
 
   private getArticleFromStorage(id: string) {
     return new Observable<Article>((observer) => {
-      try {
-        for (let article of this.articlesStorage()) {
-          if (article.id === id) {
-            observer.next(article);
+      const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
+      if (articlesLc) {
+        try {
+          const articleParsed: Article[] = JSON.parse(articlesLc);
+          for (let article of articleParsed) {
+            if (article.id === id) {
+              observer.next(article);
+            }
           }
+        } catch (e) {
+          console.error(e);
+          observer.error();
         }
-      } catch (e) {
-        console.error(e);
-        observer.error();
       }
       observer.complete();
     });
