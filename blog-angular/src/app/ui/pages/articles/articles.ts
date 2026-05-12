@@ -5,7 +5,7 @@ import { Curtain } from '../../components/curtain/curtain';
 import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
 import { FormData } from '../../../models/types/form-data';
-import { CreateArticle } from '../../../services/create-article';
+import { CreateArticle } from '../../../utils/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
 import { PagginationButton } from '../../components/paggination-button/paggination-button';
@@ -20,7 +20,6 @@ import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../../tokens/article-local-sto
 export class Articles {
   private articleStorageService = inject(ARTICLE_LOCAL_STORAGE_SERVICE);
   private formChild = viewChild<ElementRef>('form');
-  private createArticleService = inject(CreateArticle);
   private quantityArticles = 7;
   private storage = inject(ArticlesStorage);
 
@@ -49,7 +48,7 @@ export class Articles {
   }
 
   public createNewArticle(data: FormData) {
-    const article: Article = this.createArticleService.get(data);
+    const article: Article = CreateArticle.createArticle(data);
     this.articleStorageService.addArticle(article);
   }
 

@@ -1,17 +1,28 @@
-import { Injectable } from '@angular/core';
 import { FormData } from '../models/types/form-data';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class CreateArticle {
   constructor() {}
 
-  public findShortData() {
+  public static findShortData() {
     return this.findData()[0];
   }
 
-  findData(): string[] {
+  public static createArticle(data: FormData) {
+    const time = this.findData();
+    return {
+      title: data.title,
+      category: data.category,
+      description: data.description,
+      id: crypto.randomUUID() as string,
+      date: time[0],
+      dateFormatted: time[1],
+      image: `../blog/assets/article-foto.png`,
+      articleRating: 0,
+      comments: [],
+    };
+  }
+
+  private static findData(): string[] {
     const justDate = new Date();
     const currentDate = justDate.getDate();
     const currentMonth = this.findMonth(justDate.getMonth());
@@ -22,7 +33,7 @@ export class CreateArticle {
     ];
   }
 
-  private monthArray = [
+  private static readonly monthArray = [
     'января',
     'февраля',
     'марта',
@@ -37,22 +48,7 @@ export class CreateArticle {
     'декабря',
   ];
 
-  private findMonth(monthNumber: number) {
+  private static findMonth(monthNumber: number) {
     return this.monthArray[monthNumber];
-  }
-
-  public get(data: FormData) {
-    const time = this.findData();
-    return {
-      title: data.title,
-      category: data.category,
-      description: data.description,
-      id: crypto.randomUUID() as string,
-      date: time[0],
-      dateFormatted: time[1],
-      image: `../blog/assets/article-foto.png`,
-      articleRating: 0,
-      comments: [],
-    };
   }
 }

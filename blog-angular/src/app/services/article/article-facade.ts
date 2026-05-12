@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../tokens/article-local-storage-service';
 import { FormDataComment } from '../../models/types/form-data-comment';
-import { CreateArticle } from '../create-article';
+import { CreateArticle } from '../../utils/create-article';
 import { IArticleFacade } from '../../models/interfaces/article-facade';
 import { LC_KEY_ARTICLES } from '../../constans/localStotageConstants';
 
@@ -15,7 +15,6 @@ export class ArticleFacade implements IArticleFacade {
   private destroyRef = inject(DestroyRef);
   private articleStorage = inject(ArticleStorage);
   private articleStorageService = inject(ARTICLE_LOCAL_STORAGE_SERVICE);
-  private needData = inject(CreateArticle);
 
   public updateArticle(rating: number) {
     this.updateArticleStorage(rating)
@@ -112,7 +111,7 @@ export class ArticleFacade implements IArticleFacade {
             commentRating: 0,
             commentText: data.comment,
             name: data.name,
-            date: this.needData.findShortData(),
+            date: CreateArticle.findShortData(),
             image: '../blog/assets/mock-comm.jpg',
           } as Comment);
           this.articleStorage.setArticleInfo(changedArticle);
