@@ -47,7 +47,6 @@ export class AddArticleForm {
     if (this.formService.isEditMode()) {
       this.dataOutEdit.emit({ ...this.form.getRawValue(), id: this.editData()!.id });
     } else {
-      console.log(this.form.getRawValue());
       this.dataOut.emit(this.form.getRawValue());
     }
     this.form.reset();

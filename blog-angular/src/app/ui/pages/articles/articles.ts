@@ -96,7 +96,6 @@ export class Articles {
     } else {
       this.isBeginOfPage = true;
     }
-    console.log(currentPage, Math.ceil(articles / this.quantityArticles));
     if (currentPage + 1 === Math.ceil(articles / this.quantityArticles)) {
       this.isEndOfPage = true;
     } else {
