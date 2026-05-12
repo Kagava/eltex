@@ -1,15 +1,15 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, Observable, takeUntil, tap } from 'rxjs';
+import { map, mergeMap, Observable } from 'rxjs';
 import { Article } from '../models/types/articles';
 import { FormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IArticleStorageService } from '../models/interfaces/article-storage-service.interface';
+import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 
 @Injectable()
-export class ArticleStorageService implements IArticleStorageService {
+export class ArticleLocalStorageService implements IArticleLocalStorageService {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
 

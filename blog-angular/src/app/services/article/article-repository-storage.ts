@@ -4,16 +4,17 @@ import { ArticlesStorage } from '../articles-storage';
 import { Article, Comment } from '../../models/types/articles';
 import { Observable, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ARTICLE_STORAGE_SERVISE } from '../../tokens/article-storage-servic-token';
+import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../tokens/article-local-storage-service';
 import { FormDataComment } from '../../models/types/form-data-comment';
 import { CreateArticle } from '../create-article';
+import { IArticleRepository } from '../../models/interfaces/article-repository-storage';
 
 @Injectable()
-export class ArticleRepositoryStorage {
+export class ArticleRepositoryStorage implements IArticleRepository {
   private destroyRef = inject(DestroyRef);
   private articleStorage = inject(ArticleStorage);
   private storage = inject(ArticlesStorage);
-  private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
+  private articleStorageService = inject(ARTICLE_LOCAL_STORAGE_SERVICE);
   private articlesStorage = this.storage.articleStorage;
   private needData = inject(CreateArticle);
 

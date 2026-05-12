@@ -9,7 +9,7 @@ import { CreateArticle } from '../../../services/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
 import { PagginationButton } from '../../components/paggination-button/paggination-button';
-import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-token';
+import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../../tokens/article-local-storage-service';
 
 @Component({
   selector: 'app-articles',
@@ -18,7 +18,7 @@ import { ARTICLE_STORAGE_SERVISE } from '../../../tokens/article-storage-servic-
   styleUrl: './articles.scss',
 })
 export class Articles {
-  private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
+  private articleStorageService = inject(ARTICLE_LOCAL_STORAGE_SERVICE);
   private formChild = viewChild<ElementRef>('form');
   private createArticleService = inject(CreateArticle);
   private quantityArticles = 7;
