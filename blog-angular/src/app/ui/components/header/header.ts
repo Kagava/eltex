@@ -10,10 +10,14 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 export class Header {
   mainLink = input<string>();
   articlesLink = input<string>();
+  protected footerAnchor: string;
   private readonly router = inject(Router);
-  protected routerUrl = (): string => {
-    return this.router.url.split(/[,/#.;\s]+/).join('');
-  };
+  constructor() {
+    this.footerAnchor = this.router.url.split(/[,/#.;\s]+/).join('/');
+  }
+  // protected routerUrl = (): string => {
+  //   return this.router.url.split(/[,/#.;\s]+/).join('/');
+  // };
 
   protected isActiveBurger = false;
   protected openBurger() {
