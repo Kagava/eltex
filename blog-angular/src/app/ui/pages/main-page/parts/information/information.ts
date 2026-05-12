@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, viewChild } from '@angular/core';
 import { Career } from './career/career';
 import { Hobby } from './hobby/hobby';
 import { Works } from './works/works';
@@ -23,7 +23,7 @@ export class Information {
 
   private storage = inject(ArticlesStorage);
 
-  protected articlesStorage = this.storage.articleStorage();
+  protected articlesStorage = computed(() => this.storage.articleStorage());
   protected outputArticles: Article[] = [];
 
   public isEndOfPage = true;

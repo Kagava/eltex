@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
@@ -23,7 +23,7 @@ export class Articles {
   private quantityArticles = 7;
   private storage = inject(ArticlesStorage);
 
-  protected storageArticles = this.storage.articleStorage();
+  protected storageArticles = computed(() => this.storage.articleStorage());
   protected dialogVisible: boolean = false;
   protected outputArticles: Article[] = [];
 

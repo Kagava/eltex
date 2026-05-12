@@ -41,7 +41,9 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
           return this.getArticlesFromLocalStotage();
         }),
       )
-      .subscribe((articles) => this.storage.setArticleStorage(articles));
+      .subscribe((articles) => {
+        this.storage.setArticleStorage(articles);
+      });
   }
 
   private addArticleLc(article: Article) {

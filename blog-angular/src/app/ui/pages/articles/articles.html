@@ -21,7 +21,7 @@
     ></app-paggination-button>
     <app-article-component
       (isEditFormOpenFlag)="openEditArticleForm($event)"
-      [articleArray]="storageArticles"
+      [articleArray]="storageArticles()"
       (articleToDelete)="removeArticle($event)"
       [articlePageFlag]="true"
     ></app-article-component>
