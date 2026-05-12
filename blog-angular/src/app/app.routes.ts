@@ -19,7 +19,7 @@ export const routes: Routes = [
         loadComponent: () => import('./ui/pages/articles/articles').then((c) => c.Articles),
       },
       {
-        path: 'article/:id',
+        path: 'articles/:id',
         loadComponent: () =>
           import('./ui/pages/article-page/article-page').then((c) => c.ArticlePage),
       },

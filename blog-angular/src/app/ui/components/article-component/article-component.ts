@@ -35,6 +35,6 @@ export class ArticleComponent {
     this.isEditFormOpenFlag.emit({ ...data });
   }
   protected onArticleClick(id: string) {
-    this.router.navigateByUrl(`article/${id}`);
+    this.router.navigateByUrl(`articles/${id}`);
   }
 }
