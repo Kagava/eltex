@@ -1,4 +1,4 @@
-import { CSP_NONCE, DestroyRef, inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticleStorage } from './article-srotage';
 import { ArticlesStorage } from '../articles-storage';
 import { Article, Comment } from '../../models/types/articles';
@@ -7,10 +7,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../tokens/article-local-storage-service';
 import { FormDataComment } from '../../models/types/form-data-comment';
 import { CreateArticle } from '../create-article';
-import { IArticleRepository } from '../../models/interfaces/article-repository-storage';
+import { IArticleFacade } from '../../models/interfaces/article-facade';
 
 @Injectable()
-export class ArticleRepositoryStorage implements IArticleRepository {
+export class ArticleFacade implements IArticleFacade {
   private destroyRef = inject(DestroyRef);
   private articleStorage = inject(ArticleStorage);
   private storage = inject(ArticlesStorage);

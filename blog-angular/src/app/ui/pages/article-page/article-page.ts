@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ArticleStorage } from '../../../services/article/article-srotage';
-import { ARTICLE_REPOSITORY_STORAGE } from '../../../tokens/article-repository-storage-token';
+import { ARTICLE_FACADE } from '../../../tokens/article-facade-token';
 import { CommentComponent } from './comment-component/comment-component';
 
 @Component({
@@ -14,7 +14,7 @@ import { CommentComponent } from './comment-component/comment-component';
 })
 export class ArticlePage {
   private articleStorage = inject(ArticleStorage);
-  private articleRepository = inject(ARTICLE_REPOSITORY_STORAGE);
+  private articleRepository = inject(ARTICLE_FACADE);
   private activeRouter = inject(ActivatedRoute);
   private destroyRef$ = inject(DestroyRef);
 

@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { Layout } from './ui/components/layout/layout';
 import { ArticleStorage } from './services/article/article-srotage';
-import { ArticleRepositoryStorage } from './services/article/article-repository-storage';
+import { ArticleFacade } from './services/article/article-facade';
 import { ArticlesStorage } from './services/articles-storage';
-import { ArticleStorageService } from './services/article-local-storage-service';
-import { ARTICLE_REPOSITORY_STORAGE } from './tokens/article-repository-storage-token';
+import { ArticleLocalStorageService } from './services/article-local-storage-service';
+import { ARTICLE_FACADE } from './tokens/article-facade-token';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from './tokens/article-local-storage-service';
 
 @Component({
@@ -15,8 +15,8 @@ import { ARTICLE_LOCAL_STORAGE_SERVICE } from './tokens/article-local-storage-se
   providers: [
     ArticleStorage,
     ArticlesStorage,
-    { provide: ARTICLE_REPOSITORY_STORAGE, useClass: ArticleRepositoryStorage },
-    { provide: ARTICLE_LOCAL_STORAGE_SERVICE, useClass: ArticleStorageService },
+    { provide: ARTICLE_FACADE, useClass: ArticleFacade },
+    { provide: ARTICLE_LOCAL_STORAGE_SERVICE, useClass: ArticleLocalStorageService },
   ],
 })
 export class App {
