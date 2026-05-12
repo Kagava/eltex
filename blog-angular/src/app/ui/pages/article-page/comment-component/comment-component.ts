@@ -41,6 +41,7 @@ export class CommentComponent {
 
   protected submitForm() {
     this.articleRepository.addComment(this.form.getRawValue());
+    this.form.reset();
   }
 
   protected hasError(controlName: string) {
