@@ -14,7 +14,7 @@ export class AddArticleForm {
   private transform: number = 42;
   private formService = inject(FormService);
 
-  protected isFormOpen = this.formService.isFormOpen();
+  protected isFormOpen = computed(() => this.formService.isFormOpen());
   protected formTitle = computed(() => {
     return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
   });
