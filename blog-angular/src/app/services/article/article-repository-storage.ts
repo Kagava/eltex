@@ -16,7 +16,6 @@ export class ArticleRepositoryStorage {
   private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
   private articlesStorage = this.storage.articleStorage;
   private needData = inject(CreateArticle);
-  protected currentArticle: Article | null = null;
 
   public updateArticle(rating: number) {
     this.updateArticleStorage(rating)
