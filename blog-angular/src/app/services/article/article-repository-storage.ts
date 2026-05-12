@@ -1,5 +1,5 @@
 import { CSP_NONCE, DestroyRef, inject, Injectable } from '@angular/core';
-import { ArticleSrotage } from './article-srotage';
+import { ArticleStorage } from './article-srotage';
 import { ArticlesStorage } from '../articles-storage';
 import { Article, Comment } from '../../models/types/articles';
 import { Observable, tap } from 'rxjs';
@@ -11,7 +11,7 @@ import { CreateArticle } from '../create-article';
 @Injectable()
 export class ArticleRepositoryStorage {
   private destroyRef = inject(DestroyRef);
-  private articleSrotage = inject(ArticleSrotage);
+  private articleStorage = inject(ArticleStorage);
   private storage = inject(ArticlesStorage);
   private articleStorageService = inject(ARTICLE_STORAGE_SERVISE);
   private articlesStorage = this.storage.articleStorage;
@@ -43,7 +43,7 @@ export class ArticleRepositoryStorage {
   public getArticle(id: string) {
     this.getArticleFromStorage(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((article) => this.articleSrotage.setArticleInfo(article));
+      .subscribe((article) => this.articleStorage.setArticleInfo(article));
   }
 
   private getArticleFromStorage(id: string) {
@@ -64,11 +64,11 @@ export class ArticleRepositoryStorage {
 
   private updateArticleStorage(rating: number) {
     return new Observable<Article>((observer) => {
-      const currentArticle = this.articleSrotage.articleInfo();
+      const currentArticle = this.articleStorage.articleInfo();
       if (currentArticle) {
         try {
           const changedArticle: Article = { ...currentArticle, articleRating: rating };
-          this.articleSrotage.setArticleInfo(changedArticle);
+          this.articleStorage.setArticleInfo(changedArticle);
           observer.next(changedArticle);
         } catch (e) {
           console.error(e);
@@ -81,13 +81,13 @@ export class ArticleRepositoryStorage {
 
   private updateArticleCommentsStorage(id: number, ratingDelta: number) {
     return new Observable<Article>((observer) => {
-      const currentArticle = this.articleSrotage.articleInfo();
+      const currentArticle = this.articleStorage.articleInfo();
       if (currentArticle) {
         try {
           const articleComments = currentArticle.comments;
           articleComments[id].commentRating += ratingDelta;
           const changedArticle: Article = { ...currentArticle, comments: articleComments };
-          this.articleSrotage.setArticleInfo(changedArticle);
+          this.articleStorage.setArticleInfo(changedArticle);
           observer.next(changedArticle);
         } catch (e) {
           console.error(e);
@@ -100,7 +100,7 @@ export class ArticleRepositoryStorage {
 
   private addCommentLc(data: FormDataComment) {
     return new Observable<Article>((observer) => {
-      const currentArticle = this.articleSrotage.articleInfo();
+      const currentArticle = this.articleStorage.articleInfo();
       if (currentArticle) {
         try {
           const changedArticle = currentArticle;
@@ -111,7 +111,7 @@ export class ArticleRepositoryStorage {
             date: this.needData.findShortData(),
             image: '../blog/assets/mock-comm.jpg',
           } as Comment);
-          this.articleSrotage.setArticleInfo(changedArticle);
+          this.articleStorage.setArticleInfo(changedArticle);
           observer.next(changedArticle);
         } catch (e) {
           console.error(e);

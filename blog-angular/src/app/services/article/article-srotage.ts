@@ -2,7 +2,7 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Article, Comment } from '../../models/types/articles';
 
 @Injectable()
-export class ArticleSrotage {
+export class ArticleStorage {
   #articleInfo: WritableSignal<Article | null> = signal<Article | null>(null);
 
   public articleInfo = this.#articleInfo.asReadonly();

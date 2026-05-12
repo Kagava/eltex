@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Layout } from './ui/components/layout/layout';
-import { ArticleSrotage } from './services/article/article-srotage';
+import { ArticleStorage } from './services/article/article-srotage';
 import { ArticleRepositoryStorage } from './services/article/article-repository-storage';
 import { ArticlesStorage } from './services/articles-storage';
 import { ArticleStorageService } from './services/article-storage-service';
@@ -13,7 +13,7 @@ import { ARTICLE_STORAGE_SERVISE } from './tokens/article-storage-servic-token';
   templateUrl: './app.html',
   styleUrl: './app.scss',
   providers: [
-    ArticleSrotage,
+    ArticleStorage,
     ArticlesStorage,
     { provide: ARTICLE_REPOSITORY_STORAGE, useClass: ArticleRepositoryStorage },
     { provide: ARTICLE_STORAGE_SERVISE, useClass: ArticleStorageService },

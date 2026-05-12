@@ -2,7 +2,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ArticleSrotage } from '../../../../services/article/article-srotage';
+import { ArticleStorage } from '../../../../services/article/article-srotage';
 import { ARTICLE_REPOSITORY_STORAGE } from '../../../../tokens/article-repository-storage-token';
 import { NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class CommentComponent {
   private fb = inject(NonNullableFormBuilder);
-  private articleStorage = inject(ArticleSrotage);
+  private articleStorage = inject(ArticleStorage);
   private articleRepository = inject(ARTICLE_REPOSITORY_STORAGE);
   protected currentArticle = computed(() => this.articleStorage.articleInfo());
   public comments = computed(() => this.currentArticle()?.comments);
