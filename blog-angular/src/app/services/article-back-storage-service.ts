@@ -7,12 +7,13 @@ import { FormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
-import { MatAccordion } from '@angular/material/expansion';
+import { categoriesBack } from '../models/types/category';
 
 @Injectable()
 export class ArticleBackStorageService implements IArticleLocalStorageService {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
+  private categories: categoriesBack[] = [];
 
   constructor(private http: HttpClient) {
     //Запрос данных с бека
@@ -20,9 +21,6 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
     this.getArticlesFromServer()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        tap((data: any) => {
-          console.log(data);
-        }),
         map((data: any) => this.makeGoodTypes(data.items)),
       )
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
@@ -191,6 +189,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   }
 
   private getArticlesFromServer() {
+    this.loadCategories();
     return this.http.get('/api/articles');
   }
 
@@ -203,10 +202,31 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
         dateFormatted: article.updatedAt,
         description: article.content,
         image: '',
-        category: article.categoryId,
+        category: this.findCategory(article.categoryId),
         articleRating: article.rating,
         comments: [],
       } as Article;
     });
+  }
+
+  private findCategory(categoryId: string): string {
+    for (const category of this.categories) {
+      if (category.id === categoryId) {
+        return `${category.name}-article`;
+      }
+    }
+    return '';
+  }
+
+  private loadCategories() {
+    this.http
+      .get('/api/categories')
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        map((item) => item as categoriesBack[]),
+      )
+      .subscribe((data: categoriesBack[]) => {
+        this.categories = data;
+      });
   }
 }
