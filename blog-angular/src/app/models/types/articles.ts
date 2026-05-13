@@ -21,3 +21,14 @@ export type Comment = {
 export type ObjArticles = {
   articles: Article[];
 };
+
+export type BackArticle = {
+  categoryId: string;
+  content: string;
+  createdAt: string;
+  id: string;
+  imgSrc: null | string;
+  rating: number;
+  title: string;
+  updatedAt: string;
+};

@@ -1,12 +1,13 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, Observable } from 'rxjs';
-import { Article } from '../models/types/articles';
+import { map, mergeMap, Observable, tap } from 'rxjs';
+import { Article, BackArticle } from '../models/types/articles';
 import { FormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Injectable()
 export class ArticleBackStorageService implements IArticleLocalStorageService {
@@ -14,15 +15,17 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   private destroyRef = inject(DestroyRef);
 
   constructor(private http: HttpClient) {
+    //Запрос данных с бека
     console.log('HEEEEEEEEEEEEES BAAAAAAAAAAAAAAAAAAAACK');
-    const tempLc = localStorage.getItem(LC_KEY_ARTICLES);
-    if (tempLc && tempLc !== '[]') {
-      this.getArticlesFromLocalStotage()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
-    } else {
-      this.getArticlesFromFile();
-    }
+    this.getArticlesFromServer()
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((data: any) => {
+          console.log(data);
+        }),
+        map((data: any) => this.makeGoodTypes(data.items)),
+      )
+      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
   public updateRating(article: Article): void {
@@ -185,5 +188,25 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
 
   private saveToLoacalStorage(data: Article[]) {
     localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(data));
+  }
+
+  private getArticlesFromServer() {
+    return this.http.get('/api/articles');
+  }
+
+  private makeGoodTypes(data: BackArticle[]): Article[] {
+    return data.map((article: BackArticle) => {
+      return {
+        id: article.id,
+        title: article.title,
+        date: article.updatedAt,
+        dateFormatted: article.updatedAt,
+        description: article.content,
+        image: '',
+        category: article.categoryId,
+        articleRating: article.rating,
+        comments: [],
+      } as Article;
+    });
   }
 }
