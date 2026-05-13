@@ -23,9 +23,7 @@ export class AddArticleForm {
     return this.formService.isEditMode() ? ' Редактировать' : 'Добавить';
   });
   protected isSelectOpen: boolean = false;
-  protected spanSelectValue = computed(() => {
-    return this.editData()?.category === 'frontend-article' ? 'Frontend' : 'Tennis';
-  });
+  protected spanSelectValue: string = 'Tennis';
 
   public editData = input.required<FormData | null>();
   public dataOut = output<FormData>();
@@ -61,12 +59,14 @@ export class AddArticleForm {
   protected tennisChoice(event: Event) {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
+    this.spanSelectValue = 'Tennis';
     this.form.patchValue({ category: 'tennis-article' });
   }
 
   protected frontendChoice(event: Event) {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
+    this.spanSelectValue = 'Frontend';
     this.form.patchValue({ category: 'frontend-article' });
   }
 
@@ -79,7 +79,7 @@ export class AddArticleForm {
   }
 
   protected checkDefault(value: string) {
-    return value === this.spanSelectValue();
+    return value === this.spanSelectValue;
   }
 
   protected resetForm() {
@@ -96,8 +96,10 @@ export class AddArticleForm {
           description: tempData.description,
           category: tempData.category,
         });
+        this.spanSelectValue = tempData.category === 'frontend-article' ? 'Fronted' : 'Tennis';
       } else {
         this.form.reset();
+        this.spanSelectValue = 'Tennis';
       }
     });
   }
