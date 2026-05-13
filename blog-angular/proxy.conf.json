@@ -1,0 +1,26 @@
+{
+  "/api": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": true
+  },
+  "/login": {
+    "target": "http://localhost:3000/auth/login",
+    "secure": false,
+    "pathRewrite": {
+      "^/login": ""
+    },
+    "changeOrigin": true
+  },
+  "/logout": {
+    "target": "http://localhost:3000/auth/logout",
+    "secure": false,
+    "pathRewrite": {
+      "^/logout": ""
+    },
+    "changeOrigin": true
+  }
+}
