@@ -1,7 +1,7 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, Observable, tap } from 'rxjs';
+import { map, merge, mergeMap, Observable, tap } from 'rxjs';
 import { Article, BackArticle } from '../models/types/articles';
 import { FormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
@@ -16,8 +16,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   private categories: categoriesBack[] = [];
 
   constructor(private http: HttpClient) {
-    //Запрос данных с бека
-    console.log('HEEEEEEEEEEEEES BAAAAAAAAAAAAAAAAAAAACK');
+    this.loadCategories();
     this.getArticlesFromServer()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -67,34 +66,23 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   }
 
   public removeArticle(id: string) {
-    this.removeArticleLc(id)
+    this.removeArticleBack(id)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        mergeMap(() => {
-          return this.getArticlesFromLocalStotage();
-        }),
+        tap(() => console.log('Udalil', id)),
+        mergeMap(() =>
+          this.getArticlesFromServer().pipe(
+            takeUntilDestroyed(this.destroyRef),
+            tap((data: any) => console.log(data)),
+            map((data: any) => this.makeGoodTypes(data.items)),
+          ),
+        ),
       )
-      .subscribe((articles) => this.storage.setArticleStorage(articles));
+      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private removeArticleLc(id: string) {
-    return new Observable<void>((observer) => {
-      const articlesLs = localStorage.getItem(LC_KEY_ARTICLES);
-      if (articlesLs) {
-        try {
-          const articles: Article[] = JSON.parse(articlesLs) ?? [];
-          const removedList = articles.filter((article: Article) => {
-            return article.id !== id;
-          });
-          localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(removedList));
-        } catch (e) {
-          console.error(e);
-          observer.error();
-        }
-      }
-      observer.next();
-      observer.complete();
-    });
+  private removeArticleBack(id: string) {
+    return this.http.delete(`/api/articles/${id}`);
   }
 
   public updateArticle(data: FormData) {
@@ -148,19 +136,6 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
     });
   }
 
-  private getArticlesFromFile() {
-    this.http
-      .get('./assets/data/articles.json')
-      .pipe(map((data: any) => data.articles))
-      .subscribe((data: Article[]) => {
-        const dataId: Article[] = data.map((item: Article) => {
-          return { ...item, id: crypto.randomUUID() };
-        });
-        this.storage.setArticleStorage(dataId);
-        this.saveToLoacalStorage(dataId);
-      });
-  }
-
   private updateRatingLc(article: Article) {
     return new Observable<void>((observer) => {
       const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
@@ -184,13 +159,20 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
     });
   }
 
-  private saveToLoacalStorage(data: Article[]) {
-    localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(data));
+  private getArticlesFromServer() {
+    return this.http.get('/api/articles');
   }
 
-  private getArticlesFromServer() {
-    this.loadCategories();
-    return this.http.get('/api/articles');
+  private loadCategories() {
+    this.http
+      .get('/api/categories')
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        map((item) => item as categoriesBack[]),
+      )
+      .subscribe((data: categoriesBack[]) => {
+        this.categories = data;
+      });
   }
 
   private makeGoodTypes(data: BackArticle[]): Article[] {
@@ -216,17 +198,5 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       }
     }
     return '';
-  }
-
-  private loadCategories() {
-    this.http
-      .get('/api/categories')
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        map((item) => item as categoriesBack[]),
-      )
-      .subscribe((data: categoriesBack[]) => {
-        this.categories = data;
-      });
   }
 }
