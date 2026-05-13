@@ -8,6 +8,7 @@ import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 import { categoriesBack } from '../models/types/category';
+import { MatTabBody } from '@angular/material/tabs';
 
 @Injectable()
 export class ArticleBackStorageService implements IArticleLocalStorageService {
@@ -86,37 +87,27 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   }
 
   public updateArticle(data: FormData) {
-    this.updateArticleLc(data)
+    this.updateArticleBack(data)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        mergeMap(() => {
-          return this.getArticlesFromLocalStotage();
-        }),
+        tap((data: any) => console.log('Updated', data.id)),
+        mergeMap(() =>
+          this.getArticlesFromServer().pipe(
+            takeUntilDestroyed(this.destroyRef),
+            tap((data: any) => console.log(data)),
+            map((data: any) => this.makeGoodTypes(data.items)),
+          ),
+        ),
       )
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private updateArticleLc(data: FormData) {
-    return new Observable<void>((observer) => {
-      const artilesLs = localStorage.getItem(LC_KEY_ARTICLES);
-      if (artilesLs) {
-        try {
-          const articles = JSON.parse(artilesLs) ?? [];
-          const updatedArticles = articles.map((article: Article) => {
-            if (data.id !== article.id) {
-              return article;
-            } else {
-              return { ...article, ...data };
-            }
-          });
-          localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(updatedArticles));
-        } catch (e) {
-          console.error(e);
-          observer.error();
-        }
-      }
-      observer.next();
-      observer.complete();
+  private updateArticleBack(data: FormData) {
+    const newCategory = this.findCategoryFromName(data.category);
+    return this.http.patch(`/api/articles/${data.id}`, {
+      title: data.title,
+      content: data.description,
+      categoryId: newCategory,
     });
   }
 
@@ -184,19 +175,28 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
         dateFormatted: article.updatedAt,
         description: article.content,
         image: '',
-        category: this.findCategory(article.categoryId),
+        category: this.findCategoryFromId(article.categoryId),
         articleRating: article.rating,
         comments: [],
       } as Article;
     });
   }
 
-  private findCategory(categoryId: string): string {
+  private findCategoryFromId(categoryId: string): string {
     for (const category of this.categories) {
       if (category.id === categoryId) {
         return `${category.name}-article`;
       }
     }
     return '';
+  }
+
+  private findCategoryFromName(name: string): string {
+    for (const category of this.categories) {
+      if (category.name === name.slice(0, name.length - 8)) {
+        return category.id;
+      }
+    }
+    return name;
   }
 }
