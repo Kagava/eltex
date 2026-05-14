@@ -1,7 +1,13 @@
-import { Component, computed, effect, inject, input, output } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormData } from '../../../models/types/form-data';
+import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import {
+  FormControl,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-article-form',
@@ -10,10 +16,12 @@ import { FormService } from '../../../services/form-service';
   styleUrl: './add-article-form.scss',
 })
 export class AddArticleForm {
+  readonly selectedFile = signal<File | null>(null);
   private readonly fb = inject(NonNullableFormBuilder);
   private transform: number = 42;
   private formService = inject(FormService);
 
+  protected someBlob: File | undefined;
   protected isFormOpen = computed(() => this.formService.isFormOpen());
   protected formTitle = computed(() => {
     return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
@@ -25,17 +33,18 @@ export class AddArticleForm {
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
 
-  public editData = input.required<FormData | null>();
-  public dataOut = output<FormData>();
-  public dataOutEdit = output<FormData>();
+  public editData = input.required<AFormData | null>();
+  public dataOut = output<AFormData>();
+  public dataOutEdit = output<AFormData>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
     category: ['tennis-article', Validators.required],
+    foto: new FormControl(),
   });
 
   protected titleError = this.form.get('title')?.errors;
-  constructor() {
+  constructor(private http: HttpClient) {
     this.formService.formClose();
     this.editDataEffect();
   }
@@ -49,6 +58,23 @@ export class AddArticleForm {
     }
     this.form.reset();
     this.resetForm();
+  }
+
+  protected onSelectFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (file) {
+      this.selectedFile.set(file);
+      const blob: Blob = file;
+      const url = URL.createObjectURL(file);
+      console.log(url);
+      console.log(file);
+      this.someBlob = file;
+      this.form.patchValue({
+        foto: file,
+      });
+    }
   }
 
   protected openCustomeSelect(event: Event) {

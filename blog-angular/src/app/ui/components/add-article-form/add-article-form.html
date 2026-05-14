@@ -44,6 +44,7 @@
               }
             }
           </span>
+          <input type="file" (change)="onSelectFile($event)" />
           <ul class="custom-select" tabindex="0" (click)="openCustomeSelect($event)">
             <span class="custom-select__choice">{{ spanSelectValue }} </span>
             <li
@@ -93,3 +94,4 @@
   }
   <div class="create-article__curtain"></div>
 </section>
+<img [src]="someBlob" alt="waioeuhd" />
