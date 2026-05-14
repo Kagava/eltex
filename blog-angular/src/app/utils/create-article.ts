@@ -1,4 +1,4 @@
-import { FormData } from '../models/types/form-data';
+import { articleFormData } from '../models/types/form-data';
 
 export class CreateArticle {
   constructor() {}
@@ -7,7 +7,7 @@ export class CreateArticle {
     return this.findData()[0];
   }
 
-  public static createArticle(data: FormData) {
+  public static createArticle(data: articleFormData) {
     const time = this.findData();
     return {
       title: data.title,

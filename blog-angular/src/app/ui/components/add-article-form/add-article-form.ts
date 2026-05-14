@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AFormData } from '../../../models/types/form-data';
+import { articleFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
 import { HttpClient } from '@angular/common/http';
 
@@ -33,9 +33,9 @@ export class AddArticleForm {
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
 
-  public editData = input.required<AFormData | null>();
-  public dataOut = output<AFormData>();
-  public dataOutEdit = output<AFormData>();
+  public editData = input.required<articleFormData | null>();
+  public dataOut = output<articleFormData>();
+  public dataOutEdit = output<articleFormData>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
@@ -61,16 +61,8 @@ export class AddArticleForm {
   }
 
   protected onSelectFile(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      this.selectedFile.set(file);
-      const blob: Blob = file;
-      const url = URL.createObjectURL(file);
-      console.log(url);
-      console.log(file);
-      this.someBlob = file;
       this.form.patchValue({
         foto: file,
       });

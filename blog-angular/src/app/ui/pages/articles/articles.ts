@@ -4,7 +4,7 @@ import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
 import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
-import { FormData } from '../../../models/types/form-data';
+import { articleFormData } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../utils/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
@@ -28,7 +28,7 @@ export class Articles {
   protected outputArticles: Article[] = [];
 
   public articles: Article[] = [];
-  public editArticleData: FormData | null = null;
+  public editArticleData: articleFormData | null = null;
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
@@ -47,7 +47,7 @@ export class Articles {
     this.visionChangedFlag = !event;
   }
 
-  public createNewArticle(data: FormData) {
+  public createNewArticle(data: articleFormData) {
     const article: Article = CreateArticle.createArticle(data);
     this.articleStorageService.addArticle(article);
   }
@@ -56,12 +56,12 @@ export class Articles {
     this.articleStorageService.removeArticle(id);
   }
 
-  protected openEditArticleForm(data: FormData) {
+  protected openEditArticleForm(data: articleFormData) {
     this.editArticleData = data;
     this.openForm();
   }
 
-  protected updateArticle(data: FormData) {
+  protected updateArticle(data: articleFormData) {
     this.articleStorageService.updateArticle(data);
   }
 

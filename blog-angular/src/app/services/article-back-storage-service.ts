@@ -3,7 +3,7 @@ import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
 import { map, mergeMap, Observable, tap } from 'rxjs';
 import { Article, BackArticle } from '../models/types/articles';
-import { FormData } from '../models/types/form-data';
+import { articleFormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
@@ -73,7 +73,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
     return this.http.delete(`/api/articles/${id}`);
   }
 
-  public updateArticle(data: FormData) {
+  public updateArticle(data: articleFormData) {
     this.updateArticleBack(data)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -89,7 +89,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private updateArticleBack(data: FormData) {
+  private updateArticleBack(data: articleFormData) {
     const newCategory = this.findCategoryFromName(data.category);
     return this.http.patch(`/api/articles/${data.id}`, {
       title: data.title,

@@ -3,7 +3,7 @@ import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
 import { map, mergeMap, Observable } from 'rxjs';
 import { Article } from '../models/types/articles';
-import { FormData } from '../models/types/form-data';
+import { articleFormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
@@ -95,7 +95,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
     });
   }
 
-  public updateArticle(data: FormData) {
+  public updateArticle(data: articleFormData) {
     this.updateArticleLc(data)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -106,7 +106,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private updateArticleLc(data: FormData) {
+  private updateArticleLc(data: articleFormData) {
     return new Observable<void>((observer) => {
       const artilesLs = localStorage.getItem(LC_KEY_ARTICLES);
       if (artilesLs) {
