@@ -9,6 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 import { categoriesBack } from '../models/types/category';
 import { CreateArticle } from '../utils/create-article';
+import { form } from '@angular/forms/signals';
 
 @Injectable()
 export class ArticleBackStorageService implements IArticleLocalStorageService {
@@ -60,7 +61,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       return this.http.post('/api/articles', article);
     } else {
       const formData = new FormData();
-      formData.append('title', article.title);
+      formData.append('title', tempArticle.title);
       formData.append('content', tempArticle.content);
       formData.append('categoryId', tempArticle.categoryId);
       formData.append('image', tempArticle.imgSrc, tempArticle.imgSrc.name);
@@ -105,10 +106,20 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
 
   private updateArticleBack(data: articleFormData) {
     const newCategory = this.findCategoryFromName(data.category);
+    const image = data.foto;
+    if (image) {
+      const formData = new FormData();
+      formData.append('title', data.title);
+      formData.append('content', data.description);
+      formData.append('categoryId', newCategory);
+      formData.append('image', image, image.name);
+      return this.http.patch(`/api/articles/${data.id}`, formData);
+    }
     return this.http.patch(`/api/articles/${data.id}`, {
       title: data.title,
       content: data.description,
       categoryId: newCategory,
+      image: data.foto,
     });
   }
 
@@ -152,7 +163,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   }
 
   private getArticlesFromServer() {
-    return this.http.get('/api/articles');
+    return this.http.get('/api/articles?page=1&limit=999&cumulative=false');
   }
 
   private loadCategories() {
