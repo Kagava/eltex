@@ -48,7 +48,7 @@ export class Articles {
   }
 
   public createNewArticle(data: articleFormData) {
-    const article: Article = CreateArticle.createArticle(data);
+    const article = CreateArticle.createArticle(data);
     this.articleStorageService.addArticle(article);
   }
 

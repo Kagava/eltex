@@ -33,7 +33,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
       .subscribe((articles) => this.storage.setArticleStorage(articles));
   }
 
-  public addArticle(article: Article) {
+  public addArticle(article: articleFormData) {
     this.addArticleLc(article)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -46,13 +46,13 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
       });
   }
 
-  private addArticleLc(article: Article) {
+  private addArticleLc(article: articleFormData) {
     return new Observable<void>((observer) => {
       const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
       if (articlesLc) {
         try {
-          const articles: Article[] = JSON.parse(articlesLc) ?? [];
-          const updatedList: Article[] = [article, ...articles];
+          const articles: articleFormData[] = JSON.parse(articlesLc) ?? [];
+          const updatedList: articleFormData[] = [article, ...articles];
           localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(updatedList));
         } catch (e) {
           console.error(e);
