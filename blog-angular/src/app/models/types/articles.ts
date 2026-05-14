@@ -22,6 +22,15 @@ export type createArticle = {
   comments: Comment[];
 };
 
+export type CommentBack = {
+  articleId: string;
+  content: string;
+  createdAt: string;
+  id: string;
+  rating: number;
+  username: string;
+};
+
 export type Comment = {
   name: string;
   commentText: string;
