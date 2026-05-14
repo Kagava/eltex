@@ -161,7 +161,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
         date: article.updatedAt,
         dateFormatted: article.updatedAt,
         description: article.content,
-        image: '',
+        image: article.imgSrc ?? '/assets/article-foto.png',
         category: this.findCategoryFromId(article.categoryId),
         articleRating: article.rating,
         comments: [],

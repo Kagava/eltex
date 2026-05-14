@@ -7,6 +7,11 @@
     },
     "changeOrigin": true
   },
+  "/uploads": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "changeOrigin": true
+  },
   "/login": {
     "target": "http://localhost:3000/auth/login",
     "secure": false,

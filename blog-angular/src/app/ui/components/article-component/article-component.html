@@ -4,12 +4,19 @@
       @for (article of articleArray(); track $index) {
         @if ($index >= articlePage() && $index < articlePage() + 7) {
           <div class="articles__article article" [id]="article.id">
+            {{ article.image }}
             <div
               class="article__content"
               [class]="article.category"
               (click)="onArticleClick(article.id)"
             >
-              <div class="article__foto"></div>
+              <div class="article__foto">
+                <img
+                  [src]="article.image"
+                  alt="Картиночка для статьи"
+                  class="image-container__image"
+                />
+              </div>
               <div class="article__text">
                 <h3 class="article__article-header">
                   {{ article.title }}
@@ -58,7 +65,7 @@
             </div>
             <div class="article__image-container">
               <img
-                src="assets/article-foto.png"
+                [src]="article.image"
                 alt="Картиночка для статьи"
                 class="image-container__image"
               />
