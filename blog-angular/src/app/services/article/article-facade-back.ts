@@ -32,17 +32,22 @@ export class ArticleFacadeBack implements IArticleFacade {
           this.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
-        tap((data) => console.log(data)),
       )
       .subscribe((article: Article) => this.articleStorage.setArticleInfo(article));
   }
 
   public updateArticleComments(id: number, ratingDelta: number) {
-    this.updateArticleCommentsStorage(id, ratingDelta)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((article) => {
-        this.articleStorageService.updateRating(article);
-      });
+    this.updateArticleCommentBack(id, ratingDelta)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap(() => this.getArticelFromBack(this.currentId()!)),
+        map((data: any[]) => [
+          this.makeGoodTypeArticle(data[0]),
+          this.makeGoodTypeComment(data[1]),
+        ]),
+        map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
+      )
+      .subscribe((article: Article) => this.articleStorage.setArticleInfo(article));
   }
 
   public addComment(data: FormDataComment) {
@@ -83,23 +88,16 @@ export class ArticleFacadeBack implements IArticleFacade {
     ]);
   }
 
-  private updateArticleCommentsStorage(id: number, ratingDelta: number) {
-    return new Observable<Article>((observer) => {
-      const currentArticle = this.articleStorage.articleInfo();
-      if (currentArticle) {
-        try {
-          const articleComments = currentArticle.comments;
-          articleComments[id].commentRating += ratingDelta;
-          const changedArticle: Article = { ...currentArticle, comments: articleComments };
-          this.articleStorage.setArticleInfo(changedArticle);
-          observer.next(changedArticle);
-        } catch (e) {
-          console.error(e);
-          observer.error();
-        }
-      }
-      observer.complete();
-    });
+  private updateArticleCommentBack(id: number, ratingDelta: number) {
+    return this.http.get(`/api/comments/article/${this.currentId()}`).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      map((data: any) => data as CommentBack[]),
+      switchMap((data: CommentBack[]) => {
+        return this.http.patch(`/api/comments/${data[id].id}/rating`, {
+          rating: data[id].rating + ratingDelta,
+        });
+      }),
+    );
   }
 
   private addCommetBack(data: FormDataComment) {
