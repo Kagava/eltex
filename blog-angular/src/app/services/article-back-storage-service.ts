@@ -1,14 +1,13 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
-import { map, merge, mergeMap, Observable, tap } from 'rxjs';
+import { map, mergeMap, Observable, tap } from 'rxjs';
 import { Article, BackArticle } from '../models/types/articles';
 import { FormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 import { categoriesBack } from '../models/types/category';
-import { MatTabBody } from '@angular/material/tabs';
 
 @Injectable()
 export class ArticleBackStorageService implements IArticleLocalStorageService {
@@ -36,34 +35,22 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   }
 
   public addArticle(article: Article) {
-    this.addArticleLc(article)
+    const preparedArticle = this.prepareArticleForBack(article);
+    this.addArticleBack(preparedArticle)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        mergeMap(() => {
-          return this.getArticlesFromLocalStotage();
-        }),
+        mergeMap(() =>
+          this.getArticlesFromServer().pipe(
+            takeUntilDestroyed(this.destroyRef),
+            map((data: any) => this.makeGoodTypes(data.items)),
+          ),
+        ),
       )
-      .subscribe((articles) => {
-        this.storage.setArticleStorage(articles);
-      });
+      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private addArticleLc(article: Article) {
-    return new Observable<void>((observer) => {
-      const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
-      if (articlesLc) {
-        try {
-          const articles: Article[] = JSON.parse(articlesLc) ?? [];
-          const updatedList: Article[] = [article, ...articles];
-          localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(updatedList));
-        } catch (e) {
-          console.error(e);
-          observer.error();
-        }
-      }
-      observer.next();
-      observer.complete();
-    });
+  private addArticleBack(article: BackArticle) {
+    return this.http.post('/api/articles', article);
   }
 
   public removeArticle(id: string) {
@@ -199,4 +186,27 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
     }
     return name;
   }
+
+  private prepareArticleForBack(article: Article) {
+    return {
+      categoryId: this.findCategoryFromName(article.category),
+      content: article.description,
+      createdAt: article.date,
+      id: article.id,
+      imgSrc: '',
+      rating: article.articleRating,
+      title: article.title,
+      updatedAt: article.date,
+    } as BackArticle;
+  }
+  /*
+  categoryId: string;
+  content: string;
+  createdAt: string;
+  id: string;
+  imgSrc: null | string;
+  rating: number;
+  title: string;
+  updatedAt: string;
+  */
 }
