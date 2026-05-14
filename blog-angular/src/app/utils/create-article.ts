@@ -6,7 +6,15 @@ export class CreateArticle {
   public static findShortData() {
     return this.findData()[0];
   }
-
+  public static findCurrentData(data: Date) {
+    const currentDate = data.getDate();
+    const currentMonth = this.findMonth(data.getMonth());
+    const currentYear = data.getFullYear();
+    return [
+      `${currentYear}-${(data.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.toString().padStart(2, '0')}`,
+      `${currentDate} ${currentMonth} ${currentYear}`,
+    ];
+  }
   public static createArticle(data: articleFormData) {
     const time = this.findData();
     return {

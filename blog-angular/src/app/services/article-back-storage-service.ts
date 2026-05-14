@@ -8,6 +8,7 @@ import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 import { categoriesBack } from '../models/types/category';
+import { CreateArticle } from '../utils/create-article';
 
 @Injectable()
 export class ArticleBackStorageService implements IArticleLocalStorageService {
@@ -16,13 +17,17 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   private categories: categoriesBack[] = [];
 
   constructor(private http: HttpClient) {
-    this.loadCategories();
-    this.getArticlesFromServer()
+    this.loadCategories()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
+        mergeMap((categories: categoriesBack[]) => {
+          this.categories = categories;
+          return this.getArticlesFromServer();
+        }),
         map((data: any) => this.makeGoodTypes(data.items)),
+        tap((articles: Article[]) => this.storage.setArticleStorage(articles)),
       )
-      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+      .subscribe();
   }
 
   public updateRating(article: Article): void {
@@ -55,10 +60,10 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       return this.http.post('/api/articles', article);
     } else {
       const formData = new FormData();
-      formData.append('title', article.title!);
-      formData.append('content', tempArticle.content!);
-      formData.append('category', tempArticle.categoryId!);
-      formData.append('image', tempArticle.imgSrc!, tempArticle.imgSrc!.name);
+      formData.append('title', article.title);
+      formData.append('content', tempArticle.content);
+      formData.append('categoryId', tempArticle.categoryId);
+      formData.append('image', tempArticle.imgSrc, tempArticle.imgSrc.name);
       return this.http.post('/api/articles', formData);
     }
   }
@@ -151,24 +156,17 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   }
 
   private loadCategories() {
-    this.http
-      .get('/api/categories')
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        map((item) => item as categoriesBack[]),
-      )
-      .subscribe((data: categoriesBack[]) => {
-        this.categories = data;
-      });
+    return this.http.get('/api/categories').pipe(map((item) => item as categoriesBack[]));
   }
 
   private makeGoodTypes(data: backArticle[]): Article[] {
     return data.map((article: backArticle) => {
+      const outDate = CreateArticle.findCurrentData(new Date(article.updatedAt));
       return {
         id: article.id,
         title: article.title,
-        date: article.updatedAt,
-        dateFormatted: article.updatedAt,
+        date: outDate[0],
+        dateFormatted: outDate[1],
         description: article.content,
         image: article.imgSrc ?? '/assets/article-foto.png',
         category: this.findCategoryFromId(article.categoryId),
@@ -208,14 +206,4 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       updatedAt: article.date,
     } as backArticle;
   }
-  /*
-  categoryId: string;
-  content: string;
-  createdAt: string;
-  id: string;
-  imgSrc: null | string;
-  rating: number;
-  title: string;
-  updatedAt: string;
-  */
 }
