@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 import { articleFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-article-form',
@@ -44,7 +43,7 @@ export class AddArticleForm {
   });
 
   protected titleError = this.form.get('title')?.errors;
-  constructor(private http: HttpClient) {
+  constructor() {
     this.formService.formClose();
     this.editDataEffect();
   }
