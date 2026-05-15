@@ -1,14 +1,14 @@
 import { computed, DestroyRef, inject, Injectable } from '@angular/core';
-import { ArticleStorage } from './article-srotage';
-import { Article, backArticle, Comment, CommentBack } from '../../models/types/articles';
-import { forkJoin, map, Observable, switchMap, take, tap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../tokens/article-local-storage-service';
-import { FormDataComment } from '../../models/types/form-data-comment';
-import { CreateArticle } from '../../utils/create-article';
-import { IArticleFacade } from '../../models/interfaces/article-facade';
 import { HttpClient } from '@angular/common/http';
+import { forkJoin, map, switchMap, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { ArticleStorage } from './article-srotage';
+import { Article, Comment, CommentBack } from '../../models/types/articles';
+import { FormDataComment } from '../../models/types/form-data-comment';
+import { IArticleFacade } from '../../models/interfaces/article-facade';
 import { categoriesBack } from '../../models/types/category';
+import { BackHelper } from '../../utils/back-helper';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,6 @@ export class ArticleFacadeBack implements IArticleFacade {
   private destroyRef = inject(DestroyRef);
   private articleStorage = inject(ArticleStorage);
   private currentId = computed(() => this.articleStorage.articleInfo()?.id);
-  private articleStorageService = inject(ARTICLE_LOCAL_STORAGE_SERVICE);
   private categories: categoriesBack[] = [];
 
   constructor(private http: HttpClient) {}
@@ -28,8 +27,8 @@ export class ArticleFacadeBack implements IArticleFacade {
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          this.makeGoodTypeArticle(data[0]),
-          this.makeGoodTypeComment(data[1]),
+          BackHelper.makeGoodTypesArticle(data[0], this.categories),
+          BackHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
       )
@@ -42,8 +41,8 @@ export class ArticleFacadeBack implements IArticleFacade {
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          this.makeGoodTypeArticle(data[0]),
-          this.makeGoodTypeComment(data[1]),
+          BackHelper.makeGoodTypesArticle(data[0], this.categories),
+          BackHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
       )
@@ -56,8 +55,8 @@ export class ArticleFacadeBack implements IArticleFacade {
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          this.makeGoodTypeArticle(data[0]),
-          this.makeGoodTypeComment(data[1]),
+          BackHelper.makeGoodTypesArticle(data[0], this.categories),
+          BackHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
       )
@@ -73,8 +72,8 @@ export class ArticleFacadeBack implements IArticleFacade {
           return this.getArticelFromBack(id);
         }),
         map((data: any[]) => [
-          this.makeGoodTypeArticle(data[0]),
-          this.makeGoodTypeComment(data[1]),
+          BackHelper.makeGoodTypesArticle(data[0], this.categories),
+          BackHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
       )
@@ -122,41 +121,5 @@ export class ArticleFacadeBack implements IArticleFacade {
 
   private loadCategories() {
     return this.http.get('/api/categories').pipe(map((item) => item as categoriesBack[]));
-  }
-
-  private makeGoodTypeArticle(data: backArticle): Article {
-    const outDate = CreateArticle.findCurrentData(new Date(data.updatedAt));
-    return {
-      id: data.id,
-      title: data.title,
-      date: outDate[0],
-      dateFormatted: outDate[1],
-      description: data.content,
-      image: data.imgSrc ?? '/assets/article-foto.png',
-      category: this.findCategoryFromId(data.categoryId),
-      articleRating: data.rating,
-      comments: [],
-    } as Article;
-  }
-
-  private makeGoodTypeComment(data: CommentBack[]) {
-    return data.map((item) => {
-      return {
-        name: item.username,
-        commentText: item.content,
-        commentRating: item.rating,
-        date: item.createdAt,
-        image: '/assets/mock-comm.jpg',
-      } as Comment;
-    });
-  }
-
-  private findCategoryFromId(categoryId: string): string {
-    for (const category of this.categories) {
-      if (category.id === categoryId) {
-        return `${category.name}-article`;
-      }
-    }
-    return '';
   }
 }

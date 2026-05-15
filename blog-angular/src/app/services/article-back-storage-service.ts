@@ -9,6 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 import { categoriesBack } from '../models/types/category';
 import { CreateArticle } from '../utils/create-article';
+import { BackHelper } from '../utils/back-helper';
 
 @Injectable()
 export class ArticleBackStorageService implements IArticleLocalStorageService {
@@ -24,7 +25,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
           this.categories = categories;
           return this.getArticlesFromServer();
         }),
-        map((data: any) => this.makeGoodTypes(data.items)),
+        map((data: any) => BackHelper.makeGoodTypesArticle(data.items, this.categories)),
         tap((articles: Article[]) => this.storage.setArticleStorage(articles)),
       )
       .subscribe();
@@ -40,14 +41,14 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   }
 
   public addArticle(article: createArticle) {
-    const preparedArticle = this.prepareArticleForBack(article);
+    const preparedArticle = BackHelper.prepareArticleForBack(article, this.categories);
     this.addArticleBack(preparedArticle)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         mergeMap(() =>
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
-            map((data: any) => this.makeGoodTypes(data.items)),
+            map((data: any) => BackHelper.makeGoodTypesArticle(data.items, this.categories)),
           ),
         ),
       )
@@ -76,7 +77,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
             tap((data: any) => console.log(data)),
-            map((data: any) => this.makeGoodTypes(data.items)),
+            map((data: any) => BackHelper.makeGoodTypesArticle(data.items, this.categories)),
           ),
         ),
       )
@@ -96,7 +97,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
             tap((data: any) => console.log(data)),
-            map((data: any) => this.makeGoodTypes(data.items)),
+            map((data: any) => BackHelper.makeGoodTypesArticle(data.items, this.categories)),
           ),
         ),
       )
@@ -104,7 +105,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
   }
 
   private updateArticleBack(data: articleFormData) {
-    const newCategory = this.findCategoryFromName(data.category);
+    const newCategory = BackHelper.findCategoryFromName(data.category, this.categories);
     const image = data.foto;
     if (image) {
       const formData = new FormData();
@@ -167,53 +168,5 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
 
   private loadCategories() {
     return this.http.get('/api/categories').pipe(map((item) => item as categoriesBack[]));
-  }
-
-  private makeGoodTypes(data: backArticle[]): Article[] {
-    return data.map((article: backArticle) => {
-      const outDate = CreateArticle.findCurrentData(new Date(article.updatedAt));
-      return {
-        id: article.id,
-        title: article.title,
-        date: outDate[0],
-        dateFormatted: outDate[1],
-        description: article.content,
-        image: article.imgSrc ?? '/assets/article-foto.png',
-        category: this.findCategoryFromId(article.categoryId),
-        articleRating: article.rating,
-        comments: [],
-      } as Article;
-    });
-  }
-
-  private findCategoryFromId(categoryId: string): string {
-    for (const category of this.categories) {
-      if (category.id === categoryId) {
-        return `${category.name}-article`;
-      }
-    }
-    return '';
-  }
-
-  private findCategoryFromName(name: string): string {
-    for (const category of this.categories) {
-      if (category.name === name.slice(0, name.length - 8)) {
-        return category.id;
-      }
-    }
-    return name;
-  }
-
-  private prepareArticleForBack(article: createArticle) {
-    return {
-      categoryId: this.findCategoryFromName(article.category),
-      content: article.description,
-      createdAt: article.date,
-      id: article.id,
-      imgSrc: article.image ?? '',
-      rating: article.articleRating,
-      title: article.title,
-      updatedAt: article.date,
-    } as backArticle;
   }
 }
