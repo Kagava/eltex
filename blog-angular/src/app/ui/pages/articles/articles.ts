@@ -1,4 +1,13 @@
-import { Component, computed, effect, ElementRef, inject, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  Injector,
+  runInInjectionContext,
+  viewChild,
+} from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
@@ -35,7 +44,7 @@ export class Articles {
   public isEndOfPage = true;
   public isBeginOfPage = true;
 
-  constructor() {
+  constructor(private injector: Injector) {
     effect(() => {
       if (this.storage.articleStorage()) {
         this.countButtonFlags(this.storage.articlePage());
@@ -85,8 +94,14 @@ export class Articles {
   }
 
   ngOnInit() {
-    const tempArticlePage = this.storage.articlePage();
-    this.countButtonFlags(tempArticlePage);
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        if (this.storage.articleStorage()) {
+          const tempMainPage = this.storage.mainPage();
+          this.countButtonFlags(tempMainPage);
+        }
+      });
+    });
   }
 
   private countButtonFlags(currentPage: number) {

@@ -1,4 +1,13 @@
-import { Component, computed, ElementRef, inject, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  Injector,
+  runInInjectionContext,
+  viewChild,
+} from '@angular/core';
 import { Career } from './career/career';
 import { Hobby } from './hobby/hobby';
 import { Works } from './works/works';
@@ -20,7 +29,6 @@ export class Information {
   private articleStorageService = inject(ARTICLE_LOCAL_STORAGE_SERVICE);
   private quantityArticles: number = 3;
   private formChild = viewChild<ElementRef>('form');
-
   private storage = inject(ArticlesStorage);
 
   protected articlesStorage = computed(() => this.storage.articleStorage());
@@ -32,10 +40,12 @@ export class Information {
   public editArticleData: articleFormData = { title: '', description: '', category: '' };
   public visionChangedFlag: boolean = true;
 
-  constructor() {}
+  constructor(private injector: Injector) {}
 
   public removeArticle(id: string) {
     this.articleStorageService.removeArticle(id);
+    const tempMainPage = this.storage.mainPage();
+    this.countButtonFlags(tempMainPage);
   }
 
   protected openEditArticleForm(data: articleFormData) {
@@ -67,8 +77,14 @@ export class Information {
   }
 
   ngOnInit() {
-    const tempMainPage = this.storage.mainPage();
-    this.countButtonFlags(tempMainPage);
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        if (this.storage.articleStorage()) {
+          const tempMainPage = this.storage.mainPage();
+          this.countButtonFlags(tempMainPage);
+        }
+      });
+    });
   }
 
   private countButtonFlags(currentPage: number) {
