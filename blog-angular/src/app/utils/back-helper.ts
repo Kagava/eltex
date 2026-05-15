@@ -41,7 +41,22 @@ export class BackHelper {
     });
   }
 
-  public static makeGoodTypesArticle(data: backArticle[], categories: categoriesBack[]): Article[] {
+  public static makeGoodTypeArticle(data: backArticle, categories: categoriesBack[]): Article {
+    const outDate = CreateArticle.findCurrentData(new Date(data.updatedAt));
+    return {
+      id: data.id,
+      title: data.title,
+      date: outDate[0],
+      dateFormatted: outDate[1],
+      description: data.content,
+      image: data.imgSrc ?? '/assets/article-foto.png',
+      category: BackHelper.findCategoryFromId(data.categoryId, categories),
+      articleRating: data.rating,
+      comments: [],
+    } as Article;
+  }
+
+  public static makeGoodTypeArticles(data: backArticle[], categories: categoriesBack[]): Article[] {
     return data.map((article: backArticle) => {
       const outDate = CreateArticle.findCurrentData(new Date(article.updatedAt));
       return {

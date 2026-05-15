@@ -25,7 +25,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
           this.categories = categories;
           return this.getArticlesFromServer();
         }),
-        map((data: any) => BackHelper.makeGoodTypesArticle(data.items, this.categories)),
+        map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
         tap((articles: Article[]) => this.storage.setArticleStorage(articles)),
       )
       .subscribe();
@@ -48,7 +48,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
         mergeMap(() =>
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
-            map((data: any) => BackHelper.makeGoodTypesArticle(data.items, this.categories)),
+            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
           ),
         ),
       )
@@ -77,7 +77,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
             tap((data: any) => console.log(data)),
-            map((data: any) => BackHelper.makeGoodTypesArticle(data.items, this.categories)),
+            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
           ),
         ),
       )
@@ -97,7 +97,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
             tap((data: any) => console.log(data)),
-            map((data: any) => BackHelper.makeGoodTypesArticle(data.items, this.categories)),
+            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
           ),
         ),
       )
