@@ -98,6 +98,9 @@ export class Information {
       this.isEndOfPage = true;
     } else {
       this.isEndOfPage = false;
+      if (currentPage === 0 && articles === 0) {
+        this.isEndOfPage = true;
+      }
     }
   }
 }

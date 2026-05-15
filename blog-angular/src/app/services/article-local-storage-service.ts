@@ -7,6 +7,7 @@ import { articleFormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
+import { Title } from '@angular/platform-browser';
 
 @Injectable()
 export class ArticleLocalStorageService implements IArticleLocalStorageService {
@@ -127,7 +128,20 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
             if (data.id !== article.id) {
               return article;
             } else {
-              return { ...article, ...data };
+              let imageString = '';
+              if (data.foto) {
+                imageString = URL.createObjectURL(data.foto);
+              } else {
+                imageString = '/assest/article-foto.png';
+              }
+              return {
+                ...article,
+                title: data.title,
+                description: data.description,
+                category: data.category,
+                id: data.id,
+                image: imageString,
+              };
             }
           });
           localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(updatedArticles));
