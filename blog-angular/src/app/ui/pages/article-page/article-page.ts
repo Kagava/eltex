@@ -5,6 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ArticleStorage } from '../../../services/article/article-srotage';
 import { ARTICLE_FACADE } from '../../../tokens/article-facade-token';
 import { CommentComponent } from './comment-component/comment-component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article-page',
@@ -21,9 +22,13 @@ export class ArticlePage {
   protected currentArticle = computed(() => this.articleStorage.articleInfo());
   protected articleId = signal<string>('');
 
-  constructor() {}
+  constructor(private title: Title) {}
 
   ngOnInit() {
+    const newTitle = this.articleStorage.articleInfo()?.title;
+    if (newTitle) {
+      this.title.setTitle(newTitle);
+    }
     this.activeRouter.params
       .pipe(takeUntilDestroyed(this.destroyRef$))
       .subscribe((obj) => this.articleId.set(obj['id']));

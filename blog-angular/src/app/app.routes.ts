@@ -13,10 +13,12 @@ export const routes: Routes = [
       {
         path: 'main',
         loadComponent: () => import('./ui/pages/main-page/main-page').then((c) => c.MainPage),
+        title: 'Обо мне',
       },
       {
         path: 'articles',
         loadComponent: () => import('./ui/pages/articles/articles').then((c) => c.Articles),
+        title: 'Блог',
       },
       {
         path: 'articles/:id',
