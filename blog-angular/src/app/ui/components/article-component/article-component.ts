@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { RouterLink, Router } from '@angular/router';
-import { FormData } from '../../../models/types/form-data';
+import { articleFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
 import { ArticlesStorage } from '../../../services/articles-storage';
 @Component({
@@ -21,14 +21,14 @@ export class ArticleComponent {
   public articleArray = input<Article[]>();
   public articleToDelete = output<string>();
   public articlePageFlag = input<boolean>();
-  public isEditFormOpenFlag = output<FormData>();
+  public isEditFormOpenFlag = output<articleFormData>();
 
   removeArticle(e: MouseEvent, id: string) {
     e.stopPropagation();
     this.formService.formClose();
     this.articleToDelete.emit(id);
   }
-  protected openEditForm(e: MouseEvent, data: FormData) {
+  protected openEditForm(e: MouseEvent, data: articleFormData) {
     e.stopPropagation();
     this.formService.formEdit();
     this.formService.formOpen();

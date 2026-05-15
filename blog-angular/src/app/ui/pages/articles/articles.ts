@@ -1,10 +1,19 @@
-import { Component, computed, effect, ElementRef, inject, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  Injector,
+  runInInjectionContext,
+  viewChild,
+} from '@angular/core';
 import { Article } from '../../../models/types/articles';
 import { AdminPanel } from '../../components/admin-panel/admin-panel';
 import { Curtain } from '../../components/curtain/curtain';
 import { DialogStat } from '../../components/dialog-stat/dialog-stat';
 import { AddArticleForm } from '../../components/add-article-form/add-article-form';
-import { FormData } from '../../../models/types/form-data';
+import { articleFormData } from '../../../models/types/form-data';
 import { CreateArticle } from '../../../utils/create-article';
 import { ArticleComponent } from '../../components/article-component/article-component';
 import { ArticlesStorage } from '../../../services/articles-storage';
@@ -28,14 +37,14 @@ export class Articles {
   protected outputArticles: Article[] = [];
 
   public articles: Article[] = [];
-  public editArticleData: FormData | null = null;
+  public editArticleData: articleFormData | null = null;
   public visionChangedFlag: boolean = true;
   public openFormFlag: boolean = false;
   public editFormFlag: boolean = false;
   public isEndOfPage = true;
   public isBeginOfPage = true;
 
-  constructor() {
+  constructor(private injector: Injector) {
     effect(() => {
       if (this.storage.articleStorage()) {
         this.countButtonFlags(this.storage.articlePage());
@@ -47,8 +56,8 @@ export class Articles {
     this.visionChangedFlag = !event;
   }
 
-  public createNewArticle(data: FormData) {
-    const article: Article = CreateArticle.createArticle(data);
+  public createNewArticle(data: articleFormData) {
+    const article = CreateArticle.createArticle(data);
     this.articleStorageService.addArticle(article);
   }
 
@@ -56,12 +65,12 @@ export class Articles {
     this.articleStorageService.removeArticle(id);
   }
 
-  protected openEditArticleForm(data: FormData) {
+  protected openEditArticleForm(data: articleFormData) {
     this.editArticleData = data;
     this.openForm();
   }
 
-  protected updateArticle(data: FormData) {
+  protected updateArticle(data: articleFormData) {
     this.articleStorageService.updateArticle(data);
   }
 
@@ -85,8 +94,14 @@ export class Articles {
   }
 
   ngOnInit() {
-    const tempArticlePage = this.storage.articlePage();
-    this.countButtonFlags(tempArticlePage);
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        if (this.storage.articleStorage()) {
+          const tempMainPage = this.storage.mainPage();
+          this.countButtonFlags(tempMainPage);
+        }
+      });
+    });
   }
 
   private countButtonFlags(currentPage: number) {

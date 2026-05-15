@@ -10,6 +10,27 @@ export type Article = {
   comments: Comment[];
 };
 
+export type createArticle = {
+  id: string;
+  title: string;
+  date: string;
+  dateFormatted: string;
+  description: string;
+  image: File | undefined;
+  category: string;
+  articleRating: number;
+  comments: Comment[];
+};
+
+export type CommentBack = {
+  articleId: string;
+  content: string;
+  createdAt: string;
+  id: string;
+  rating: number;
+  username: string;
+};
+
 export type Comment = {
   name: string;
   commentText: string;
@@ -20,4 +41,15 @@ export type Comment = {
 
 export type ObjArticles = {
   articles: Article[];
+};
+
+export type backArticle = {
+  categoryId: string;
+  content: string;
+  createdAt: string;
+  id: string;
+  imgSrc: File | string;
+  rating: number;
+  title: string;
+  updatedAt: string;
 };

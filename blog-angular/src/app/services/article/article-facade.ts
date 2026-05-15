@@ -70,7 +70,10 @@ export class ArticleFacade implements IArticleFacade {
       const currentArticle = this.articleStorage.articleInfo();
       if (currentArticle) {
         try {
-          const changedArticle: Article = { ...currentArticle, articleRating: rating };
+          const changedArticle: Article = {
+            ...currentArticle,
+            articleRating: currentArticle.articleRating + rating,
+          };
           this.articleStorage.setArticleInfo(changedArticle);
           observer.next(changedArticle);
         } catch (e) {

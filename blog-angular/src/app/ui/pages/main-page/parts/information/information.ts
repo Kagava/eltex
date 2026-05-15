@@ -1,11 +1,20 @@
-import { Component, computed, ElementRef, inject, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  Injector,
+  runInInjectionContext,
+  viewChild,
+} from '@angular/core';
 import { Career } from './career/career';
 import { Hobby } from './hobby/hobby';
 import { Works } from './works/works';
 import { ArticleComponent } from '../../../../components/article-component/article-component';
 import { Article } from '../../../../../models/types/articles';
 import { AddArticleForm } from '../../../../components/add-article-form/add-article-form';
-import { FormData } from '../../../../../models/types/form-data';
+import { articleFormData } from '../../../../../models/types/form-data';
 import { ArticlesStorage } from '../../../../../services/articles-storage';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../../../../tokens/article-local-storage-service';
 import { PagginationButton } from '../../../../components/paggination-button/paggination-button';
@@ -20,7 +29,6 @@ export class Information {
   private articleStorageService = inject(ARTICLE_LOCAL_STORAGE_SERVICE);
   private quantityArticles: number = 3;
   private formChild = viewChild<ElementRef>('form');
-
   private storage = inject(ArticlesStorage);
 
   protected articlesStorage = computed(() => this.storage.articleStorage());
@@ -29,16 +37,18 @@ export class Information {
   public isEndOfPage = true;
   public isBeginOfPage = true;
   public editArticleId: string = '';
-  public editArticleData: FormData = { title: '', description: '', category: '' };
+  public editArticleData: articleFormData = { title: '', description: '', category: '' };
   public visionChangedFlag: boolean = true;
 
-  constructor() {}
+  constructor(private injector: Injector) {}
 
   public removeArticle(id: string) {
     this.articleStorageService.removeArticle(id);
+    const tempMainPage = this.storage.mainPage();
+    this.countButtonFlags(tempMainPage);
   }
 
-  protected openEditArticleForm(data: FormData) {
+  protected openEditArticleForm(data: articleFormData) {
     this.editArticleData = data;
     this.formChild()?.nativeElement.scrollIntoView({
       behavior: 'smooth',
@@ -47,7 +57,7 @@ export class Information {
     });
   }
 
-  protected updateArticle(data: FormData) {
+  protected updateArticle(data: articleFormData) {
     this.articleStorageService.updateArticle(data);
   }
 
@@ -67,8 +77,14 @@ export class Information {
   }
 
   ngOnInit() {
-    const tempMainPage = this.storage.mainPage();
-    this.countButtonFlags(tempMainPage);
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        if (this.storage.articleStorage()) {
+          const tempMainPage = this.storage.mainPage();
+          this.countButtonFlags(tempMainPage);
+        }
+      });
+    });
   }
 
   private countButtonFlags(currentPage: number) {

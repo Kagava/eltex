@@ -33,16 +33,14 @@ export class ArticlePage {
   protected ratingDown() {
     const tempArticle = this.currentArticle();
     if (tempArticle !== null) {
-      const tempRating = tempArticle.articleRating;
-      this.articleRepository.updateArticle(tempRating - 1);
+      this.articleRepository.updateArticle(-1);
     }
   }
 
   protected ratingUp() {
     const tempArticle = this.currentArticle();
     if (tempArticle !== null) {
-      const tempRating = tempArticle.articleRating;
-      this.articleRepository.updateArticle(tempRating + 1);
+      this.articleRepository.updateArticle(1);
     }
   }
 }

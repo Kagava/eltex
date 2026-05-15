@@ -79,14 +79,23 @@
 }
 
 .article__foto {
-  border-radius: 5px;
-  background-image: url('#{path.$assets-path}/article-foto.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 220px;
   @media (max-width: 1010px) {
     height: 44vw;
+  }
+}
+
+.article__image {
+  object-fit: cover;
+  width: 95%;
+  height: 100%;
+  border-radius: 5px;
+  @media (max-width: 1000px) {
+    max-width: none;
+    max-height: none;
   }
 }
 
@@ -212,8 +221,11 @@
 }
 
 .image-container__image {
+  max-height: 400px;
+  object-fit: cover;
   width: 100%;
   border-radius: 5px;
+  min-width: 20%;
   @media (max-width: 1000px) {
     max-width: none;
     max-height: none;

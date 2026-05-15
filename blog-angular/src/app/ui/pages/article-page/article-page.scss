@@ -22,9 +22,16 @@
 }
 
 .articel__image {
+  object-fit: cover;
+  max-width: 700px;
+  max-height: 400px;
   @media (max-width: 1200px) {
     width: clamp(360px, 80dvw, 900px);
   }
+}
+
+.article__header {
+  font-size: clamp(40px, 4dvw, 52px);
 }
 
 .article__description {

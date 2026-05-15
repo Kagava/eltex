@@ -9,7 +9,9 @@
               [class]="article.category"
               (click)="onArticleClick(article.id)"
             >
-              <div class="article__foto"></div>
+              <div class="article__foto">
+                <img [src]="article.image" alt="Картиночка для статьи" class="article__image" />
+              </div>
               <div class="article__text">
                 <h3 class="article__article-header">
                   {{ article.title }}
@@ -58,7 +60,7 @@
             </div>
             <div class="article__image-container">
               <img
-                src="assets/article-foto.png"
+                [src]="article.image"
                 alt="Картиночка для статьи"
                 class="image-container__image"
               />

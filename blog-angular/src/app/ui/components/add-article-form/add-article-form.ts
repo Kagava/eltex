@@ -1,6 +1,11 @@
-import { Component, computed, effect, inject, input, output } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormData } from '../../../models/types/form-data';
+import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import {
+  FormControl,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { articleFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
 
 @Component({
@@ -10,10 +15,12 @@ import { FormService } from '../../../services/form-service';
   styleUrl: './add-article-form.scss',
 })
 export class AddArticleForm {
+  readonly selectedFile = signal<File | null>(null);
   private readonly fb = inject(NonNullableFormBuilder);
   private transform: number = 42;
   private formService = inject(FormService);
 
+  protected someBlob: File | undefined;
   protected isFormOpen = computed(() => this.formService.isFormOpen());
   protected formTitle = computed(() => {
     return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
@@ -23,17 +30,16 @@ export class AddArticleForm {
     return this.formService.isEditMode() ? ' Редактировать' : 'Добавить';
   });
   protected isSelectOpen: boolean = false;
-  protected spanSelectValue = computed(() => {
-    return this.editData()?.category === 'frontend-article' ? 'Frontend' : 'Tennis';
-  });
+  protected spanSelectValue: string = 'Tennis';
 
-  public editData = input.required<FormData | null>();
-  public dataOut = output<FormData>();
-  public dataOutEdit = output<FormData>();
+  public editData = input.required<articleFormData | null>();
+  public dataOut = output<articleFormData>();
+  public dataOutEdit = output<articleFormData>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
     category: ['tennis-article', Validators.required],
+    foto: new FormControl(),
   });
 
   protected titleError = this.form.get('title')?.errors;
@@ -53,6 +59,15 @@ export class AddArticleForm {
     this.resetForm();
   }
 
+  protected onSelectFile(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.form.patchValue({
+        foto: file,
+      });
+    }
+  }
+
   protected openCustomeSelect(event: Event) {
     const target = event.target;
     this.isSelectOpen = !this.isSelectOpen;
@@ -61,12 +76,14 @@ export class AddArticleForm {
   protected tennisChoice(event: Event) {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
+    this.spanSelectValue = 'Tennis';
     this.form.patchValue({ category: 'tennis-article' });
   }
 
   protected frontendChoice(event: Event) {
     event.stopPropagation();
     this.isSelectOpen = !this.isSelectOpen;
+    this.spanSelectValue = 'Frontend';
     this.form.patchValue({ category: 'frontend-article' });
   }
 
@@ -79,7 +96,7 @@ export class AddArticleForm {
   }
 
   protected checkDefault(value: string) {
-    return value === this.spanSelectValue();
+    return value === this.spanSelectValue;
   }
 
   protected resetForm() {
@@ -96,8 +113,10 @@ export class AddArticleForm {
           description: tempData.description,
           category: tempData.category,
         });
+        this.spanSelectValue = tempData.category === 'frontend-article' ? 'Fronted' : 'Tennis';
       } else {
         this.form.reset();
+        this.spanSelectValue = 'Tennis';
       }
     });
   }

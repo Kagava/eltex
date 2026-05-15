@@ -1,4 +1,4 @@
-import { FormData } from '../models/types/form-data';
+import { articleFormData } from '../models/types/form-data';
 
 export class CreateArticle {
   constructor() {}
@@ -6,8 +6,16 @@ export class CreateArticle {
   public static findShortData() {
     return this.findData()[0];
   }
-
-  public static createArticle(data: FormData) {
+  public static findCurrentData(data: Date) {
+    const currentDate = data.getDate();
+    const currentMonth = this.findMonth(data.getMonth());
+    const currentYear = data.getFullYear();
+    return [
+      `${currentYear}-${(data.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.toString().padStart(2, '0')}`,
+      `${currentDate} ${currentMonth} ${currentYear}`,
+    ];
+  }
+  public static createArticle(data: articleFormData) {
     const time = this.findData();
     return {
       title: data.title,
@@ -16,7 +24,7 @@ export class CreateArticle {
       id: crypto.randomUUID() as string,
       date: time[0],
       dateFormatted: time[1],
-      image: `../blog/assets/article-foto.png`,
+      image: data.foto,
       articleRating: 0,
       comments: [],
     };
