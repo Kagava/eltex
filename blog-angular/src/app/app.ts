@@ -9,6 +9,7 @@ import { ARTICLE_FACADE } from './tokens/article-facade-token';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from './tokens/article-local-storage-service';
 import { environment } from '../environments/environment';
 import { ArticleFacadeBack } from './services/article/article-facade-back';
+import { ENV_CONFIG } from './tokens/enviroments-token';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,10 @@ import { ArticleFacadeBack } from './services/article/article-facade-back';
     {
       provide: ARTICLE_LOCAL_STORAGE_SERVICE,
       useClass: environment.useLcService ? ArticleLocalStorageService : ArticleBackStorageService,
+    },
+    {
+      provide: ENV_CONFIG,
+      useValue: environment,
     },
   ],
 })

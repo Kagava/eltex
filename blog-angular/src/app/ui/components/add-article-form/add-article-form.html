@@ -1,5 +1,5 @@
 <section class="create-article wrapper">
-  @if (isFormOpen()) {
+  @if (1) {
     <div class="">
       <h2 class="create-article__header">
         {{ formTitle() }}
@@ -44,7 +44,10 @@
               }
             }
           </span>
+          <span style="color: brown;">{{ autoCompleteSignal() }}</span>
           <input type="file" (change)="onSelectFile($event)" />
+          <input #searchInput type="text" autocomplete="off" />
+
           <ul class="custom-select" tabindex="0" (click)="openCustomeSelect($event)">
             <span class="custom-select__choice">{{ spanSelectValue }} </span>
             <li

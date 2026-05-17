@@ -1,4 +1,15 @@
-import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 import {
   FormControl,
   NonNullableFormBuilder,
@@ -7,6 +18,11 @@ import {
 } from '@angular/forms';
 import { ArticleFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
+import { ENV_CONFIG } from '../../../tokens/enviroments-token';
+import { HttpClient } from '@angular/common/http';
+import { debounceTime, defer, distinctUntilChanged, fromEvent, map, switchMap, tap } from 'rxjs';
+import { CategoriesBack } from '../../../models/types/category';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-add-article-form',
@@ -15,22 +31,25 @@ import { FormService } from '../../../services/form-service';
   styleUrl: './add-article-form.scss',
 })
 export class AddArticleForm {
-  readonly selectedFile = signal<File | null>(null);
+  private searchCategoryInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
+  private destroyRef = inject(DestroyRef);
   private readonly fb = inject(NonNullableFormBuilder);
   private transform: number = 42;
   private formService = inject(FormService);
+  private env = inject(ENV_CONFIG);
+  readonly selectedFile = signal<File | null>(null);
 
   protected someBlob: File | undefined;
   protected isFormOpen = computed(() => this.formService.isFormOpen());
   protected formTitle = computed(() => {
     return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
   });
-
   protected formButton = computed(() => {
     return this.formService.isEditMode() ? ' Редактировать' : 'Добавить';
   });
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
+  protected autoCompleteSignal = signal<string[]>([]);
 
   public editData = input.required<ArticleFormData | null>();
   public dataOut = output<ArticleFormData>();
@@ -43,7 +62,7 @@ export class AddArticleForm {
   });
 
   protected titleError = this.form.get('title')?.errors;
-  constructor() {
+  constructor(private http: HttpClient) {
     this.formService.formClose();
     this.editDataEffect();
   }
@@ -121,6 +140,12 @@ export class AddArticleForm {
     });
   }
 
+  protected onInputCategory(e: KeyboardEvent) {
+    if (!this.env.useLcService) {
+    } else {
+    }
+  }
+
   protected hasError(controlName: string) {
     const control = this.form.get(controlName);
     const isValid = control?.invalid && control.touched;
@@ -152,5 +177,35 @@ export class AddArticleForm {
       default:
         return 'Ошибка заполнение поля';
     }
+  }
+
+  ngAfterViewInit() {
+    fromEvent(this.searchCategoryInput().nativeElement, 'input')
+      .pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+        map((event) => (event.target as HTMLInputElement).value),
+        switchMap((inputString: string) => {
+          return this.http.get('/api/categories').pipe(
+            map((item) => item as CategoriesBack[]),
+            map((categories: CategoriesBack[]) => {
+              return this.findMatchCategoryies(categories, inputString);
+            }),
+          );
+        }),
+      )
+      .subscribe((matchedCategories: string[]) => this.autoCompleteSignal.set(matchedCategories));
+  }
+
+  private findMatchCategoryies(categories: CategoriesBack[], matchToString: string): string[] {
+    const result: string[] = [];
+    for (let category of categories) {
+      const tempCategorryName = category.name;
+      if (tempCategorryName.includes(matchToString)) {
+        result.push(tempCategorryName);
+      }
+    }
+    return result;
   }
 }
