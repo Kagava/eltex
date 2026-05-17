@@ -221,6 +221,35 @@
   background-color: white;
 }
 
+.autocomplete__block {
+  display: grid;
+  grid-template-columns: clamp(230px, 27vw, 520px);
+  row-gap: 5px;
+}
+
+.autocomplete__input {
+  width: clamp(230px, 27vw, 520px);
+}
+
+.autocomplete__category-span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  padding: 5px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-sizing: border-box;
+  &:hover {
+    cursor: pointer;
+    background-color: aqua;
+  }
+  &.emit-hover {
+    background-color: aqua;
+  }
+}
+
 @media (hover: hover) {
   .create-article__submit-button:hover {
     background-color: var(--background-color--subimt-button-aticle--pale);

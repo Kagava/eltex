@@ -1,5 +1,5 @@
 <section class="create-article wrapper">
-  @if (1) {
+  @if (isFormOpen()) {
     <div class="">
       <h2 class="create-article__header">
         {{ formTitle() }}
@@ -44,42 +44,28 @@
               }
             }
           </span>
-          <span style="color: brown;">{{ autoCompleteSignal() }}</span>
           <input type="file" (change)="onSelectFile($event)" />
-          <input #searchInput type="text" autocomplete="off" />
-
-          <ul class="custom-select" tabindex="0" (click)="openCustomeSelect($event)">
-            <span class="custom-select__choice">{{ spanSelectValue }} </span>
-            <li
-              class="custom-select__item custom-select__tennis"
-              data-choice="tennis"
-              [class.rotate]="isSelectOpen"
-              [style.transform]="transformString(0)"
-              (click)="tennisChoice($event)"
-            >
-              Tennis
-            </li>
-            <li
-              class="custom-select__item custom-select__frontend custom-select__item_last"
-              data-choice="frontend"
-              [class.rotate]="isSelectOpen"
-              [style.transform]="transformString(1)"
-              (click)="frontendChoice($event)"
-            >
-              Frontend
-            </li>
-            <div class="custom-select__arrow" [class.rotate]="isSelectOpen"></div>
-          </ul>
-
-          <select
-            name="type"
-            id=""
-            class="create-article__input-type create-artilce__form-item"
-            formControlName="category"
-          >
-            <option value="tennis" [defaultSelected]="checkDefault('Tennis')">Tennis</option>
-            <option value="frontend" [defaultSelected]="checkDefault('Frontend')">Frontend</option>
-          </select>
+          <div>
+            <input
+              #searchInput
+              type="text"
+              autocomplete="off"
+              (keydown)="onInputCategory($event)"
+              class="autocomplete__input"
+              formControlName="category"
+            />
+            <div class="autocomplete__block">
+              @for (category of autoCompleteSignal(); track $index) {
+                <span
+                  class="autocomplete__category-span"
+                  tabindex="-1"
+                  (click)="chooseCategory(category)"
+                  [class.emit-hover]="$index === currentChoosedCategoryNumber()"
+                  >{{ category }}</span
+                >
+              }
+            </div>
+          </div>
           <div class="create-article__buttons">
             <button
               class="create-article__button create-article__submit-button"

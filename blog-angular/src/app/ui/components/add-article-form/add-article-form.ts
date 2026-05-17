@@ -31,10 +31,10 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
   styleUrl: './add-article-form.scss',
 })
 export class AddArticleForm {
+  private prevetDefaultKeyArray = ['ArrowDown', 'ArrowUp', 'Enter'];
   private searchCategoryInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
   private destroyRef = inject(DestroyRef);
   private readonly fb = inject(NonNullableFormBuilder);
-  private transform: number = 42;
   private formService = inject(FormService);
   private env = inject(ENV_CONFIG);
   readonly selectedFile = signal<File | null>(null);
@@ -50,6 +50,7 @@ export class AddArticleForm {
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
   protected autoCompleteSignal = signal<string[]>([]);
+  protected currentChoosedCategoryNumber = signal<number>(-1);
 
   public editData = input.required<ArticleFormData | null>();
   public dataOut = output<ArticleFormData>();
@@ -57,7 +58,7 @@ export class AddArticleForm {
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
-    category: ['tennis-article', Validators.required],
+    category: ['', Validators.required],
     foto: new FormControl(),
   });
 
@@ -86,38 +87,6 @@ export class AddArticleForm {
       });
     }
   }
-
-  protected openCustomeSelect(event: Event) {
-    const target = event.target;
-    this.isSelectOpen = !this.isSelectOpen;
-  }
-
-  protected tennisChoice(event: Event) {
-    event.stopPropagation();
-    this.isSelectOpen = !this.isSelectOpen;
-    this.spanSelectValue = 'Tennis';
-    this.form.patchValue({ category: 'tennis-article' });
-  }
-
-  protected frontendChoice(event: Event) {
-    event.stopPropagation();
-    this.isSelectOpen = !this.isSelectOpen;
-    this.spanSelectValue = 'Frontend';
-    this.form.patchValue({ category: 'frontend-article' });
-  }
-
-  protected transformString(value: number) {
-    if (this.isSelectOpen) {
-      return `translateY(${value * 100 + this.transform}%)`;
-    } else {
-      return `translateY(-75%)`;
-    }
-  }
-
-  protected checkDefault(value: string) {
-    return value === this.spanSelectValue;
-  }
-
   protected resetForm() {
     this.formService.formClose();
   }
@@ -141,9 +110,43 @@ export class AddArticleForm {
   }
 
   protected onInputCategory(e: KeyboardEvent) {
-    if (!this.env.useLcService) {
+    if (this.prevetDefaultKeyArray.includes(e.code)) {
+      e.preventDefault();
+      switch (e.code) {
+        case 'ArrowUp':
+          this.currentChoosedCategoryNumber.update((cur) => (cur <= 0 ? 0 : cur - 1));
+          break;
+        case 'ArrowDown':
+          this.currentChoosedCategoryNumber.update((cur) => {
+            const tempSelected = this.autoCompleteSignal();
+            const tempLength = tempSelected.length;
+            return cur >= tempLength - 1 ? tempLength - 1 : (cur += 1);
+          });
+          break;
+        case 'Enter':
+          this.form.patchValue({
+            category: this.autoCompleteSignal()[this.currentChoosedCategoryNumber()],
+          });
+          this.autoCompleteSignal.set([]);
+          this.currentChoosedCategoryNumber.set(-1);
+          break;
+        default:
+          break;
+      }
     } else {
+      this.currentChoosedCategoryNumber.set(-1);
+      if (!this.env.useLcService) {
+      } else {
+      }
     }
+  }
+
+  protected chooseCategory(category: string) {
+    this.form.patchValue({
+      category: category,
+    });
+    this.autoCompleteSignal.set([]);
+    this.currentChoosedCategoryNumber.set(-1);
   }
 
   protected hasError(controlName: string) {
@@ -179,25 +182,6 @@ export class AddArticleForm {
     }
   }
 
-  ngAfterViewInit() {
-    fromEvent(this.searchCategoryInput().nativeElement, 'input')
-      .pipe(
-        debounceTime(200),
-        distinctUntilChanged(),
-        takeUntilDestroyed(this.destroyRef),
-        map((event) => (event.target as HTMLInputElement).value),
-        switchMap((inputString: string) => {
-          return this.http.get('/api/categories').pipe(
-            map((item) => item as CategoriesBack[]),
-            map((categories: CategoriesBack[]) => {
-              return this.findMatchCategoryies(categories, inputString);
-            }),
-          );
-        }),
-      )
-      .subscribe((matchedCategories: string[]) => this.autoCompleteSignal.set(matchedCategories));
-  }
-
   private findMatchCategoryies(categories: CategoriesBack[], matchToString: string): string[] {
     const result: string[] = [];
     for (let category of categories) {
@@ -207,5 +191,30 @@ export class AddArticleForm {
       }
     }
     return result;
+  }
+
+  ngAfterViewChecked() {
+    if (this.isFormOpen()) {
+      if (!this.env.useLcService) {
+        fromEvent(this.searchCategoryInput().nativeElement, 'input')
+          .pipe(
+            debounceTime(200),
+            distinctUntilChanged(),
+            takeUntilDestroyed(this.destroyRef),
+            map((event) => (event.target as HTMLInputElement).value),
+            switchMap((inputString: string) => {
+              return this.http.get('/api/categories').pipe(
+                map((item) => item as CategoriesBack[]),
+                map((categories: CategoriesBack[]) => {
+                  return this.findMatchCategoryies(categories, inputString);
+                }),
+              );
+            }),
+          )
+          .subscribe((matchedCategories: string[]) =>
+            this.autoCompleteSignal.set(matchedCategories),
+          );
+      }
+    }
   }
 }
