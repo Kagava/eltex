@@ -34,20 +34,41 @@ export class ArticleBackStorageService implements Omit<
 
   public addArticle(article: CreateArticle) {
     const preparedArticle = BackHelper.prepareArticleForBack(article, this.categories);
-    this.addArticleBack(preparedArticle)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() =>
-          this.getArticlesFromServer().pipe(
-            takeUntilDestroyed(this.destroyRef),
-            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
+    if (this.checkCategories(article.category)) {
+      this.addArticleBack(preparedArticle)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          mergeMap(() =>
+            this.getArticlesFromServer().pipe(
+              takeUntilDestroyed(this.destroyRef),
+              map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
+            ),
           ),
-        ),
-      )
-      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    } else {
+      this.createCategory(article.category)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          map((category: any) => category.id),
+          mergeMap((categoryId: string) => {
+            return this.addArticleBack({ ...preparedArticle, categoryId: categoryId }).pipe(
+              takeUntilDestroyed(this.destroyRef),
+              mergeMap(() =>
+                this.getArticlesFromServer().pipe(
+                  takeUntilDestroyed(this.destroyRef),
+                  map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
+                ),
+              ),
+            );
+          }),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    }
   }
 
   private addArticleBack(article: BackArticle): Observable<Object> {
+    console.log(article);
     const tempArticle = article;
     if (typeof tempArticle.imgSrc === 'string') {
       return this.http.post('/api/articles', article);
@@ -120,5 +141,18 @@ export class ArticleBackStorageService implements Omit<
 
   private loadCategories(): Observable<CategoriesBack[]> {
     return this.http.get('/api/categories').pipe(map((item) => item as CategoriesBack[]));
+  }
+
+  private checkCategories(category: string) {
+    for (let tempCategory of this.categories) {
+      if (tempCategory.name === category) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private createCategory(category: string) {
+    return this.http.post('/api/categories', { name: category });
   }
 }

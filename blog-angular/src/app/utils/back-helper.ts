@@ -23,9 +23,11 @@ export class BackHelper {
   public static findCategoryFromName(name: string, categories: CategoriesBack[]): string {
     for (const category of categories) {
       if (category.name === name.slice(0, name.length - 8)) {
+        console.log('ID');
         return category.id;
       }
     }
+    console.log('NAME');
     return name;
   }
 
