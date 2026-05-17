@@ -4,14 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { map, mergeMap, Observable, tap } from 'rxjs';
 import { Article, BackArticle, CreateArticle } from '../models/types/articles';
 import { ArticleFormData } from '../models/types/form-data';
-import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 import { CategoriesBack } from '../models/types/category';
 import { BackHelper } from '../utils/back-helper';
 
 @Injectable()
-export class ArticleBackStorageService implements IArticleLocalStorageService {
+export class ArticleBackStorageService implements Omit<
+  IArticleLocalStorageService,
+  'updateRating'
+> {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
   private categories: CategoriesBack[] = [];
@@ -30,15 +32,6 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       .subscribe();
   }
 
-  public updateRating(article: Article): void {
-    this.updateRatingLc(article)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() => this.getArticlesFromLocalStotage()),
-      )
-      .subscribe((articles) => this.storage.setArticleStorage(articles));
-  }
-
   public addArticle(article: CreateArticle) {
     const preparedArticle = BackHelper.prepareArticleForBack(article, this.categories);
     this.addArticleBack(preparedArticle)
@@ -54,7 +47,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private addArticleBack(article: BackArticle) {
+  private addArticleBack(article: BackArticle): Observable<Object> {
     const tempArticle = article;
     if (typeof tempArticle.imgSrc === 'string') {
       return this.http.post('/api/articles', article);
@@ -83,7 +76,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private removeArticleBack(id: string) {
+  private removeArticleBack(id: string): Observable<Object> {
     return this.http.delete(`/api/articles/${id}`);
   }
 
@@ -103,7 +96,7 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private updateArticleBack(data: ArticleFormData) {
+  private updateArticleBack(data: ArticleFormData): Observable<Object> {
     const newCategory = BackHelper.findCategoryFromName(data.category, this.categories);
     const image = data.foto;
     if (image) {
@@ -121,50 +114,11 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
     });
   }
 
-  private getArticlesFromLocalStotage() {
-    return new Observable<Article[]>((observer) => {
-      const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
-      if (articlesLc) {
-        try {
-          const articles = JSON.parse(articlesLc);
-          observer.next(articles);
-        } catch (e) {
-          console.error(e);
-          observer.next([]);
-        }
-      }
-      observer.complete();
-    });
-  }
-
-  private updateRatingLc(article: Article) {
-    return new Observable<void>((observer) => {
-      const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
-      if (articlesLc) {
-        try {
-          const articlesParsed = JSON.parse(articlesLc);
-          articlesParsed.map((item: Article) => {
-            if (item.id === article.id) {
-              item.articleRating = article.articleRating;
-              item.comments = article.comments;
-            }
-          });
-          localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(articlesParsed));
-        } catch (e) {
-          console.error(e);
-          observer.error();
-        }
-      }
-      observer.next();
-      observer.complete();
-    });
-  }
-
-  private getArticlesFromServer() {
+  private getArticlesFromServer(): Observable<Object> {
     return this.http.get('/api/articles?page=1&limit=999&cumulative=false');
   }
 
-  private loadCategories() {
+  private loadCategories(): Observable<CategoriesBack[]> {
     return this.http.get('/api/categories').pipe(map((item) => item as CategoriesBack[]));
   }
 }
