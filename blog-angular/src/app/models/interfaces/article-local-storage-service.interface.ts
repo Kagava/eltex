@@ -1,9 +1,9 @@
-import { Article, createArticle } from '../types/articles';
-import { articleFormData } from '../types/form-data';
+import { Article, CreateArticle } from '../types/articles';
+import { ArticleFormData } from '../types/form-data';
 
 export interface IArticleLocalStorageService {
-  addArticle(article: createArticle): void;
+  addArticle(article: CreateArticle): void;
   removeArticle(id: string): void;
-  updateArticle(data: articleFormData): void;
+  updateArticle(data: ArticleFormData): void;
   updateRating(article: Article): void;
 }

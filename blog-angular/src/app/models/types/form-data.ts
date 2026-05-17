@@ -1,4 +1,4 @@
-export type articleFormData = {
+export type ArticleFormData = {
   title: string;
   description: string;
   category: string;

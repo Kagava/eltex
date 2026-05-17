@@ -1,12 +1,11 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticleStorage } from './article-srotage';
-import { ArticlesStorage } from '../articles-storage';
 import { Article, Comment } from '../../models/types/articles';
 import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../tokens/article-local-storage-service';
 import { FormDataComment } from '../../models/types/form-data-comment';
-import { CreateArticle } from '../../utils/create-article';
+import { CreateArticleHelper } from '../../utils/create-article-helper';
 import { IArticleFacade } from '../../models/interfaces/article-facade';
 import { LC_KEY_ARTICLES } from '../../constans/localStotageConstants';
 
@@ -114,7 +113,7 @@ export class ArticleFacade implements IArticleFacade {
             commentRating: 0,
             commentText: data.comment,
             name: data.name,
-            date: CreateArticle.findShortData(),
+            date: CreateArticleHelper.findShortData(),
             image: '../blog/assets/mock-comm.jpg',
           } as Comment);
           this.articleStorage.setArticleInfo(changedArticle);

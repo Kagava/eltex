@@ -7,7 +7,7 @@ import { ArticleStorage } from './article-srotage';
 import { Article, Comment, CommentBack } from '../../models/types/articles';
 import { FormDataComment } from '../../models/types/form-data-comment';
 import { IArticleFacade } from '../../models/interfaces/article-facade';
-import { categoriesBack } from '../../models/types/category';
+import { CategoriesBack } from '../../models/types/category';
 import { BackHelper } from '../../utils/back-helper';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ArticleFacadeBack implements IArticleFacade {
   private destroyRef = inject(DestroyRef);
   private articleStorage = inject(ArticleStorage);
   private currentId = computed(() => this.articleStorage.articleInfo()?.id);
-  private categories: categoriesBack[] = [];
+  private categories: CategoriesBack[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -67,7 +67,7 @@ export class ArticleFacadeBack implements IArticleFacade {
     this.loadCategories()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        switchMap((categories: categoriesBack[]) => {
+        switchMap((categories: CategoriesBack[]) => {
           this.categories = categories;
           return this.getArticelFromBack(id);
         }),
@@ -120,6 +120,6 @@ export class ArticleFacadeBack implements IArticleFacade {
   }
 
   private loadCategories() {
-    return this.http.get('/api/categories').pipe(map((item) => item as categoriesBack[]));
+    return this.http.get('/api/categories').pipe(map((item) => item as CategoriesBack[]));
   }
 }

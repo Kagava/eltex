@@ -1,17 +1,17 @@
 import {
   CommentBack,
   Comment,
-  backArticle,
+  BackArticle,
   Article,
-  createArticle,
+  CreateArticle,
 } from '../models/types/articles';
-import { categoriesBack } from '../models/types/category';
-import { CreateArticle } from './create-article';
+import { CategoriesBack } from '../models/types/category';
+import { CreateArticleHelper } from './create-article-helper';
 
 export class BackHelper {
   constructor() {}
 
-  public static findCategoryFromId(categoryId: string, categories: categoriesBack[]): string {
+  public static findCategoryFromId(categoryId: string, categories: CategoriesBack[]): string {
     for (const category of categories) {
       if (category.id === categoryId) {
         return `${category.name}-article`;
@@ -20,7 +20,7 @@ export class BackHelper {
     return '';
   }
 
-  public static findCategoryFromName(name: string, categories: categoriesBack[]): string {
+  public static findCategoryFromName(name: string, categories: CategoriesBack[]): string {
     for (const category of categories) {
       if (category.name === name.slice(0, name.length - 8)) {
         return category.id;
@@ -41,8 +41,8 @@ export class BackHelper {
     });
   }
 
-  public static makeGoodTypeArticle(data: backArticle, categories: categoriesBack[]): Article {
-    const outDate = CreateArticle.findCurrentData(new Date(data.updatedAt));
+  public static makeGoodTypeArticle(data: BackArticle, categories: CategoriesBack[]): Article {
+    const outDate = CreateArticleHelper.findCurrentData(new Date(data.updatedAt));
     return {
       id: data.id,
       title: data.title,
@@ -56,9 +56,9 @@ export class BackHelper {
     } as Article;
   }
 
-  public static makeGoodTypeArticles(data: backArticle[], categories: categoriesBack[]): Article[] {
-    return data.map((article: backArticle) => {
-      const outDate = CreateArticle.findCurrentData(new Date(article.updatedAt));
+  public static makeGoodTypeArticles(data: BackArticle[], categories: CategoriesBack[]): Article[] {
+    return data.map((article: BackArticle) => {
+      const outDate = CreateArticleHelper.findCurrentData(new Date(article.updatedAt));
       return {
         id: article.id,
         title: article.title,
@@ -73,7 +73,7 @@ export class BackHelper {
     });
   }
 
-  public static prepareArticleForBack(article: createArticle, categories: categoriesBack[]) {
+  public static prepareArticleForBack(article: CreateArticle, categories: CategoriesBack[]) {
     return {
       categoryId: BackHelper.findCategoryFromName(article.category, categories),
       content: article.description,
@@ -83,6 +83,6 @@ export class BackHelper {
       rating: article.articleRating,
       title: article.title,
       updatedAt: article.date,
-    } as backArticle;
+    } as BackArticle;
   }
 }

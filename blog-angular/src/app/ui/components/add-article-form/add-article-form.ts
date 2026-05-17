@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { articleFormData } from '../../../models/types/form-data';
+import { ArticleFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
 
 @Component({
@@ -32,9 +32,9 @@ export class AddArticleForm {
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
 
-  public editData = input.required<articleFormData | null>();
-  public dataOut = output<articleFormData>();
-  public dataOutEdit = output<articleFormData>();
+  public editData = input.required<ArticleFormData | null>();
+  public dataOut = output<ArticleFormData>();
+  public dataOutEdit = output<ArticleFormData>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
