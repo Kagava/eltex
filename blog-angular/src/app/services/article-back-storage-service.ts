@@ -119,7 +119,6 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       title: data.title,
       content: data.description,
       categoryId: newCategory,
-      image: data.foto,
     });
   }
 
