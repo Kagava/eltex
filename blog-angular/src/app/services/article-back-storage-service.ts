@@ -1,7 +1,7 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, Observable, tap } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable, tap } from 'rxjs';
 import { Article, BackArticle, CreateArticle } from '../models/types/articles';
 import { ArticleFormData } from '../models/types/form-data';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -10,6 +10,7 @@ import { CategoriesBack } from '../models/types/category';
 import { CATEGORY_BACK_SERVICE } from '../tokens/category-storage-service-token';
 import { CategoryStorage } from './category-storage';
 import { BackHelperService } from './helpers/back-helper.service';
+import { BACK_HELPER } from '../tokens/helper-back-service-token';
 
 @Injectable()
 export class ArticleBackStorageService implements Omit<
@@ -20,8 +21,8 @@ export class ArticleBackStorageService implements Omit<
   private destroyRef = inject(DestroyRef);
   private categoriesService = inject(CATEGORY_BACK_SERVICE);
   private categoriesStorage = inject(CategoryStorage);
-  private categories = this.categoriesStorage.categoryStorage();
-  private backHelper = inject(BackHelperService);
+  private categories = this.categoriesStorage.categoryStorage;
+  private backHelper = inject(BACK_HELPER);
 
   constructor(private http: HttpClient) {
     this.getArticlesFromServer()
@@ -34,7 +35,9 @@ export class ArticleBackStorageService implements Omit<
 
   public addArticle(article: CreateArticle) {
     const preparedArticle = this.backHelper.prepareArticleForBack(article);
+    console.log(preparedArticle);
     if (this.checkCategories(article.category)) {
+      console.log('FIND');
       this.addArticleBack(preparedArticle)
         .pipe(
           takeUntilDestroyed(this.destroyRef),
@@ -47,12 +50,13 @@ export class ArticleBackStorageService implements Omit<
         )
         .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
     } else {
-      this.createCategory(article.category)
+      console.log('NOT FOUND');
+      this.categoriesService
+        .addCategory(article.category)
         .pipe(
           takeUntilDestroyed(this.destroyRef),
-          map((category: any) => category.id),
-          mergeMap((categoryId: string) => {
-            return this.addArticleBack({ ...preparedArticle, categoryId: categoryId }).pipe(
+          mergeMap(() => {
+            return this.addArticleBack(preparedArticle).pipe(
               takeUntilDestroyed(this.destroyRef),
               mergeMap(() =>
                 this.getArticlesFromServer().pipe(
@@ -144,7 +148,7 @@ export class ArticleBackStorageService implements Omit<
   }
 
   private checkCategories(category: string) {
-    for (let tempCategory of this.categories) {
+    for (let tempCategory of this.categories()) {
       if (tempCategory.name === category) {
         return true;
       }

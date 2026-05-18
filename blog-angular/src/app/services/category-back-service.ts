@@ -16,13 +16,16 @@ export class CategoryBackService implements ICategoryService {
       .subscribe((categories: CategoriesBack[]) => this.categoryStorage.setCategory(categories));
   }
 
-  public addCategory(categoryName: string): void {
-    this.addCategoryBack(categoryName)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() => this.getCategoriesFromBack().pipe(takeUntilDestroyed(this.destroyRef))),
-      )
-      .subscribe((categories: CategoriesBack[]) => this.categoryStorage.setCategory(categories));
+  public addCategory(categoryName: string): Observable<CategoriesBack[]> {
+    return this.addCategoryBack(categoryName).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      mergeMap(() =>
+        this.getCategoriesFromBack().pipe(
+          takeUntilDestroyed(this.destroyRef),
+          tap((categories: CategoriesBack[]) => this.categoryStorage.setCategory(categories)),
+        ),
+      ),
+    );
   }
 
   private getCategoriesFromBack() {
