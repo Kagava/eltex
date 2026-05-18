@@ -9,6 +9,13 @@ import { ARTICLE_FACADE } from './tokens/article-facade-token';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from './tokens/article-local-storage-service';
 import { environment } from '../environments/environment';
 import { ArticleFacadeBack } from './services/article/article-facade-back';
+import { ENV_CONFIG } from './tokens/enviroments-token';
+import { CategoryStorage } from './services/category-storage';
+import { CATEGORY_BACK_SERVICE } from './tokens/category-storage-service-token';
+import { CategoryBackService } from './services/category-back-service';
+import { BackHelperService } from './services/helpers/back-helper.service';
+import { BACK_HELPER } from './tokens/helper-back-service-token';
+import { CategoryLocalService } from './services/category-local-service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +25,7 @@ import { ArticleFacadeBack } from './services/article/article-facade-back';
   providers: [
     ArticleStorage,
     ArticlesStorage,
+    CategoryStorage,
     {
       provide: ARTICLE_FACADE,
       useClass: environment.useLcService ? ArticleFacade : ArticleFacadeBack,
@@ -25,6 +33,18 @@ import { ArticleFacadeBack } from './services/article/article-facade-back';
     {
       provide: ARTICLE_LOCAL_STORAGE_SERVICE,
       useClass: environment.useLcService ? ArticleLocalStorageService : ArticleBackStorageService,
+    },
+    {
+      provide: ENV_CONFIG,
+      useValue: environment,
+    },
+    {
+      provide: CATEGORY_BACK_SERVICE,
+      useClass: environment.useLcService ? CategoryLocalService : CategoryBackService,
+    },
+    {
+      provide: BACK_HELPER,
+      useClass: BackHelperService,
     },
   ],
 })

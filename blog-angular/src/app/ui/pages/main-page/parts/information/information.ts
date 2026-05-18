@@ -14,7 +14,7 @@ import { Works } from './works/works';
 import { ArticleComponent } from '../../../../components/article-component/article-component';
 import { Article } from '../../../../../models/types/articles';
 import { AddArticleForm } from '../../../../components/add-article-form/add-article-form';
-import { articleFormData } from '../../../../../models/types/form-data';
+import { ArticleFormData } from '../../../../../models/types/form-data';
 import { ArticlesStorage } from '../../../../../services/articles-storage';
 import { ARTICLE_LOCAL_STORAGE_SERVICE } from '../../../../../tokens/article-local-storage-service';
 import { PagginationButton } from '../../../../components/paggination-button/paggination-button';
@@ -37,7 +37,7 @@ export class Information {
   public isEndOfPage = true;
   public isBeginOfPage = true;
   public editArticleId: string = '';
-  public editArticleData: articleFormData = { title: '', description: '', category: '' };
+  public editArticleData: ArticleFormData = { title: '', description: '', category: '' };
   public visionChangedFlag: boolean = true;
 
   constructor(private injector: Injector) {}
@@ -48,7 +48,7 @@ export class Information {
     this.countButtonFlags(tempMainPage);
   }
 
-  protected openEditArticleForm(data: articleFormData) {
+  protected openEditArticleForm(data: ArticleFormData) {
     this.editArticleData = data;
     this.formChild()?.nativeElement.scrollIntoView({
       behavior: 'smooth',
@@ -57,7 +57,7 @@ export class Information {
     });
   }
 
-  protected updateArticle(data: articleFormData) {
+  protected updateArticle(data: ArticleFormData) {
     this.articleStorageService.updateArticle(data);
   }
 

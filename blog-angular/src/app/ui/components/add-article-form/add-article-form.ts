@@ -1,12 +1,29 @@
-import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 import {
   FormControl,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { articleFormData } from '../../../models/types/form-data';
+import { ArticleFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
+import { ENV_CONFIG } from '../../../tokens/enviroments-token';
+import { HttpClient } from '@angular/common/http';
+import { debounceTime, defer, distinctUntilChanged, fromEvent, map, switchMap, tap } from 'rxjs';
+import { CategoriesBack } from '../../../models/types/category';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { CategoryStorage } from '../../../services/category-storage';
 
 @Component({
   selector: 'app-add-article-form',
@@ -15,35 +32,42 @@ import { FormService } from '../../../services/form-service';
   styleUrl: './add-article-form.scss',
 })
 export class AddArticleForm {
-  readonly selectedFile = signal<File | null>(null);
+  private flagNgAfterViewChecked = false;
+  private prevetDefaultKeyArray = ['ArrowDown', 'ArrowUp', 'Enter'];
+  private searchCategoryInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
+  private destroyRef = inject(DestroyRef);
   private readonly fb = inject(NonNullableFormBuilder);
-  private transform: number = 42;
   private formService = inject(FormService);
+  private env = inject(ENV_CONFIG);
+  private categoriesStorage = inject(CategoryStorage);
+  private categories = this.categoriesStorage.categoryStorage;
+  readonly selectedFile = signal<File | null>(null);
 
   protected someBlob: File | undefined;
   protected isFormOpen = computed(() => this.formService.isFormOpen());
   protected formTitle = computed(() => {
     return this.formService.isEditMode() ? 'Редактировать статью' : 'Создать статью';
   });
-
   protected formButton = computed(() => {
     return this.formService.isEditMode() ? ' Редактировать' : 'Добавить';
   });
   protected isSelectOpen: boolean = false;
   protected spanSelectValue: string = 'Tennis';
+  protected autoCompleteSignal = signal<string[]>([]);
+  protected currentChoosedCategoryNumber = signal<number>(-1);
 
-  public editData = input.required<articleFormData | null>();
-  public dataOut = output<articleFormData>();
-  public dataOutEdit = output<articleFormData>();
+  public editData = input.required<ArticleFormData | null>();
+  public dataOut = output<ArticleFormData>();
+  public dataOutEdit = output<ArticleFormData>();
   public form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(25)]],
     description: ['', Validators.required],
-    category: ['tennis-article', Validators.required],
+    category: ['', Validators.required],
     foto: new FormControl(),
   });
 
   protected titleError = this.form.get('title')?.errors;
-  constructor() {
+  constructor(private http: HttpClient) {
     this.formService.formClose();
     this.editDataEffect();
   }
@@ -67,38 +91,6 @@ export class AddArticleForm {
       });
     }
   }
-
-  protected openCustomeSelect(event: Event) {
-    const target = event.target;
-    this.isSelectOpen = !this.isSelectOpen;
-  }
-
-  protected tennisChoice(event: Event) {
-    event.stopPropagation();
-    this.isSelectOpen = !this.isSelectOpen;
-    this.spanSelectValue = 'Tennis';
-    this.form.patchValue({ category: 'tennis-article' });
-  }
-
-  protected frontendChoice(event: Event) {
-    event.stopPropagation();
-    this.isSelectOpen = !this.isSelectOpen;
-    this.spanSelectValue = 'Frontend';
-    this.form.patchValue({ category: 'frontend-article' });
-  }
-
-  protected transformString(value: number) {
-    if (this.isSelectOpen) {
-      return `translateY(${value * 100 + this.transform}%)`;
-    } else {
-      return `translateY(-75%)`;
-    }
-  }
-
-  protected checkDefault(value: string) {
-    return value === this.spanSelectValue;
-  }
-
   protected resetForm() {
     this.formService.formClose();
   }
@@ -119,6 +111,46 @@ export class AddArticleForm {
         this.spanSelectValue = 'Tennis';
       }
     });
+  }
+
+  protected onInputCategory(e: KeyboardEvent) {
+    if (this.prevetDefaultKeyArray.includes(e.code)) {
+      e.preventDefault();
+      switch (e.code) {
+        case 'ArrowUp':
+          this.currentChoosedCategoryNumber.update((cur) => (cur <= 0 ? 0 : cur - 1));
+          break;
+        case 'ArrowDown':
+          this.currentChoosedCategoryNumber.update((cur) => {
+            const tempSelected = this.autoCompleteSignal();
+            const tempLength = tempSelected.length;
+            return cur >= tempLength - 1 ? tempLength - 1 : (cur += 1);
+          });
+          break;
+        case 'Enter':
+          this.form.patchValue({
+            category: this.autoCompleteSignal()[this.currentChoosedCategoryNumber()],
+          });
+          this.autoCompleteSignal.set([]);
+          this.currentChoosedCategoryNumber.set(-1);
+          break;
+        default:
+          break;
+      }
+    } else {
+      this.currentChoosedCategoryNumber.set(-1);
+      if (!this.env.useLcService) {
+      } else {
+      }
+    }
+  }
+
+  protected chooseCategory(category: string) {
+    this.form.patchValue({
+      category: category,
+    });
+    this.autoCompleteSignal.set([]);
+    this.currentChoosedCategoryNumber.set(-1);
   }
 
   protected hasError(controlName: string) {
@@ -151,6 +183,35 @@ export class AddArticleForm {
         return `Нужно еще ${requiredLength - actualLength} символов`;
       default:
         return 'Ошибка заполнение поля';
+    }
+  }
+
+  private findMatchCategoryies(matchToString: string): string[] {
+    const result: string[] = [];
+    for (let category of this.categories()) {
+      const tempCategorryName = category.name;
+      if (tempCategorryName.includes(matchToString)) {
+        result.push(tempCategorryName);
+      }
+    }
+    return result;
+  }
+
+  ngAfterViewChecked() {
+    if (this.isFormOpen() && !this.flagNgAfterViewChecked) {
+      this.flagNgAfterViewChecked = true;
+      fromEvent(this.searchCategoryInput().nativeElement, 'input')
+        .pipe(
+          debounceTime(200),
+          distinctUntilChanged(),
+          takeUntilDestroyed(this.destroyRef),
+          tap((event) => console.log((event.target as HTMLInputElement).value)),
+          map((event) => (event.target as HTMLInputElement).value),
+          map((inputString: string) => {
+            return this.findMatchCategoryies(inputString);
+          }),
+        )
+        .subscribe((matchedCategories: string[]) => this.autoCompleteSignal.set(matchedCategories));
     }
   }
 }

@@ -1,61 +1,103 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, Observable, tap } from 'rxjs';
-import { Article, backArticle, createArticle } from '../models/types/articles';
-import { articleFormData } from '../models/types/form-data';
-import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
+import { concatMap, forkJoin, map, mergeMap, Observable, tap } from 'rxjs';
+import { Article, BackArticle, CreateArticle } from '../models/types/articles';
+import { ArticleFormData } from '../models/types/form-data';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
-import { categoriesBack } from '../models/types/category';
-import { CreateArticle } from '../utils/create-article';
-import { BackHelper } from '../utils/back-helper';
+import { CategoriesBack } from '../models/types/category';
+import { CATEGORY_BACK_SERVICE } from '../tokens/category-storage-service-token';
+import { CategoryStorage } from './category-storage';
+import { BACK_HELPER } from '../tokens/helper-back-service-token';
 
 @Injectable()
-export class ArticleBackStorageService implements IArticleLocalStorageService {
+export class ArticleBackStorageService implements Omit<
+  IArticleLocalStorageService,
+  'updateRating'
+> {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
-  private categories: categoriesBack[] = [];
+  private categoriesService = inject(CATEGORY_BACK_SERVICE);
+  private categoriesStorage = inject(CategoryStorage);
+  private categories = this.categoriesStorage.categoryStorage;
+  private backHelper = inject(BACK_HELPER);
 
   constructor(private http: HttpClient) {
-    this.loadCategories()
+    this.getArticlesFromServer()
       .pipe(
+        map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
         takeUntilDestroyed(this.destroyRef),
-        mergeMap((categories: categoriesBack[]) => {
-          this.categories = categories;
-          return this.getArticlesFromServer();
-        }),
-        map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
-        tap((articles: Article[]) => this.storage.setArticleStorage(articles)),
-      )
-      .subscribe();
-  }
-
-  public updateRating(article: Article): void {
-    this.updateRatingLc(article)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() => this.getArticlesFromLocalStotage()),
-      )
-      .subscribe((articles) => this.storage.setArticleStorage(articles));
-  }
-
-  public addArticle(article: createArticle) {
-    const preparedArticle = BackHelper.prepareArticleForBack(article, this.categories);
-    this.addArticleBack(preparedArticle)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() =>
-          this.getArticlesFromServer().pipe(
-            takeUntilDestroyed(this.destroyRef),
-            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
-          ),
-        ),
       )
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private addArticleBack(article: backArticle) {
+  public addArticle(article: CreateArticle) {
+    const preparedArticle = this.backHelper.prepareArticleForBack(article);
+    if (this.checkCategories(article.category)) {
+      this.addArticleBack(preparedArticle)
+        .pipe(
+          concatMap(() => {
+            return this.getArticlesFromServer();
+          }),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
+          takeUntilDestroyed(this.destroyRef),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    } else {
+      this.categoriesService
+        .addCategory(article.category)
+        .pipe(
+          concatMap(() => {
+            return this.addArticleBack(this.backHelper.prepareArticleForBack(article));
+          }),
+          concatMap(() => {
+            return this.getArticlesFromServer();
+          }),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    }
+  }
+
+  public removeArticle(id: string) {
+    this.removeArticleBack(id)
+      .pipe(
+        concatMap(() => {
+          return this.getArticlesFromServer();
+        }),
+        map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
+      )
+      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+  }
+
+  public updateArticle(data: ArticleFormData) {
+    if (this.checkCategories(data.category)) {
+      this.updateArticleBack(data)
+        .pipe(
+          concatMap(() => {
+            return this.getArticlesFromServer();
+          }),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    } else {
+      this.categoriesService
+        .addCategory(data.category)
+        .pipe(
+          concatMap(() => {
+            return this.updateArticleBack(data);
+          }),
+          concatMap(() => {
+            return this.getArticlesFromServer();
+          }),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data)),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    }
+  }
+
+  private addArticleBack(article: BackArticle): Observable<Object> {
     const tempArticle = article;
     if (typeof tempArticle.imgSrc === 'string') {
       return this.http.post('/api/articles', article);
@@ -69,43 +111,8 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
     }
   }
 
-  public removeArticle(id: string) {
-    this.removeArticleBack(id)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() =>
-          this.getArticlesFromServer().pipe(
-            takeUntilDestroyed(this.destroyRef),
-            tap((data: any) => console.log(data)),
-            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
-          ),
-        ),
-      )
-      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
-  }
-
-  private removeArticleBack(id: string) {
-    return this.http.delete(`/api/articles/${id}`);
-  }
-
-  public updateArticle(data: articleFormData) {
-    this.updateArticleBack(data)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        tap((data: any) => console.log('Updated', data.id)),
-        mergeMap(() =>
-          this.getArticlesFromServer().pipe(
-            takeUntilDestroyed(this.destroyRef),
-            tap((data: any) => console.log(data)),
-            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
-          ),
-        ),
-      )
-      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
-  }
-
-  private updateArticleBack(data: articleFormData) {
-    const newCategory = BackHelper.findCategoryFromName(data.category, this.categories);
+  private updateArticleBack(data: ArticleFormData): Observable<Object> {
+    const newCategory = this.backHelper.findCategoryFromName(data.category);
     const image = data.foto;
     if (image) {
       const formData = new FormData();
@@ -119,54 +126,23 @@ export class ArticleBackStorageService implements IArticleLocalStorageService {
       title: data.title,
       content: data.description,
       categoryId: newCategory,
-      image: data.foto,
     });
   }
 
-  private getArticlesFromLocalStotage() {
-    return new Observable<Article[]>((observer) => {
-      const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
-      if (articlesLc) {
-        try {
-          const articles = JSON.parse(articlesLc);
-          observer.next(articles);
-        } catch (e) {
-          console.error(e);
-          observer.next([]);
-        }
-      }
-      observer.complete();
-    });
+  private removeArticleBack(id: string): Observable<Object> {
+    return this.http.delete(`/api/articles/${id}`);
   }
 
-  private updateRatingLc(article: Article) {
-    return new Observable<void>((observer) => {
-      const articlesLc = localStorage.getItem(LC_KEY_ARTICLES);
-      if (articlesLc) {
-        try {
-          const articlesParsed = JSON.parse(articlesLc);
-          articlesParsed.map((item: Article) => {
-            if (item.id === article.id) {
-              item.articleRating = article.articleRating;
-              item.comments = article.comments;
-            }
-          });
-          localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(articlesParsed));
-        } catch (e) {
-          console.error(e);
-          observer.error();
-        }
-      }
-      observer.next();
-      observer.complete();
-    });
-  }
-
-  private getArticlesFromServer() {
+  private getArticlesFromServer(): Observable<Object> {
     return this.http.get('/api/articles?page=1&limit=999&cumulative=false');
   }
 
-  private loadCategories() {
-    return this.http.get('/api/categories').pipe(map((item) => item as categoriesBack[]));
+  private checkCategories(category: string) {
+    for (let tempCategory of this.categories()) {
+      if (tempCategory.name === category) {
+        return true;
+      }
+    }
+    return false;
   }
 }

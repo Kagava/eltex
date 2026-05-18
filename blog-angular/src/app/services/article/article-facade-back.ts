@@ -7,8 +7,7 @@ import { ArticleStorage } from './article-srotage';
 import { Article, Comment, CommentBack } from '../../models/types/articles';
 import { FormDataComment } from '../../models/types/form-data-comment';
 import { IArticleFacade } from '../../models/interfaces/article-facade';
-import { categoriesBack } from '../../models/types/category';
-import { BackHelper } from '../../utils/back-helper';
+import { BACK_HELPER } from '../../tokens/helper-back-service-token';
 
 @Injectable({
   providedIn: 'root',
@@ -17,20 +16,20 @@ export class ArticleFacadeBack implements IArticleFacade {
   private destroyRef = inject(DestroyRef);
   private articleStorage = inject(ArticleStorage);
   private currentId = computed(() => this.articleStorage.articleInfo()?.id);
-  private categories: categoriesBack[] = [];
+  private backHelper = inject(BACK_HELPER);
 
   constructor(private http: HttpClient) {}
 
   public updateArticle(rating: number) {
     this.updateArticleRatingBack(rating)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          BackHelper.makeGoodTypeArticle(data[0], this.categories),
-          BackHelper.makeGoodTypeComment(data[1]),
+          this.backHelper.makeGoodTypeArticle(data[0]),
+          this.backHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((article: Article) => this.articleStorage.setArticleInfo(article));
   }
@@ -38,13 +37,13 @@ export class ArticleFacadeBack implements IArticleFacade {
   public updateArticleComments(id: number, ratingDelta: number) {
     this.updateArticleCommentBack(id, ratingDelta)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          BackHelper.makeGoodTypeArticle(data[0], this.categories),
-          BackHelper.makeGoodTypeComment(data[1]),
+          this.backHelper.makeGoodTypeArticle(data[0]),
+          this.backHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((article: Article) => this.articleStorage.setArticleInfo(article));
   }
@@ -52,30 +51,26 @@ export class ArticleFacadeBack implements IArticleFacade {
   public addComment(data: FormDataComment) {
     this.addCommetBack(data)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          BackHelper.makeGoodTypeArticle(data[0], this.categories),
-          BackHelper.makeGoodTypeComment(data[1]),
+          this.backHelper.makeGoodTypeArticle(data[0]),
+          this.backHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((article: Article) => this.articleStorage.setArticleInfo(article));
   }
 
   public getArticle(id: string) {
-    this.loadCategories()
+    this.getArticelFromBack(id)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        switchMap((categories: categoriesBack[]) => {
-          this.categories = categories;
-          return this.getArticelFromBack(id);
-        }),
         map((data: any[]) => [
-          BackHelper.makeGoodTypeArticle(data[0], this.categories),
-          BackHelper.makeGoodTypeComment(data[1]),
+          this.backHelper.makeGoodTypeArticle(data[0]),
+          this.backHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((article: Article) => this.articleStorage.setArticleInfo(article));
   }
@@ -117,9 +112,5 @@ export class ArticleFacadeBack implements IArticleFacade {
 
   private mergeArticleComment(article: Article, comment: Comment[]) {
     return { ...article, comments: comment };
-  }
-
-  private loadCategories() {
-    return this.http.get('/api/categories').pipe(map((item) => item as categoriesBack[]));
   }
 }

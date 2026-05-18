@@ -2,17 +2,18 @@ import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
 import { map, mergeMap, Observable } from 'rxjs';
-import { Article, createArticle } from '../models/types/articles';
-import { articleFormData } from '../models/types/form-data';
+import { Article, CreateArticle } from '../models/types/articles';
+import { ArticleFormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
-import { Title } from '@angular/platform-browser';
+import { CATEGORY_BACK_SERVICE } from '../tokens/category-storage-service-token';
 
 @Injectable()
 export class ArticleLocalStorageService implements IArticleLocalStorageService {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
+  private categoriesService = inject(CATEGORY_BACK_SERVICE);
 
   constructor(private http: HttpClient) {
     const tempLc = localStorage.getItem(LC_KEY_ARTICLES);
@@ -34,7 +35,8 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
       .subscribe((articles) => this.storage.setArticleStorage(articles));
   }
 
-  public addArticle(article: createArticle) {
+  public addArticle(article: CreateArticle) {
+    console.log(article);
     this.addArticleLc(article)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -47,7 +49,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
       });
   }
 
-  private addArticleLc(article: createArticle) {
+  private addArticleLc(article: CreateArticle) {
     const tempBlob = article.image;
     let imageString: string;
     if (tempBlob) {
@@ -107,7 +109,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
     });
   }
 
-  public updateArticle(data: articleFormData) {
+  public updateArticle(data: ArticleFormData) {
     this.updateArticleLc(data)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -118,7 +120,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
-  private updateArticleLc(data: articleFormData) {
+  private updateArticleLc(data: ArticleFormData) {
     return new Observable<void>((observer) => {
       const artilesLs = localStorage.getItem(LC_KEY_ARTICLES);
       if (artilesLs) {
@@ -210,4 +212,6 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
   private saveToLoacalStorage(data: Article[]) {
     localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(data));
   }
+
+  private checkCategory(categoryName: string) {}
 }

@@ -10,7 +10,7 @@ export type Article = {
   comments: Comment[];
 };
 
-export type createArticle = {
+export type CreateArticle = {
   id: string;
   title: string;
   date: string;
@@ -43,7 +43,7 @@ export type ObjArticles = {
   articles: Article[];
 };
 
-export type backArticle = {
+export type BackArticle = {
   categoryId: string;
   content: string;
   createdAt: string;

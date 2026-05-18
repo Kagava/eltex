@@ -1,6 +1,6 @@
-import { articleFormData } from '../models/types/form-data';
+import { ArticleFormData } from '../models/types/form-data';
 
-export class CreateArticle {
+export class CreateArticleHelper {
   constructor() {}
 
   public static findShortData() {
@@ -15,7 +15,7 @@ export class CreateArticle {
       `${currentDate} ${currentMonth} ${currentYear}`,
     ];
   }
-  public static createArticle(data: articleFormData) {
+  public static createArticle(data: ArticleFormData) {
     const time = this.findData();
     return {
       title: data.title,

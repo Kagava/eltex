@@ -1,37 +1,40 @@
+import { inject, Injectable } from '@angular/core';
+import { CategoryStorage } from '../category-storage';
 import {
   CommentBack,
   Comment,
   BackArticle,
   Article,
   CreateArticle,
-} from '../models/types/articles';
-import { CategoriesBack } from '../models/types/category';
-import { CreateArticleHelper } from './create-article-helper';
+} from '../../models/types/articles';
+import { CreateArticleHelper } from '../../utils/create-article-helper';
 
-export class BackHelper {
+@Injectable()
+export class BackHelperService {
+  private categoriesStorage = inject(CategoryStorage);
+  private categories = this.categoriesStorage.categoryStorage;
+
   constructor() {}
 
-  public static findCategoryFromId(categoryId: string, categories: CategoriesBack[]): string {
-    for (const category of categories) {
+  public findCategoryFromId(categoryId: string): string {
+    for (const category of this.categories()) {
       if (category.id === categoryId) {
-        return `${category.name}-article`;
+        return `${category.name}`;
       }
     }
     return '';
   }
 
-  public static findCategoryFromName(name: string, categories: CategoriesBack[]): string {
-    for (const category of categories) {
+  public findCategoryFromName(name: string): string {
+    for (const category of this.categories()) {
       if (category.name === name) {
-        console.log('ID');
         return category.id;
       }
     }
-    console.log('NAME');
     return name;
   }
 
-  public static makeGoodTypeComment(data: CommentBack[]) {
+  public makeGoodTypeComment(data: CommentBack[]) {
     return data.map((item) => {
       return {
         name: item.username,
@@ -43,7 +46,7 @@ export class BackHelper {
     });
   }
 
-  public static makeGoodTypeArticle(data: BackArticle, categories: CategoriesBack[]): Article {
+  public makeGoodTypeArticle(data: BackArticle): Article {
     const outDate = CreateArticleHelper.findCurrentData(new Date(data.updatedAt));
     return {
       id: data.id,
@@ -52,13 +55,13 @@ export class BackHelper {
       dateFormatted: outDate[1],
       description: data.content,
       image: data.imgSrc ?? '/assets/article-foto.png',
-      category: BackHelper.findCategoryFromId(data.categoryId, categories),
+      category: this.findCategoryFromId(data.categoryId),
       articleRating: data.rating,
       comments: [],
     } as Article;
   }
 
-  public static makeGoodTypeArticles(data: BackArticle[], categories: CategoriesBack[]): Article[] {
+  public makeGoodTypeArticles(data: BackArticle[]): Article[] {
     return data.map((article: BackArticle) => {
       const outDate = CreateArticleHelper.findCurrentData(new Date(article.updatedAt));
       return {
@@ -68,17 +71,16 @@ export class BackHelper {
         dateFormatted: outDate[1],
         description: article.content,
         image: article.imgSrc ?? '/assets/article-foto.png',
-        category: BackHelper.findCategoryFromId(article.categoryId, categories),
+        category: this.findCategoryFromId(article.categoryId),
         articleRating: article.rating,
         comments: [],
       } as Article;
     });
   }
 
-  public static prepareArticleForBack(article: CreateArticle, categories: CategoriesBack[]) {
-    console.log('HELLO');
+  public prepareArticleForBack(article: CreateArticle) {
     return {
-      categoryId: BackHelper.findCategoryFromName(article.category, categories),
+      categoryId: this.findCategoryFromName(article.category),
       content: article.description,
       createdAt: article.date,
       id: article.id,
