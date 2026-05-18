@@ -10,6 +10,9 @@ import { ARTICLE_LOCAL_STORAGE_SERVICE } from './tokens/article-local-storage-se
 import { environment } from '../environments/environment';
 import { ArticleFacadeBack } from './services/article/article-facade-back';
 import { ENV_CONFIG } from './tokens/enviroments-token';
+import { CategoryStorage } from './services/category-storage';
+import { CATEGORY_BACK_SERVICE } from './tokens/category-storage-service-token';
+import { CategoryBackService } from './services/category-back-service';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +22,7 @@ import { ENV_CONFIG } from './tokens/enviroments-token';
   providers: [
     ArticleStorage,
     ArticlesStorage,
+    CategoryStorage,
     {
       provide: ARTICLE_FACADE,
       useClass: environment.useLcService ? ArticleFacade : ArticleFacadeBack,
@@ -30,6 +34,10 @@ import { ENV_CONFIG } from './tokens/enviroments-token';
     {
       provide: ENV_CONFIG,
       useValue: environment,
+    },
+    {
+      provide: CATEGORY_BACK_SERVICE,
+      useClass: CategoryBackService,
     },
   ],
 })
