@@ -1,19 +1,22 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
-import { map, mergeMap, Observable } from 'rxjs';
+import { concatMap, map, mergeMap, Observable } from 'rxjs';
 import { Article, CreateArticle } from '../models/types/articles';
 import { ArticleFormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 import { CATEGORY_BACK_SERVICE } from '../tokens/category-storage-service-token';
+import { CategoryStorage } from './category-storage';
 
 @Injectable()
 export class ArticleLocalStorageService implements IArticleLocalStorageService {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
   private categoriesService = inject(CATEGORY_BACK_SERVICE);
+  private categoriesStorage = inject(CategoryStorage);
+  private categories = this.categoriesStorage.categoryStorage;
 
   constructor(private http: HttpClient) {
     const tempLc = localStorage.getItem(LC_KEY_ARTICLES);
@@ -36,17 +39,32 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
   }
 
   public addArticle(article: CreateArticle) {
-    console.log(article);
-    this.addArticleLc(article)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() => {
-          return this.getArticlesFromLocalStotage();
-        }),
-      )
-      .subscribe((articles) => {
-        this.storage.setArticleStorage(articles);
-      });
+    console.log('IMHERE');
+    if (this.checkCategory(article.category)) {
+      this.addArticleLc(article)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          mergeMap(() => {
+            return this.getArticlesFromLocalStotage();
+          }),
+        )
+        .subscribe((articles: Article[]) => {
+          this.storage.setArticleStorage(articles);
+        });
+    } else {
+      this.categoriesService
+        .addCategory(article.category)
+        .pipe(
+          concatMap(() => {
+            return this.addArticleLc(article);
+          }),
+          concatMap(() => {
+            return this.getArticlesFromLocalStotage();
+          }),
+          takeUntilDestroyed(this.destroyRef),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    }
   }
 
   private addArticleLc(article: CreateArticle) {
@@ -81,10 +99,10 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
   public removeArticle(id: string) {
     this.removeArticleLc(id)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
         mergeMap(() => {
           return this.getArticlesFromLocalStotage();
         }),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((articles) => this.storage.setArticleStorage(articles));
   }
@@ -110,14 +128,29 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
   }
 
   public updateArticle(data: ArticleFormData) {
-    this.updateArticleLc(data)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() => {
-          return this.getArticlesFromLocalStotage();
-        }),
-      )
-      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    if (this.checkCategory(data.category)) {
+      this.updateArticleLc(data)
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+          mergeMap(() => {
+            return this.getArticlesFromLocalStotage();
+          }),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    } else {
+      this.categoriesService
+        .addCategory(data.category)
+        .pipe(
+          concatMap(() => {
+            return this.updateArticleLc(data);
+          }),
+          concatMap(() => {
+            return this.getArticlesFromLocalStotage();
+          }),
+          takeUntilDestroyed(this.destroyRef),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    }
   }
 
   private updateArticleLc(data: ArticleFormData) {
@@ -213,5 +246,12 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
     localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(data));
   }
 
-  private checkCategory(categoryName: string) {}
+  private checkCategory(categoryName: string) {
+    for (let category of this.categories()) {
+      if (category.name === categoryName) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

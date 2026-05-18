@@ -6,9 +6,7 @@ import { LC_KEY_CATEGORIES } from '../constans/localStotageConstants';
 import { CategoryStorage } from './category-storage';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CategoryLocalService implements ICategoryService {
   private categoryStorage = inject(CategoryStorage);
   private destroyRef = inject(DestroyRef);
@@ -33,8 +31,8 @@ export class CategoryLocalService implements ICategoryService {
       const categoriesLc = localStorage.getItem(LC_KEY_CATEGORIES);
       if (categoriesLc) {
         try {
-          const newCategory: string[] = JSON.parse(categoriesLc);
-          newCategory.push(categoryName);
+          const newCategory: CategoriesBack[] = JSON.parse(categoriesLc);
+          newCategory.push({ id: crypto.randomUUID(), name: categoryName });
           localStorage.setItem(LC_KEY_CATEGORIES, JSON.stringify(newCategory));
         } catch (e) {
           console.error(e);
@@ -57,11 +55,15 @@ export class CategoryLocalService implements ICategoryService {
           console.error(e);
           observer.error();
         }
+      } else {
+        const tempCat = [
+          { id: '1111', name: 'frontend' },
+          { id: '2222', name: 'tennis' },
+        ];
+        localStorage.setItem(LC_KEY_CATEGORIES, JSON.stringify(tempCat));
+        observer.next(tempCat);
       }
-      observer.next([
-        { id: '1111', name: 'frontend' },
-        { id: '2222', name: 'tennis' },
-      ]);
+
       observer.complete();
     });
   }
