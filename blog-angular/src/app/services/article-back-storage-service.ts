@@ -35,9 +35,7 @@ export class ArticleBackStorageService implements Omit<
 
   public addArticle(article: CreateArticle) {
     const preparedArticle = this.backHelper.prepareArticleForBack(article);
-    console.log(preparedArticle);
     if (this.checkCategories(article.category)) {
-      console.log('FIND');
       this.addArticleBack(preparedArticle)
         .pipe(
           takeUntilDestroyed(this.destroyRef),
@@ -50,13 +48,12 @@ export class ArticleBackStorageService implements Omit<
         )
         .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
     } else {
-      console.log('NOT FOUND');
       this.categoriesService
         .addCategory(article.category)
         .pipe(
           takeUntilDestroyed(this.destroyRef),
           mergeMap(() => {
-            return this.addArticleBack(preparedArticle).pipe(
+            return this.addArticleBack(this.backHelper.prepareArticleForBack(article)).pipe(
               takeUntilDestroyed(this.destroyRef),
               mergeMap(() =>
                 this.getArticlesFromServer().pipe(
@@ -72,7 +69,6 @@ export class ArticleBackStorageService implements Omit<
   }
 
   private addArticleBack(article: BackArticle): Observable<Object> {
-    console.log(article);
     const tempArticle = article;
     if (typeof tempArticle.imgSrc === 'string') {
       return this.http.post('/api/articles', article);
@@ -93,7 +89,6 @@ export class ArticleBackStorageService implements Omit<
         mergeMap(() =>
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
-            tap((data: any) => console.log(data)),
             map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
           ),
         ),
@@ -109,11 +104,9 @@ export class ArticleBackStorageService implements Omit<
     this.updateArticleBack(data)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        tap((data: any) => console.log('Updated', data.id)),
         mergeMap(() =>
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
-            tap((data: any) => console.log(data)),
             map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
           ),
         ),

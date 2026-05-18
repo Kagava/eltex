@@ -14,6 +14,7 @@ import { CategoryStorage } from './services/category-storage';
 import { CATEGORY_BACK_SERVICE } from './tokens/category-storage-service-token';
 import { CategoryBackService } from './services/category-back-service';
 import { BackHelperService } from './services/helpers/back-helper.service';
+import { BACK_HELPER } from './tokens/helper-back-service-token';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,10 @@ import { BackHelperService } from './services/helpers/back-helper.service';
       provide: CATEGORY_BACK_SERVICE,
       useClass: CategoryBackService,
     },
-    BackHelperService,
+    {
+      provide: BACK_HELPER,
+      useClass: BackHelperService,
+    },
   ],
 })
 export class App {

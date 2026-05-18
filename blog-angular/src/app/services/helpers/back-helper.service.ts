@@ -12,27 +12,25 @@ import { CreateArticleHelper } from '../../utils/create-article-helper';
 @Injectable()
 export class BackHelperService {
   private categoriesStorage = inject(CategoryStorage);
-  private categories = this.categoriesStorage.categoryStorage();
+  private categories = this.categoriesStorage.categoryStorage;
 
   constructor() {}
 
   public findCategoryFromId(categoryId: string): string {
-    for (const category of this.categories) {
+    for (const category of this.categories()) {
       if (category.id === categoryId) {
-        return `${category.name}-article`;
+        return `${category.name}`;
       }
     }
     return '';
   }
 
   public findCategoryFromName(name: string): string {
-    for (const category of this.categories) {
-      if (category.name === name.slice(0, name.length - 8)) {
-        console.log('ID');
+    for (const category of this.categories()) {
+      if (category.name === name) {
         return category.id;
       }
     }
-    console.log('NAME');
     return name;
   }
 
