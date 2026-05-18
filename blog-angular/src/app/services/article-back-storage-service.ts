@@ -1,7 +1,7 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { ArticlesStorage } from './articles-storage';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, map, mergeMap, Observable, tap } from 'rxjs';
+import { concatMap, forkJoin, map, mergeMap, Observable, tap } from 'rxjs';
 import { Article, BackArticle, CreateArticle } from '../models/types/articles';
 import { ArticleFormData } from '../models/types/form-data';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -9,7 +9,6 @@ import { IArticleLocalStorageService } from '../models/interfaces/article-local-
 import { CategoriesBack } from '../models/types/category';
 import { CATEGORY_BACK_SERVICE } from '../tokens/category-storage-service-token';
 import { CategoryStorage } from './category-storage';
-import { BackHelperService } from './helpers/back-helper.service';
 import { BACK_HELPER } from '../tokens/helper-back-service-token';
 
 @Injectable()
@@ -27,8 +26,8 @@ export class ArticleBackStorageService implements Omit<
   constructor(private http: HttpClient) {
     this.getArticlesFromServer()
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
         map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
@@ -38,31 +37,61 @@ export class ArticleBackStorageService implements Omit<
     if (this.checkCategories(article.category)) {
       this.addArticleBack(preparedArticle)
         .pipe(
+          concatMap(() => {
+            return this.getArticlesFromServer();
+          }),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
           takeUntilDestroyed(this.destroyRef),
-          mergeMap(() =>
-            this.getArticlesFromServer().pipe(
-              takeUntilDestroyed(this.destroyRef),
-              map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
-            ),
-          ),
         )
         .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
     } else {
       this.categoriesService
         .addCategory(article.category)
         .pipe(
-          takeUntilDestroyed(this.destroyRef),
-          mergeMap(() => {
-            return this.addArticleBack(this.backHelper.prepareArticleForBack(article)).pipe(
-              takeUntilDestroyed(this.destroyRef),
-              mergeMap(() =>
-                this.getArticlesFromServer().pipe(
-                  takeUntilDestroyed(this.destroyRef),
-                  map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
-                ),
-              ),
-            );
+          concatMap(() => {
+            return this.addArticleBack(this.backHelper.prepareArticleForBack(article));
           }),
+          concatMap(() => {
+            return this.getArticlesFromServer();
+          }),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    }
+  }
+
+  public removeArticle(id: string) {
+    this.removeArticleBack(id)
+      .pipe(
+        concatMap(() => {
+          return this.getArticlesFromServer();
+        }),
+        map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
+      )
+      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+  }
+
+  public updateArticle(data: ArticleFormData) {
+    if (this.checkCategories(data.category)) {
+      this.updateArticleBack(data)
+        .pipe(
+          concatMap(() => {
+            return this.getArticlesFromServer();
+          }),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
+        )
+        .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
+    } else {
+      this.categoriesService
+        .addCategory(data.category)
+        .pipe(
+          concatMap(() => {
+            return this.updateArticleBack(data);
+          }),
+          concatMap(() => {
+            return this.getArticlesFromServer();
+          }),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data)),
         )
         .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
     }
@@ -80,38 +109,6 @@ export class ArticleBackStorageService implements Omit<
       formData.append('image', tempArticle.imgSrc, tempArticle.imgSrc.name);
       return this.http.post('/api/articles', formData);
     }
-  }
-
-  public removeArticle(id: string) {
-    this.removeArticleBack(id)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() =>
-          this.getArticlesFromServer().pipe(
-            takeUntilDestroyed(this.destroyRef),
-            map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
-          ),
-        ),
-      )
-      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
-  }
-
-  private removeArticleBack(id: string): Observable<Object> {
-    return this.http.delete(`/api/articles/${id}`);
-  }
-
-  public updateArticle(data: ArticleFormData) {
-    this.updateArticleBack(data)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        mergeMap(() =>
-          this.getArticlesFromServer().pipe(
-            takeUntilDestroyed(this.destroyRef),
-            map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
-          ),
-        ),
-      )
-      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
   private updateArticleBack(data: ArticleFormData): Observable<Object> {
@@ -132,12 +129,12 @@ export class ArticleBackStorageService implements Omit<
     });
   }
 
-  private getArticlesFromServer(): Observable<Object> {
-    return this.http.get('/api/articles?page=1&limit=999&cumulative=false');
+  private removeArticleBack(id: string): Observable<Object> {
+    return this.http.delete(`/api/articles/${id}`);
   }
 
-  private loadCategories(): Observable<CategoriesBack[]> {
-    return this.http.get('/api/categories').pipe(map((item) => item as CategoriesBack[]));
+  private getArticlesFromServer(): Observable<Object> {
+    return this.http.get('/api/articles?page=1&limit=999&cumulative=false');
   }
 
   private checkCategories(category: string) {
@@ -147,9 +144,5 @@ export class ArticleBackStorageService implements Omit<
       }
     }
     return false;
-  }
-
-  private createCategory(category: string) {
-    return this.http.post('/api/categories', { name: category });
   }
 }
