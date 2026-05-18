@@ -12,7 +12,6 @@ import { IArticleLocalStorageService } from '../models/interfaces/article-local-
 export class ArticleLocalStorageService implements IArticleLocalStorageService {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
-
   constructor(private http: HttpClient) {
     const tempLc = localStorage.getItem(LC_KEY_ARTICLES);
     if (tempLc && tempLc !== '[]') {
@@ -34,6 +33,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
   }
 
   public addArticle(article: CreateArticle) {
+    console.log(article);
     this.addArticleLc(article)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -209,4 +209,6 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
   private saveToLoacalStorage(data: Article[]) {
     localStorage.setItem(LC_KEY_ARTICLES, JSON.stringify(data));
   }
+
+  private checkCategory(categoryName: string) {}
 }
