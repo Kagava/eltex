@@ -7,11 +7,14 @@ import { ArticleFormData } from '../models/types/form-data';
 import { LC_KEY_ARTICLES } from '../constans/localStotageConstants';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
+import { CATEGORY_BACK_SERVICE } from '../tokens/category-storage-service-token';
 
 @Injectable()
 export class ArticleLocalStorageService implements IArticleLocalStorageService {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
+  private categoriesService = inject(CATEGORY_BACK_SERVICE);
+
   constructor(private http: HttpClient) {
     const tempLc = localStorage.getItem(LC_KEY_ARTICLES);
     if (tempLc && tempLc !== '[]') {

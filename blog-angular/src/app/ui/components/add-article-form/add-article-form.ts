@@ -23,6 +23,7 @@ import { HttpClient } from '@angular/common/http';
 import { debounceTime, defer, distinctUntilChanged, fromEvent, map, switchMap, tap } from 'rxjs';
 import { CategoriesBack } from '../../../models/types/category';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { CategoryStorage } from '../../../services/category-storage';
 
 @Component({
   selector: 'app-add-article-form',
@@ -31,12 +32,15 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
   styleUrl: './add-article-form.scss',
 })
 export class AddArticleForm {
+  private flagNgAfterViewChecked = false;
   private prevetDefaultKeyArray = ['ArrowDown', 'ArrowUp', 'Enter'];
   private searchCategoryInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
   private destroyRef = inject(DestroyRef);
   private readonly fb = inject(NonNullableFormBuilder);
   private formService = inject(FormService);
   private env = inject(ENV_CONFIG);
+  private categoriesStorage = inject(CategoryStorage);
+  private categories = this.categoriesStorage.categoryStorage;
   readonly selectedFile = signal<File | null>(null);
 
   protected someBlob: File | undefined;
@@ -182,9 +186,9 @@ export class AddArticleForm {
     }
   }
 
-  private findMatchCategoryies(categories: CategoriesBack[], matchToString: string): string[] {
+  private findMatchCategoryies(matchToString: string): string[] {
     const result: string[] = [];
-    for (let category of categories) {
+    for (let category of this.categories()) {
       const tempCategorryName = category.name;
       if (tempCategorryName.includes(matchToString)) {
         result.push(tempCategorryName);
@@ -194,27 +198,20 @@ export class AddArticleForm {
   }
 
   ngAfterViewChecked() {
-    if (this.isFormOpen()) {
-      if (!this.env.useLcService) {
-        fromEvent(this.searchCategoryInput().nativeElement, 'input')
-          .pipe(
-            debounceTime(200),
-            distinctUntilChanged(),
-            takeUntilDestroyed(this.destroyRef),
-            map((event) => (event.target as HTMLInputElement).value),
-            switchMap((inputString: string) => {
-              return this.http.get('/api/categories').pipe(
-                map((item) => item as CategoriesBack[]),
-                map((categories: CategoriesBack[]) => {
-                  return this.findMatchCategoryies(categories, inputString);
-                }),
-              );
-            }),
-          )
-          .subscribe((matchedCategories: string[]) =>
-            this.autoCompleteSignal.set(matchedCategories),
-          );
-      }
+    if (this.isFormOpen() && !this.flagNgAfterViewChecked) {
+      this.flagNgAfterViewChecked = true;
+      fromEvent(this.searchCategoryInput().nativeElement, 'input')
+        .pipe(
+          debounceTime(200),
+          distinctUntilChanged(),
+          takeUntilDestroyed(this.destroyRef),
+          tap((event) => console.log((event.target as HTMLInputElement).value)),
+          map((event) => (event.target as HTMLInputElement).value),
+          map((inputString: string) => {
+            return this.findMatchCategoryies(inputString);
+          }),
+        )
+        .subscribe((matchedCategories: string[]) => this.autoCompleteSignal.set(matchedCategories));
     }
   }
 }
