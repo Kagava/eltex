@@ -55,7 +55,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
     if (tempBlob) {
       imageString = URL.createObjectURL(tempBlob);
     } else {
-      imageString = '/assest/article-foto.png';
+      imageString = '../blog/assest/article-foto.png';
     }
     const tempArticle: Article = {
       ...article,
