@@ -75,6 +75,7 @@
 }
 
 .article__content {
+  background-color: var(--background-color--article);
   border-radius: 5px;
 }
 
@@ -172,6 +173,7 @@
 }
 
 .article_main {
+  background-color: var(--background-color--article);
   position: relative;
   display: flex;
   flex-direction: row;

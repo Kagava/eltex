@@ -91,7 +91,7 @@ export class ArticleBackStorageService implements Omit<
           concatMap(() => {
             return this.getArticlesFromServer();
           }),
-          map((data: any) => this.backHelper.makeGoodTypeArticles(data)),
+          map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
         )
         .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
     }

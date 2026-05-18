@@ -92,6 +92,7 @@ export class AddArticleForm {
     }
   }
   protected resetForm() {
+    this.flagNgAfterViewChecked = false;
     this.formService.formClose();
   }
 

@@ -1,5 +1,9 @@
 @use 'path';
 
+.article__component {
+  background-color: var(--background-color--article);
+}
+
 .article-container {
   margin-top: 30px;
   display: flex;
