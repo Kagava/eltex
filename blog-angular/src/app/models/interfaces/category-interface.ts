@@ -1,3 +1,3 @@
-export interface ICategoryStorage {
+export interface ICategoryService {
   addCategory(categoryName: string): void;
 }
