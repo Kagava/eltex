@@ -7,7 +7,9 @@ import { ArticleFormData } from '../models/types/form-data';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IArticleLocalStorageService } from '../models/interfaces/article-local-storage-service.interface';
 import { CategoriesBack } from '../models/types/category';
-import { BackHelper } from '../utils/back-helper';
+import { CATEGORY_BACK_SERVICE } from '../tokens/category-storage-service-token';
+import { CategoryStorage } from './category-storage';
+import { BackHelperService } from './helpers/back-helper.service';
 
 @Injectable()
 export class ArticleBackStorageService implements Omit<
@@ -16,24 +18,22 @@ export class ArticleBackStorageService implements Omit<
 > {
   private storage = inject(ArticlesStorage);
   private destroyRef = inject(DestroyRef);
-  private categories: CategoriesBack[] = [];
+  private categoriesService = inject(CATEGORY_BACK_SERVICE);
+  private categoriesStorage = inject(CategoryStorage);
+  private categories = this.categoriesStorage.categoryStorage();
+  private backHelper = inject(BackHelperService);
 
   constructor(private http: HttpClient) {
-    this.loadCategories()
+    this.getArticlesFromServer()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        mergeMap((categories: CategoriesBack[]) => {
-          this.categories = categories;
-          return this.getArticlesFromServer();
-        }),
-        map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
-        tap((articles: Article[]) => this.storage.setArticleStorage(articles)),
+        map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
       )
-      .subscribe();
+      .subscribe((articles: Article[]) => this.storage.setArticleStorage(articles));
   }
 
   public addArticle(article: CreateArticle) {
-    const preparedArticle = BackHelper.prepareArticleForBack(article, this.categories);
+    const preparedArticle = this.backHelper.prepareArticleForBack(article);
     if (this.checkCategories(article.category)) {
       this.addArticleBack(preparedArticle)
         .pipe(
@@ -41,7 +41,7 @@ export class ArticleBackStorageService implements Omit<
           mergeMap(() =>
             this.getArticlesFromServer().pipe(
               takeUntilDestroyed(this.destroyRef),
-              map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
+              map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
             ),
           ),
         )
@@ -57,7 +57,7 @@ export class ArticleBackStorageService implements Omit<
               mergeMap(() =>
                 this.getArticlesFromServer().pipe(
                   takeUntilDestroyed(this.destroyRef),
-                  map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
+                  map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
                 ),
               ),
             );
@@ -90,7 +90,7 @@ export class ArticleBackStorageService implements Omit<
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
             tap((data: any) => console.log(data)),
-            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
+            map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
           ),
         ),
       )
@@ -110,7 +110,7 @@ export class ArticleBackStorageService implements Omit<
           this.getArticlesFromServer().pipe(
             takeUntilDestroyed(this.destroyRef),
             tap((data: any) => console.log(data)),
-            map((data: any) => BackHelper.makeGoodTypeArticles(data.items, this.categories)),
+            map((data: any) => this.backHelper.makeGoodTypeArticles(data.items)),
           ),
         ),
       )
@@ -118,7 +118,7 @@ export class ArticleBackStorageService implements Omit<
   }
 
   private updateArticleBack(data: ArticleFormData): Observable<Object> {
-    const newCategory = BackHelper.findCategoryFromName(data.category, this.categories);
+    const newCategory = this.backHelper.findCategoryFromName(data.category);
     const image = data.foto;
     if (image) {
       const formData = new FormData();

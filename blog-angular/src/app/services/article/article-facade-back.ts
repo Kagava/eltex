@@ -9,6 +9,8 @@ import { FormDataComment } from '../../models/types/form-data-comment';
 import { IArticleFacade } from '../../models/interfaces/article-facade';
 import { CategoriesBack } from '../../models/types/category';
 import { BackHelper } from '../../utils/back-helper';
+import { BackHelperService } from '../helpers/back-helper.service';
+import { CategoryStorage } from '../category-storage';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +19,9 @@ export class ArticleFacadeBack implements IArticleFacade {
   private destroyRef = inject(DestroyRef);
   private articleStorage = inject(ArticleStorage);
   private currentId = computed(() => this.articleStorage.articleInfo()?.id);
-  private categories: CategoriesBack[] = [];
+  private backHelper = inject(BackHelperService);
+  private categoriesStorage = inject(CategoryStorage);
+  private categories = this.categoriesStorage.categoryStorage();
 
   constructor(private http: HttpClient) {}
 
@@ -27,8 +31,8 @@ export class ArticleFacadeBack implements IArticleFacade {
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          BackHelper.makeGoodTypeArticle(data[0], this.categories),
-          BackHelper.makeGoodTypeComment(data[1]),
+          this.backHelper.makeGoodTypeArticle(data[0]),
+          this.backHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
       )
@@ -41,8 +45,8 @@ export class ArticleFacadeBack implements IArticleFacade {
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          BackHelper.makeGoodTypeArticle(data[0], this.categories),
-          BackHelper.makeGoodTypeComment(data[1]),
+          this.backHelper.makeGoodTypeArticle(data[0]),
+          this.backHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
       )
@@ -55,8 +59,8 @@ export class ArticleFacadeBack implements IArticleFacade {
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.getArticelFromBack(this.currentId()!)),
         map((data: any[]) => [
-          BackHelper.makeGoodTypeArticle(data[0], this.categories),
-          BackHelper.makeGoodTypeComment(data[1]),
+          this.backHelper.makeGoodTypeArticle(data[0]),
+          this.backHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
       )
@@ -72,8 +76,8 @@ export class ArticleFacadeBack implements IArticleFacade {
           return this.getArticelFromBack(id);
         }),
         map((data: any[]) => [
-          BackHelper.makeGoodTypeArticle(data[0], this.categories),
-          BackHelper.makeGoodTypeComment(data[1]),
+          this.backHelper.makeGoodTypeArticle(data[0]),
+          this.backHelper.makeGoodTypeComment(data[1]),
         ]),
         map((data: any[]) => this.mergeArticleComment(data[0], data[1])),
       )

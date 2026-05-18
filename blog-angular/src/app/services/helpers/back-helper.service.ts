@@ -1,15 +1,16 @@
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { CategoryStorage } from '../category-storage';
 import {
   CommentBack,
   Comment,
   BackArticle,
   Article,
   CreateArticle,
-} from '../models/types/articles';
-import { CategoryStorage } from '../services/category-storage';
-import { CreateArticleHelper } from './create-article-helper';
+} from '../../models/types/articles';
+import { CreateArticleHelper } from '../../utils/create-article-helper';
 
-export class BackHelper {
+@Injectable()
+export class BackHelperService {
   private categoriesStorage = inject(CategoryStorage);
   private categories = this.categoriesStorage.categoryStorage();
 

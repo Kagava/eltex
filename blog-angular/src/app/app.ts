@@ -13,6 +13,7 @@ import { ENV_CONFIG } from './tokens/enviroments-token';
 import { CategoryStorage } from './services/category-storage';
 import { CATEGORY_BACK_SERVICE } from './tokens/category-storage-service-token';
 import { CategoryBackService } from './services/category-back-service';
+import { BackHelperService } from './services/helpers/back-helper.service';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,7 @@ import { CategoryBackService } from './services/category-back-service';
       provide: CATEGORY_BACK_SERVICE,
       useClass: CategoryBackService,
     },
+    BackHelperService,
   ],
 })
 export class App {
