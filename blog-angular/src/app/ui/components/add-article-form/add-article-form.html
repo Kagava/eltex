@@ -53,18 +53,22 @@
               (keydown)="onInputCategory($event)"
               class="autocomplete__input"
               formControlName="category"
+              (blur)="autoCompleteClose()"
+              (focus)="autoCompleteOpen()"
             />
-            <div class="autocomplete__block">
-              @for (category of autoCompleteSignal(); track $index) {
-                <span
-                  class="autocomplete__category-span"
-                  tabindex="-1"
-                  (click)="chooseCategory(category)"
-                  [class.emit-hover]="$index === currentChoosedCategoryNumber()"
-                  >{{ category }}</span
-                >
-              }
-            </div>
+            @if (autoCompelteIsOpen()) {
+              <div class="autocomplete__block">
+                @for (category of autoCompleteSignal(); track $index) {
+                  <span
+                    class="autocomplete__category-span"
+                    tabindex="-1"
+                    (click)="chooseCategory(category)"
+                    [class.emit-hover]="$index === currentChoosedCategoryNumber()"
+                    >{{ category }}</span
+                  >
+                }
+              </div>
+            }
           </div>
           <div class="create-article__buttons">
             <button

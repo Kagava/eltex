@@ -55,6 +55,7 @@ export class AddArticleForm {
   protected spanSelectValue: string = 'Tennis';
   protected autoCompleteSignal = signal<string[]>([]);
   protected currentChoosedCategoryNumber = signal<number>(-1);
+  protected autoCompelteIsOpen = signal<boolean>(false);
 
   public editData = input.required<ArticleFormData | null>();
   public dataOut = output<ArticleFormData>();
@@ -154,6 +155,14 @@ export class AddArticleForm {
     this.currentChoosedCategoryNumber.set(-1);
   }
 
+  protected autoCompleteClose() {
+    this.autoCompelteIsOpen.set(false);
+  }
+
+  protected autoCompleteOpen() {
+    this.autoCompelteIsOpen.set(true);
+  }
+
   protected hasError(controlName: string) {
     const control = this.form.get(controlName);
     const isValid = control?.invalid && control.touched;
@@ -172,6 +181,7 @@ export class AddArticleForm {
     }
     return [];
   }
+
   private errorMassege(errorType: string, errorValue: unknown) {
     switch (errorType) {
       case 'required':

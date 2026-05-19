@@ -222,6 +222,8 @@
 }
 
 .autocomplete__block {
+  background-color: rgb(252, 232, 250);
+  position: absolute;
   display: grid;
   grid-template-columns: clamp(230px, 27vw, 520px);
   row-gap: 5px;
@@ -237,17 +239,23 @@
   align-items: center;
   color: black;
   padding: 5px;
-  height: 20px;
-  border: 1px solid black;
-  border-radius: 10px;
+  height: 30px;
+  border-radius: 3px;
   box-sizing: border-box;
   &:hover {
     cursor: pointer;
-    background-color: aqua;
+    background-color: rgb(216, 197, 214);
   }
   &.emit-hover {
-    background-color: aqua;
+    background-color: rgb(216, 197, 214);
   }
+}
+
+input[type='file'] {
+  background-color: none;
+  margin: 0;
+  padding: 0;
+  border: none;
 }
 
 @media (hover: hover) {
