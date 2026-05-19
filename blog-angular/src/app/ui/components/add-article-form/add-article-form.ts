@@ -42,7 +42,7 @@ import { CategoryStorage } from '../../../services/category-storage';
 })
 export class AddArticleForm {
   private flagNgAfterViewChecked = false;
-  private prevetDefaultKeyArray = ['ArrowDown', 'ArrowUp', 'Enter'];
+  private prevetDefaultKeyArray = ['ArrowDown', 'ArrowUp', 'Enter', 'Escape'];
   private searchCategoryInput = viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
   private destroyRef = inject(DestroyRef);
   private readonly fb = inject(NonNullableFormBuilder);
@@ -130,13 +130,17 @@ export class AddArticleForm {
       e.preventDefault();
       switch (e.code) {
         case 'ArrowUp':
-          this.currentChoosedCategoryNumber.update((cur) => (cur <= 0 ? 0 : cur - 1));
+          this.currentChoosedCategoryNumber.update((cur) => {
+            const tempSelected = this.autoCompleteSignal();
+            const tempLength = tempSelected.length;
+            return cur <= 0 ? tempLength - 1 : cur - 1;
+          });
           break;
         case 'ArrowDown':
           this.currentChoosedCategoryNumber.update((cur) => {
             const tempSelected = this.autoCompleteSignal();
             const tempLength = tempSelected.length;
-            return cur >= tempLength - 1 ? tempLength - 1 : (cur += 1);
+            return cur >= tempLength - 1 ? 0 : (cur += 1);
           });
           break;
         case 'Enter':
@@ -145,6 +149,9 @@ export class AddArticleForm {
           });
           this.autoCompleteSignal.set([]);
           this.currentChoosedCategoryNumber.set(-1);
+          break;
+        case 'Escape':
+          this.searchCategoryInput().nativeElement.blur();
           break;
         default:
           break;
@@ -213,6 +220,9 @@ export class AddArticleForm {
       const tempCategorryName = category.name;
       if (tempCategorryName.includes(matchToString)) {
         result.push(tempCategorryName);
+      }
+      if (result.length >= 5) {
+        break;
       }
     }
     return result;

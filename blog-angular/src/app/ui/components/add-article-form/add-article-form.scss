@@ -221,6 +221,7 @@
 }
 
 .label__file {
+  width: clamp(230px, 27vw, 520px);
   color: black;
 }
 
