@@ -1,6 +1,6 @@
 @if (currentArticle()) {
   <div class="wrapper article-container">
-    <div class="article" [class]="currentArticle()?.category">
+    <div class="article" [class]="currentArticle()?.category" class="article__component">
       <div class="aritlce__image-cont">
         <img
           [src]="currentArticle()?.image"
