@@ -39,7 +39,6 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
   }
 
   public addArticle(article: CreateArticle) {
-    console.log('IMHERE');
     if (this.checkCategory(article.category)) {
       this.addArticleLc(article)
         .pipe(
@@ -73,7 +72,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
     if (tempBlob) {
       imageString = URL.createObjectURL(tempBlob);
     } else {
-      imageString = '/assest/article-foto.png';
+      imageString = '../blog/assets/article-foto.png';
     }
     const tempArticle: Article = {
       ...article,
@@ -167,7 +166,7 @@ export class ArticleLocalStorageService implements IArticleLocalStorageService {
               if (data.foto) {
                 imageString = URL.createObjectURL(data.foto);
               } else {
-                imageString = '/assest/article-foto.png';
+                imageString = '../blog/assets/article-foto.png';
               }
               return {
                 ...article,
