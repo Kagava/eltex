@@ -1,6 +1,7 @@
 @use 'path';
 
 .article__component {
+  padding: 5px;
   background-color: var(--background-color--article);
 }
 
@@ -30,11 +31,12 @@
   max-width: 700px;
   max-height: 400px;
   @media (max-width: 1200px) {
-    width: clamp(360px, 80dvw, 900px);
+    width: clamp(350px, 80dvw, 900px);
   }
 }
 
 .article__header {
+  overflow: hidden;
   font-size: clamp(40px, 4dvw, 52px);
 }
 

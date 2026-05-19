@@ -20,7 +20,6 @@
 }
 
 .create-article__form {
-  //   display: none;
   @media (max-width: 636px) {
     align-items: center;
   }
@@ -221,6 +220,10 @@
   background-color: white;
 }
 
+.label__file {
+  color: black;
+}
+
 .autocomplete__block {
   background-color: rgb(252, 232, 250);
   position: absolute;
@@ -249,13 +252,6 @@
   &.emit-hover {
     background-color: rgb(216, 197, 214);
   }
-}
-
-input[type='file'] {
-  background-color: none;
-  margin: 0;
-  padding: 0;
-  border: none;
 }
 
 @media (hover: hover) {

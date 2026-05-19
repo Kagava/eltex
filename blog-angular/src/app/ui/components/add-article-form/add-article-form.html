@@ -44,7 +44,9 @@
               }
             }
           </span>
-          <input type="file" (change)="onSelectFile($event)" />
+          <label class="label__file">
+            <input type="file" (change)="onSelectFile($event)" />
+          </label>
           <div>
             <input
               #searchInput

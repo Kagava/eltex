@@ -20,7 +20,16 @@ import { ArticleFormData } from '../../../models/types/form-data';
 import { FormService } from '../../../services/form-service';
 import { ENV_CONFIG } from '../../../tokens/enviroments-token';
 import { HttpClient } from '@angular/common/http';
-import { debounceTime, defer, distinctUntilChanged, fromEvent, map, switchMap, tap } from 'rxjs';
+import {
+  debounceTime,
+  defer,
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  single,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { CategoriesBack } from '../../../models/types/category';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { CategoryStorage } from '../../../services/category-storage';
@@ -56,6 +65,7 @@ export class AddArticleForm {
   protected autoCompleteSignal = signal<string[]>([]);
   protected currentChoosedCategoryNumber = signal<number>(-1);
   protected autoCompelteIsOpen = signal<boolean>(false);
+  protected outputFileName = signal<string>('');
 
   public editData = input.required<ArticleFormData | null>();
   public dataOut = output<ArticleFormData>();
@@ -67,8 +77,7 @@ export class AddArticleForm {
     foto: new FormControl(),
   });
 
-  protected titleError = this.form.get('title')?.errors;
-  constructor(private http: HttpClient) {
+  constructor() {
     this.formService.formClose();
     this.editDataEffect();
   }
@@ -90,6 +99,7 @@ export class AddArticleForm {
       this.form.patchValue({
         foto: file,
       });
+      this.outputFileName.set(file.name);
     }
   }
   protected resetForm() {
