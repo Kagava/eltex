@@ -1,17 +1,16 @@
-import { Article } from './articles';
+import { CommentBack } from './articles';
 
-export type NewArticle = {
+export type GqlArticle = {
   id: string;
   title: string;
-  date: string;
-  dateFormatted: string;
-  description: string;
-  image: string;
+  content: string;
+  createdAt: string;
+  imgSrc: string;
   categoryId: string;
-  articleRating: number;
-  comments: Comment[];
+  rating: number;
+  comments: CommentBack[];
 };
 
 export type GqlArticleResponse = {
-  article: NewArticle;
+  article: GqlArticle;
 };

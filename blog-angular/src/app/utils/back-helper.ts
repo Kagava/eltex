@@ -23,11 +23,9 @@ export class BackHelper {
   public static findCategoryFromName(name: string, categories: CategoriesBack[]): string {
     for (const category of categories) {
       if (category.name === name) {
-        console.log('ID');
         return category.id;
       }
     }
-    console.log('NAME');
     return name;
   }
 
@@ -76,7 +74,6 @@ export class BackHelper {
   }
 
   public static prepareArticleForBack(article: CreateArticle, categories: CategoriesBack[]) {
-    console.log('HELLO');
     return {
       categoryId: BackHelper.findCategoryFromName(article.category, categories),
       content: article.description,

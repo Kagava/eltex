@@ -8,6 +8,7 @@ import {
   CreateArticle,
 } from '../../models/types/articles';
 import { CreateArticleHelper } from '../../utils/create-article-helper';
+import { GqlArticle } from '../../models/types/gql-resonse';
 
 @Injectable()
 export class BackHelperService {
@@ -89,5 +90,21 @@ export class BackHelperService {
       title: article.title,
       updatedAt: article.date,
     } as BackArticle;
+  }
+
+  public makeFromGqlArticleToArticle(gqlArticel: GqlArticle): Article {
+    console.log(gqlArticel);
+    const outDate = CreateArticleHelper.findCurrentData(new Date(gqlArticel.createdAt));
+    return {
+      id: gqlArticel.id,
+      title: gqlArticel.title,
+      date: outDate[0],
+      dateFormatted: outDate[1],
+      description: gqlArticel.content,
+      image: gqlArticel.imgSrc,
+      category: this.findCategoryFromId(gqlArticel.categoryId),
+      articleRating: gqlArticel.rating,
+      comments: this.makeGoodTypeComment(gqlArticel.comments),
+    } as Article;
   }
 }

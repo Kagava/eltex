@@ -6,21 +6,18 @@ import { ArticleStorage } from '../../../services/article/article-srotage';
 import { ARTICLE_FACADE } from '../../../tokens/article-facade-token';
 import { CommentComponent } from './comment-component/comment-component';
 import { Title } from '@angular/platform-browser';
-import { GraphqlService } from '../../../services/graphql-service';
 
 @Component({
   selector: 'app-article-page',
   imports: [CommentComponent],
   templateUrl: './article-page.html',
   styleUrl: './article-page.scss',
-  providers: [GraphqlService],
 })
 export class ArticlePage {
   private articleStorage = inject(ArticleStorage);
   private articleRepository = inject(ARTICLE_FACADE);
   private activeRouter = inject(ActivatedRoute);
   private destroyRef$ = inject(DestroyRef);
-  private graphqlService = inject(GraphqlService);
 
   protected currentArticle = computed(() => this.articleStorage.articleInfo());
   protected articleId = signal<string>('');
@@ -35,8 +32,7 @@ export class ArticlePage {
     this.activeRouter.params
       .pipe(takeUntilDestroyed(this.destroyRef$))
       .subscribe((obj) => this.articleId.set(obj['id']));
-    // this.articleRepository.getArticle(this.articleId());
-    this.graphqlService.getArticle(this.articleId()).subscribe(console.log);
+    this.articleRepository.getArticle(this.articleId());
   }
 
   protected ratingDown() {

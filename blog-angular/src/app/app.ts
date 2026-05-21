@@ -16,6 +16,7 @@ import { CategoryBackService } from './services/category-back-service';
 import { BackHelperService } from './services/helpers/back-helper.service';
 import { BACK_HELPER } from './tokens/helper-back-service-token';
 import { CategoryLocalService } from './services/category-local-service';
+import { GraphqlService } from './services/graphql-service';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ import { CategoryLocalService } from './services/category-local-service';
     CategoryStorage,
     {
       provide: ARTICLE_FACADE,
-      useClass: environment.useLcService ? ArticleFacade : ArticleFacadeBack,
+      useClass: environment.useLcService ? ArticleFacade : GraphqlService,
     },
     {
       provide: ARTICLE_LOCAL_STORAGE_SERVICE,

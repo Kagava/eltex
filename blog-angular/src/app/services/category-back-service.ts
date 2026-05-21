@@ -12,7 +12,7 @@ export class CategoryBackService implements ICategoryService {
   private destroyRef = inject(DestroyRef);
   constructor(private http: HttpClient) {
     this.getCategoriesFromBack()
-      .pipe(takeUntilDestroyed(this.destroyRef), tap(console.log))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((categories: CategoriesBack[]) => this.categoryStorage.setCategory(categories));
   }
 

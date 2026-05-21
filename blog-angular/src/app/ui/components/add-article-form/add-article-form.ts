@@ -236,7 +236,6 @@ export class AddArticleForm {
           debounceTime(200),
           distinctUntilChanged(),
           takeUntilDestroyed(this.destroyRef),
-          tap((event) => console.log((event.target as HTMLInputElement).value)),
           map((event) => (event.target as HTMLInputElement).value),
           map((inputString: string) => {
             return this.findMatchCategoryies(inputString);
