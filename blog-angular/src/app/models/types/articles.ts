@@ -32,6 +32,7 @@ export type CommentBack = {
 };
 
 export type Comment = {
+  id: string;
   name: string;
   commentText: string;
   commentRating: number;

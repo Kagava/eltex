@@ -1,9 +1,10 @@
 import { computed, DestroyRef, inject, Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { concatMap, map, Observable } from 'rxjs';
+import { concatMap, map, Observable, tap } from 'rxjs';
 import {
   ARTICLE_RATING_DOWN_GQL,
   ARTICLE_RATING_UP_GQL,
+  CHANGE_RATING_COMMENT_GQL,
   CREATE_ARTICLE_GQL,
   GET_ARTICLE_GQL,
 } from './helpers/gql-reqests';
@@ -13,6 +14,7 @@ import {
   GqlArticleRatingUpResponse,
   GqlArticleResponse,
   GqlCreateCommentResponse,
+  GqlUpdateRatingCommentResponse,
 } from '../models/types/gql-resonse';
 import { IArticleFacade } from '../models/interfaces/article-facade';
 import { FormDataComment } from '../models/types/form-data-comment';
@@ -52,7 +54,17 @@ export class GraphqlService implements IArticleFacade {
       .subscribe((data: Article) => this.articleStorage.setArticleInfo(data));
   }
 
-  public updateArticleComments(id: number, ratingChange: number): void {}
+  public updateArticleComments(id: number, ratingChange: number): void {
+    this.updateArticleCommentsBack(id, ratingChange)
+      .pipe(
+        concatMap((id: string) => {
+          return this.getArticleFromBack(id);
+        }),
+        map((gqlArticle: GqlArticle) => this.backHelper.makeFromGqlArticleToArticle(gqlArticle)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((data: Article) => this.articleStorage.setArticleInfo(data));
+  }
 
   public addComment(data: FormDataComment): void {
     this.addCommentBack(data)
@@ -140,6 +152,28 @@ export class GraphqlService implements IArticleFacade {
             throw new Error('ERROR CRETE ARTICLE');
           } else {
             return data.data.createComment.articleId;
+          }
+        }),
+      );
+  }
+
+  private updateArticleCommentsBack(id: number, ratingChange: number): Observable<string> {
+    const commnetId = this.articleStorage.articleInfo()?.comments[id].id;
+    const commnetRating = this.articleStorage.articleInfo()?.comments[id].commentRating;
+    return this.apollo
+      .mutate<GqlUpdateRatingCommentResponse>({
+        mutation: CHANGE_RATING_COMMENT_GQL,
+        variables: {
+          commentId: commnetId,
+          rating: commnetRating! + ratingChange,
+        },
+      })
+      .pipe(
+        map((data: Apollo.MutateResult<GqlUpdateRatingCommentResponse>) => {
+          if (!data.data) {
+            throw new Error('ERROR UPDATE RATING');
+          } else {
+            return data.data.updateCommentRating.articleId;
           }
         }),
       );

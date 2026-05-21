@@ -38,6 +38,7 @@ export class BackHelperService {
   public makeGoodTypeComment(data: CommentBack[]) {
     return data.map((item) => {
       return {
+        id: item.id,
         name: item.username,
         commentText: item.content,
         commentRating: item.rating,

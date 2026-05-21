@@ -47,3 +47,11 @@ export const CREATE_ARTICLE_GQL = gql`
     }
   }
 `;
+
+export const CHANGE_RATING_COMMENT_GQL = gql`
+  mutation UpdateCommentRating($commentId: ID!, $rating: Float!) {
+    updateCommentRating(id: $commentId, rating: $rating) {
+      articleId
+    }
+  }
+`;

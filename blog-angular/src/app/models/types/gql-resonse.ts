@@ -26,3 +26,7 @@ export type GqlArticleRatingDownResponse = {
 export type GqlCreateCommentResponse = {
   createComment: { articleId: string };
 };
+
+export type GqlUpdateRatingCommentResponse = {
+  updateCommentRating: { articleId: string };
+};
