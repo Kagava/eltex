@@ -1,12 +1,18 @@
 import { computed, DestroyRef, inject, Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { concatMap, map, Observable } from 'rxjs';
-import { ARTICLE_RATING_DOWN, ARTICLE_RATING_UP, GET_ARTICLE_GQL } from './helpers/gql-reqests';
+import {
+  ARTICLE_RATING_DOWN_GQL,
+  ARTICLE_RATING_UP_GQL,
+  CREATE_ARTICLE_GQL,
+  GET_ARTICLE_GQL,
+} from './helpers/gql-reqests';
 import {
   GqlArticle,
   GqlArticleRatingDownResponse,
   GqlArticleRatingUpResponse,
   GqlArticleResponse,
+  GqlCreateCommentResponse,
 } from '../models/types/gql-resonse';
 import { IArticleFacade } from '../models/interfaces/article-facade';
 import { FormDataComment } from '../models/types/form-data-comment';
@@ -48,7 +54,17 @@ export class GraphqlService implements IArticleFacade {
 
   public updateArticleComments(id: number, ratingChange: number): void {}
 
-  public addComment(data: FormDataComment): void {}
+  public addComment(data: FormDataComment): void {
+    this.addCommentBack(data)
+      .pipe(
+        concatMap((id: string) => {
+          return this.getArticleFromBack(id);
+        }),
+        map((gqlArticle: GqlArticle) => this.backHelper.makeFromGqlArticleToArticle(gqlArticle)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((data: Article) => this.articleStorage.setArticleInfo(data));
+  }
 
   private getArticleFromBack(id: string): Observable<GqlArticle> {
     return this.apollo
@@ -74,7 +90,7 @@ export class GraphqlService implements IArticleFacade {
     if (rating === -1) {
       return this.apollo
         .mutate<GqlArticleRatingDownResponse>({
-          mutation: ARTICLE_RATING_DOWN,
+          mutation: ARTICLE_RATING_DOWN_GQL,
           variables: {
             articleId: this.currentId(),
           },
@@ -91,7 +107,7 @@ export class GraphqlService implements IArticleFacade {
     } else {
       return this.apollo
         .mutate<GqlArticleRatingUpResponse>({
-          mutation: ARTICLE_RATING_UP,
+          mutation: ARTICLE_RATING_UP_GQL,
           variables: {
             articleId: this.currentId(),
           },
@@ -106,5 +122,26 @@ export class GraphqlService implements IArticleFacade {
           }),
         );
     }
+  }
+
+  private addCommentBack(data: FormDataComment): Observable<string> {
+    return this.apollo
+      .mutate<GqlCreateCommentResponse>({
+        mutation: CREATE_ARTICLE_GQL,
+        variables: {
+          articleId: this.currentId(),
+          content: data.comment,
+          username: data.name,
+        },
+      })
+      .pipe(
+        map((data: Apollo.MutateResult<GqlCreateCommentResponse>) => {
+          if (!data.data) {
+            throw new Error('ERROR CRETE ARTICLE');
+          } else {
+            return data.data.createComment.articleId;
+          }
+        }),
+      );
   }
 }
