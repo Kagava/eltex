@@ -21,3 +21,19 @@ export const GET_ARTICLE_GQL = gql`
     }
   }
 `;
+
+export const ARTICLE_RATING_UP = gql`
+  mutation ArticleRatingUp($articleId: ID!) {
+    articleRatingUp(id: $articleId) {
+      id
+    }
+  }
+`;
+
+export const ARTICLE_RATING_DOWN = gql`
+  mutation ArticleRatingDown($articleId: ID!) {
+    articleRatingDown(id: $articleId) {
+      id
+    }
+  }
+`;

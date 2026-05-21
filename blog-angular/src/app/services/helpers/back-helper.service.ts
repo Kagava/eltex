@@ -93,7 +93,6 @@ export class BackHelperService {
   }
 
   public makeFromGqlArticleToArticle(gqlArticel: GqlArticle): Article {
-    console.log(gqlArticel);
     const outDate = CreateArticleHelper.findCurrentData(new Date(gqlArticel.createdAt));
     return {
       id: gqlArticel.id,

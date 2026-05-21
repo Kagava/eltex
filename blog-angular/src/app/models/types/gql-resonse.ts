@@ -14,3 +14,11 @@ export type GqlArticle = {
 export type GqlArticleResponse = {
   article: GqlArticle;
 };
+
+export type GqlArticleRatingUpResponse = {
+  articleRatingUp: { id: string };
+};
+
+export type GqlArticleRatingDownResponse = {
+  articleRatingDown: { id: string };
+};
